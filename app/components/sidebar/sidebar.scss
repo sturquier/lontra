@@ -1,0 +1,15 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+
+  &-title {
+    margin-bottom: 40px;
+  }
+
+  &-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}

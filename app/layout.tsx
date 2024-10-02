@@ -3,7 +3,7 @@ import Head from 'next/head'
 
 import { Header } from '@components/index';
 import { lato } from '@config/font';
-import "./index.scss";
+import "@style/index.scss";
 
 export const metadata: Metadata = {
   title: {

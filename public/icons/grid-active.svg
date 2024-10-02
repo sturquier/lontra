@@ -1,0 +1,6 @@
+<svg id="grid-active" data-name="Active grid icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15">
+  <rect id="Rectangle_1" data-name="Rectangle 1" width="7" height="7" fill="#2196F3"/>
+  <rect id="Rectangle_2" data-name="Rectangle 2" width="7" height="7" transform="translate(0 8)" fill="#2196F3"/>
+  <rect id="Rectangle_3" data-name="Rectangle 3" width="7" height="7" transform="translate(8)" fill="#2196F3"/>
+  <rect id="Rectangle_4" data-name="Rectangle 4" width="7" height="7" transform="translate(8 8)" fill="#2196F3"/>
+</svg>

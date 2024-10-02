@@ -1,0 +1,45 @@
+.home {
+  &-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+
+    &-switch {
+      display: flex;
+      gap: 30px;
+
+      &-row {
+        display: flex;
+        gap: 10px;
+        cursor: pointer;
+
+        &-selected {
+          color: var(--blue);
+          text-decoration: underline;
+          text-underline-offset: 2px;
+        }
+      }
+    }
+  }
+
+  &-content {
+    display: flex;
+    gap: 40px;
+
+    &-articles {
+      width: 100%;
+      gap: 20px;
+
+      &-list {
+        display: flex;
+        flex-direction: column;
+      }
+
+      &-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+}
