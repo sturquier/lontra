@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Head from 'next/head'
 
-import { Footer, Header } from '@components/index';
+import { Header } from '@components/index';
 import { lato } from '@config/font';
-import "./globals.scss";
+import "./index.scss";
 
 export const metadata: Metadata = {
   title: {
@@ -27,7 +27,6 @@ export default function RootLayout({
       <body className={lato.className}>
         <Header />
         {children}
-        <Footer />
       </body>
     </html>
   );

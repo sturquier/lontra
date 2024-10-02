@@ -1,3 +1,11 @@
 .header {
-  
+  background: var(--blue);
+  padding: 40px;
+  display: flex;
+  justify-content: space-between;
+
+  &-flags {
+    display: flex;
+    gap: 20px;
+  }
 }
