@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
+import Head from 'next/head'
 
-import Footer from './components/footer/footer';
-import Header from './components/header/header';
+import { Footer, Header } from '@components/index';
+import { lato } from '@config/font';
 import "./globals.scss";
 
 export const metadata: Metadata = {
-  title: "Lontra",
+  title: {
+    template: "Lontra | %s",
+    default: "Lontra | Home"
+  },
   description: "Lontra application",
-};
+}
 
 export default function RootLayout({
   children,
@@ -16,7 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <Head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
+      <body className={lato.className}>
         <Header />
         {children}
         <Footer />
