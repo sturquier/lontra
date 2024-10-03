@@ -1,0 +1,1 @@
+export const enhancedMiddleware = (getDefaultMiddleware: Function) => getDefaultMiddleware({});

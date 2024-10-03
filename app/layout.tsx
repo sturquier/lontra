@@ -3,6 +3,7 @@ import Head from 'next/head'
 
 import { Header } from '@components/index';
 import { lato } from '@config/font';
+import StoreProvider from './provider';
 import "@style/index.scss";
 
 export const metadata: Metadata = {
@@ -25,8 +26,10 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <body className={lato.className}>
-        <Header />
-        {children}
+        <StoreProvider>
+          <Header />
+          {children}
+        </StoreProvider>
       </body>
     </html>
   );

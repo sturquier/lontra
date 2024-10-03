@@ -20,7 +20,9 @@
     "paths": {
       "@components/*": ["./app/components/*"],
       "@config/*": ["./app/config/*"],
+      "@hooks/*": ["./app/hooks/*"],
       "@models/*": ["./app/models/*"],
+      "@store/*": ["./app/store/*"],
       "@style/*": ["./app/style/*"],
       "@utils/*": ["./app/utils/*"]
     }
