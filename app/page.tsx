@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
+import { useFetchArticlesQuery } from '@store/features/articles/articles.query';
 import { Card, Sidebar } from '@components/index';
 import { IArticle } from '@models/article';
 import { VIEW_MODE } from '@utils/card';
@@ -11,18 +12,7 @@ import './page.scss';
 export default function Home() {
   const [mode, setMode] = useState<VIEW_MODE>(VIEW_MODE.LIST);
 
-  const articles: IArticle[] = [
-    { id: 1, title: 'Lorem Ipsum', description: 'Lorem Ipsum ...' },
-    { id: 2, title: 'Lorem Ipsum', description: 'Lorem Ipsum ...' },
-    { id: 3, title: 'Lorem Ipsum', description: 'Lorem Ipsum ...' },
-    { id: 4, title: 'Lorem Ipsum', description: 'Lorem Ipsum ...' },
-    { id: 5, title: 'Lorem Ipsum', description: 'Lorem Ipsum ...' },
-    { id: 6, title: 'Lorem Ipsum', description: 'Lorem Ipsum ...' },
-    { id: 7, title: 'Lorem Ipsum', description: 'Lorem Ipsum ...' },
-    { id: 8, title: 'Lorem Ipsum', description: 'Lorem Ipsum ...' },
-    { id: 9, title: 'Lorem Ipsum', description: 'Lorem Ipsum ...' },
-    { id: 10, title: 'Lorem Ipsum', description: 'Lorem Ipsum ...' }
-  ];
+  const { data: articles, isFetching } = useFetchArticlesQuery({});
 
   const articlesClassName: string = `home-content-articles ${mode === VIEW_MODE.LIST ? 'home-content-articles-list' : 'home-content-articles-grid'}`
 
@@ -55,11 +45,15 @@ export default function Home() {
         </div>
         <div className='home-content'>
           <Sidebar />
-          <div className={articlesClassName}>
-            {articles.map((article: IArticle, index: number) => (
-              <Card key={index} article={article} />
-            ))}
-          </div>
+          {isFetching ? (
+            <p>LOADING</p>
+          ) : (
+            <div className={articlesClassName}>
+              {articles?.map((article: IArticle, index: number) => (
+                <Card key={index} article={article} />
+              ))}
+            </div>
+          )}
         </div>
       </main>
   );

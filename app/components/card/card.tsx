@@ -8,6 +8,7 @@ interface ICardProps {
 export default function Card ({ article }: ICardProps) {
   return (
     <div className="card">
+      <div>{article.id}</div>
       <div>{article.title}</div>
       <div>{article.description}</div>
     </div>

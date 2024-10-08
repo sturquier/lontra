@@ -1,7 +1,7 @@
-import { IArticle } from "./article";
+import { IArticle } from './article';
 
 export interface IWebsite {
-  id: number;
+  id: string;
   name: string;
   articles: IArticle[];
 }
