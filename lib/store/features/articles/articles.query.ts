@@ -9,7 +9,7 @@ export const articlesApi = createApi({
   reducerPath: 'articles',
   tagTypes: ['Articles'],
   endpoints: (builder) => ({
-    fetchArticles: builder.query({
+    fetchArticles: builder.query<IArticle[], void>({
       async queryFn() {
         try {
           const articles: IArticle[] = [];
@@ -20,10 +20,10 @@ export const articlesApi = createApi({
           snapshot.forEach((document) => {
             articles.push({
               id: document.id,
-              title: document.get('title'),
-              description: document.get('description')
-            })
+              ...document.data()
+            } as IArticle);
           });
+
           return { data: articles };
         } catch (error) {
           return { error };

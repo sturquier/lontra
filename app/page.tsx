@@ -12,7 +12,7 @@ import './page.scss';
 export default function Home() {
   const [mode, setMode] = useState<VIEW_MODE>(VIEW_MODE.LIST);
 
-  const { data: articles, isFetching } = useFetchArticlesQuery({});
+  const { data: articles, isFetching } = useFetchArticlesQuery();
 
   const articlesClassName: string = `home-content-articles ${mode === VIEW_MODE.LIST ? 'home-content-articles-list' : 'home-content-articles-grid'}`
 
