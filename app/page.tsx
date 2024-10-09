@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 
 import { useFetchArticlesQuery } from '@store/features/articles/articles.query';
-import { Card, Sidebar } from '@components/index';
+import { Card, Loader } from '@components/index';
 import { IArticle } from '@models/article';
 import { VIEW_MODE } from '@utils/card';
 import './page.scss';
@@ -14,9 +14,9 @@ export default function Home() {
 
   const { data: articles, isFetching } = useFetchArticlesQuery();
 
-  const articlesClassName: string = `home-content-articles ${mode === VIEW_MODE.LIST ? 'home-content-articles-list' : 'home-content-articles-grid'}`
+  const articlesClassName: string = `home-articles ${mode === VIEW_MODE.LIST ? 'home-articles-list' : 'home-articles-grid'}`
 
-  const switchRowClassName = (selectedMode: VIEW_MODE): string => `${mode === selectedMode ? 'home-title-switch-row home-title-switch-row-selected' : 'home-title-switch-row'}`
+  const switchRowClassName = (selectedMode: VIEW_MODE): string => `home-title-switch-row ${mode === selectedMode ? 'home-title-switch-row-selected' : ''}`
 
   return (
       <main className='home'>
@@ -43,18 +43,15 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className='home-content'>
-          <Sidebar />
-          {isFetching ? (
-            <p>LOADING</p>
-          ) : (
-            <div className={articlesClassName}>
-              {articles?.map((article: IArticle, index: number) => (
-                <Card key={index} article={article} />
-              ))}
-            </div>
-          )}
-        </div>
+        {isFetching ? (
+          <Loader />
+        ) : (
+          <div className={articlesClassName}>
+            {articles?.map((article: IArticle, index: number) => (
+              <Card key={index} article={article} />
+            ))}
+          </div>
+        )}
       </main>
   );
 }

@@ -23,23 +23,17 @@
     }
   }
 
-  &-content {
-    display: flex;
-    gap: 40px;
+  &-articles {
+    gap: 20px;
 
-    &-articles {
-      width: 100%;
-      gap: 20px;
+    &-list {
+      display: flex;
+      flex-direction: column;
+    }
 
-      &-list {
-        display: flex;
-        flex-direction: column;
-      }
-
-      &-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-      }
+    &-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 }

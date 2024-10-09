@@ -2,11 +2,17 @@
   background: var(--blue);
   padding: 15px 40px 15px 40px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 170px;
 
-  &-flags {
+  &-menu {
+    width: 100%;
     display: flex;
-    gap: 40px;
+    justify-content: space-between;
+
+    &-flags {
+      display: flex;
+      gap: 40px;
+    }
   }
 }

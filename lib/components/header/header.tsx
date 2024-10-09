@@ -14,9 +14,12 @@ export default function Header () {
           height={40}
         />
       </Link>
-      <div className="header-flags">
-        <span>FR</span>
-        <span>EN</span>
+      <div className="header-menu">
+        <Link href="/settings">Settings</Link>
+        <div className="header-menu-flags">
+          <span>FR</span>
+          <span>EN</span>
+        </div>
       </div>
     </nav>
   )
