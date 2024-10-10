@@ -1,12 +1,17 @@
+import { PropsWithChildren } from 'react';
+
 import './button.scss';
 
-interface IButtonProps {
-  text: string;
+interface IButtonProps extends PropsWithChildren {
   disabled: boolean;
+  onClickCallback: () => void;
 }
 
-export default function Button ({ text, disabled }: IButtonProps) {
+export default function Button ({ children, disabled, onClickCallback }: IButtonProps) {
   return (
-    <button disabled={disabled}>{text}</button>
+    <button
+      disabled={disabled}
+      onClick={onClickCallback}
+    >{children}</button>
   )
 }

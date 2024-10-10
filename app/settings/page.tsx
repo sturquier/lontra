@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 import { IWebsite } from '@models/website';
 import { useFetchWebsitesQuery } from '@store/features/websites/websites.query';
-import { CRAWLING_STATUS, crawlersFactory } from '@utils/crawler';
+import { crawlersPath, CRAWLING_STATUS } from '@utils/crawler';
 import { Button, Checkbox, Loader } from '@components/index';
 import './page.scss';
 
@@ -38,12 +38,13 @@ export default function Settings() {
     }));
   }
 
-  const crawlWebsites = (): void => {
+  const crawlWebsites = async (): Promise<void> => {
     const checkedWebsites = crawlableWebsites.filter((crawlableWebsite) => crawlableWebsite.isChecked)
 
-    checkedWebsites.forEach((checkedWebsite) => {
-      crawlersFactory(checkedWebsite.website.id)
-    });
+    await Promise.all(checkedWebsites.map(async (checkedWebsite) => {
+      const crawledWebsite = await (await fetch(`${crawlersPath}/${checkedWebsite.website.slug}`)).json()
+      console.log('PWET', crawledWebsite)
+    }));
   }
 
   return (
@@ -65,8 +66,9 @@ export default function Settings() {
             ))}
           </div>
           <Button
-            text='CRAWL'
+            children='CRAWL'
             disabled={isFormDisabled()}
+            onClickCallback={(): Promise<void> => crawlWebsites()}
           />
         </div>
       )}

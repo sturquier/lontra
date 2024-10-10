@@ -1,3 +1,3 @@
-export const crawlOctoTalks = (): void => {
-  
+export const crawlOctoTalks = async (): Promise<boolean> => {
+  return true;
 }

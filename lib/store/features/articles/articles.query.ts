@@ -1,34 +1,15 @@
-import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react'
-import { collection, getDocs } from 'firebase/firestore';
+import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { firebaseDB } from '@config/firebase';
 import { IArticle } from '@models/article';
+import { createBaseQuery } from '@store/utils';
 
 export const articlesApi = createApi({
-  baseQuery: fakeBaseQuery(),
+  baseQuery: createBaseQuery,
   reducerPath: 'articles',
   tagTypes: ['Articles'],
   endpoints: (builder) => ({
     fetchArticles: builder.query<IArticle[], void>({
-      async queryFn() {
-        try {
-          const articles: IArticle[] = [];
-
-          const articlesRef = collection(firebaseDB, 'articles');
-          const snapshot = await getDocs(articlesRef);
-
-          snapshot.forEach((document) => {
-            articles.push({
-              id: document.id,
-              ...document.data()
-            } as IArticle);
-          });
-
-          return { data: articles };
-        } catch (error) {
-          return { error };
-        }
-      },
+      query: () => '/articles',
       providesTags: ['Articles'],
     }),
   }),

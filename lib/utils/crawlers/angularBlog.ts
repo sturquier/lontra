@@ -1,3 +1,3 @@
-export const crawlAngularBlog = (): void => {
-  
+export const crawlAngularBlog = async (): Promise<boolean> => {
+  return false;
 }
