@@ -1,17 +1,25 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
+import { CreateArticlePayload } from '@models/article';
 import { IWebsite } from '@models/website';
 import { useFetchWebsitesQuery } from '@store/features/websites/websites.query';
-import { crawlersPath, CRAWLING_STATUS } from '@utils/crawler';
+import { crawlersPath, articlesBulkInsertionPath, CRAWLING_STATUS } from '@utils/crawler';
 import { Button, Checkbox, Loader } from '@components/index';
 import './page.scss';
+
+interface ICrawlableWebsite {
+  isChecked: boolean;
+  crawlingStatus: CRAWLING_STATUS;
+  website: IWebsite;
+}
 
 export default function Settings() {
   const { data: fetchedWebsites, isFetching } = useFetchWebsitesQuery();
 
-  const [crawlableWebsites, setCrawlableWebsites] = useState<{ isChecked: boolean, crawlingStatus: CRAWLING_STATUS, website: IWebsite }[]>([]);
+  const [crawlableWebsites, setCrawlableWebsites] = useState<ICrawlableWebsite[]>([]);
 
   useEffect(() => {
     if (fetchedWebsites?.length && !crawlableWebsites.length) {
@@ -23,28 +31,69 @@ export default function Settings() {
     }
   }, [fetchedWebsites, crawlableWebsites])
 
-  const isFormDisabled = (): boolean => !crawlableWebsites.some(crawlableWebsite => crawlableWebsite.isChecked)
+  const isFormDisabled: boolean = !crawlableWebsites.some((crawlableWebsite) => crawlableWebsite.isChecked)
+
+  const checkedWebsites: ICrawlableWebsite[] = crawlableWebsites.filter((crawlableWebsite) => crawlableWebsite.isChecked);
 
   const onCheckWebsite = (websiteId: string): void => {
-    setCrawlableWebsites(crawlableWebsites.map((crawlableWebsite) => {
-      if (crawlableWebsite.website.id === websiteId) {
-        return {
-          ...crawlableWebsite,
-          isChecked: !crawlableWebsite.isChecked
-        }
-      }
+    setCrawlableWebsites(crawlableWebsites.map((crawlableWebsite) =>
+      crawlableWebsite.website.id === websiteId
+        ? { ...crawlableWebsite, isChecked: !crawlableWebsite.isChecked }
+        : crawlableWebsite
+    ));
+  }
 
-      return crawlableWebsite;
+  const onCheckAllWebsites = (): void => setCrawlableWebsites(crawlableWebsites.map((crawlableWebsite) => ({ ...crawlableWebsite, isChecked: !crawlableWebsite.isChecked })))
+
+  const crawlWebsites = async (): Promise<void> => {
+    setCrawlableWebsites((prevWebsites) => 
+      prevWebsites.map((prevWebsite) => 
+        checkedWebsites.some((checkedWebsite) => checkedWebsite.website.id === prevWebsite.website.id)
+          ? { ...prevWebsite, crawlingStatus: CRAWLING_STATUS.CRAWLING }
+          : prevWebsite
+      )
+    );
+
+    await Promise.all(checkedWebsites.map(async (checkedWebsite) => {
+      const { website } = checkedWebsite;
+
+      const crawledWebsite: { message?: string; error?: string; articles?: CreateArticlePayload[] } = await (
+        await fetch(crawlersPath, {
+          method: 'POST',
+          body: JSON.stringify({ website })
+        })
+      ).json()
+
+      if (crawledWebsite.message && crawledWebsite.articles) {
+        await fetch(articlesBulkInsertionPath, {
+          method: 'POST',
+          body: JSON.stringify({ articles: crawledWebsite.articles, website })
+        })
+      }
+      
+      setCrawlableWebsites((prevWebsites) =>
+        prevWebsites.map((prevWebsite) =>
+          prevWebsite.website.id === checkedWebsite.website.id
+            ? { ...prevWebsite, crawlingStatus: crawledWebsite.error ? CRAWLING_STATUS.FAILURE : CRAWLING_STATUS.SUCCESS }
+            : prevWebsite
+        )
+      );
     }));
   }
 
-  const crawlWebsites = async (): Promise<void> => {
-    const checkedWebsites = crawlableWebsites.filter((crawlableWebsite) => crawlableWebsite.isChecked)
+  const renderCrawlableWebsiteStatus = (crawlingStatus: CRAWLING_STATUS): JSX.Element | null => {
+    if (crawlingStatus === CRAWLING_STATUS.NOT_CRAWLED) return null;
 
-    await Promise.all(checkedWebsites.map(async (checkedWebsite) => {
-      const crawledWebsite = await (await fetch(`${crawlersPath}/${checkedWebsite.website.slug}`)).json()
-      console.log('PWET', crawledWebsite)
-    }));
+    if (crawlingStatus === CRAWLING_STATUS.CRAWLING) return <Loader />;
+
+    return (
+      <Image
+        src={crawlingStatus === CRAWLING_STATUS.SUCCESS ? "/icons/success.svg" : "/icons/error.svg"}
+        alt={crawlingStatus === CRAWLING_STATUS.SUCCESS ? "Success icon" : "Error icon"}
+        width={40}
+        height={40}
+      />
+    )
   }
 
   return (
@@ -54,21 +103,29 @@ export default function Settings() {
         <Loader />
       ) : (
         <div className='settings-form'>
+          <div className='settings-form-all'>
+            <span>Check all</span>
+            <Checkbox
+              isChecked={checkedWebsites.length === crawlableWebsites.length}
+              onChangeCallback={onCheckAllWebsites}
+            />
+          </div>
           <div className='settings-form-websites'>
             {crawlableWebsites?.map((crawlableWebsite, index: number) => (
               <div key={index} className='settings-form-websites-website'>
                 <span>{crawlableWebsite.website.name}</span>
                 <Checkbox
+                  isChecked={crawlableWebsite.isChecked}
                   onChangeCallback={(): void => onCheckWebsite(crawlableWebsite.website.id)}
                 />
-                <span>{crawlableWebsite.crawlingStatus}</span>
+                <span>{renderCrawlableWebsiteStatus(crawlableWebsite.crawlingStatus)}</span>
               </div>
             ))}
           </div>
           <Button
             children='CRAWL'
-            disabled={isFormDisabled()}
-            onClickCallback={(): Promise<void> => crawlWebsites()}
+            disabled={isFormDisabled}
+            onClickCallback={crawlWebsites}
           />
         </div>
       )}

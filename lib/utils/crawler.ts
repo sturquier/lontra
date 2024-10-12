@@ -6,3 +6,5 @@ export enum CRAWLING_STATUS {
 }
 
 export const crawlersPath = '/api/crawlers';
+
+export const articlesBulkInsertionPath = '/api/articles/bulk';

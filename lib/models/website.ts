@@ -3,5 +3,4 @@ export interface IWebsite {
   name: string;
   slug: string;
   url: string;
-  createdAt: Date;
 }

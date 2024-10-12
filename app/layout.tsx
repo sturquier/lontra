@@ -1,5 +1,4 @@
-import type { Metadata } from 'next';
-import Head from 'next/head'
+import type { Metadata, Viewport } from 'next';
 
 import { Header } from '@components/index';
 import { lato } from '@config/font';
@@ -14,6 +13,11 @@ export const metadata: Metadata = {
   description: "Lontra application",
 }
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -21,10 +25,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </Head>
       <body className={lato.className}>
         <StoreProvider>
           <Header />
