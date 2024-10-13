@@ -1,16 +1,17 @@
 import { IArticle } from '@models/article';
-import './card.scss';
+import { VIEW_MODE } from '@utils/card';
+import GridCard from './grid/gridCard';
+import ListCard from './list/listCard';
 
 interface ICardProps {
   article: IArticle;
+  mode: VIEW_MODE;
 }
 
-export default function Card ({ article }: ICardProps) {
-  return (
-    <div className="card">
-      <div>{article.id}</div>
-      <div>{article.title}</div>
-      <div>{article.description}</div>
-    </div>
-  )
+export default function Card ({ article, mode }: ICardProps) {
+  return mode === VIEW_MODE.LIST ? (
+    <ListCard article={article} />
+  ) : (
+    <GridCard article={article} />
+  );
 }

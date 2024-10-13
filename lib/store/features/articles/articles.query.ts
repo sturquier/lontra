@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 
-import { IArticle } from '@models/article';
+import { IArticle, FetchedArticle } from '@models/article';
 import { createBaseQuery } from '@store/utils';
 
 export const articlesApi = createApi({
@@ -10,6 +10,12 @@ export const articlesApi = createApi({
   endpoints: (builder) => ({
     fetchArticles: builder.query<IArticle[], void>({
       query: () => '/articles',
+      transformResponse: (baseQueryReturnValue: FetchedArticle[]) => {
+        return baseQueryReturnValue.map((article) => ({
+          ...article,
+          publicationDate: new Date(article['publication_date'])
+        }))
+      },
       providesTags: ['Articles'],
     }),
   }),

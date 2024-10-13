@@ -1,4 +1,4 @@
-import { IWebsite } from "./website";
+import { IWebsite } from './website';
 
 export interface IArticle {
   id: string;
@@ -11,3 +11,7 @@ export interface IArticle {
 }
 
 export type CreateArticlePayload = Omit<IArticle, 'id'>;
+
+export type FetchedArticle = Omit<IArticle, 'publicationDate'> & {
+  publication_date: string;
+}

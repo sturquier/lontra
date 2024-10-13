@@ -48,7 +48,11 @@ export default function Home() {
         ) : (
           <div className={articlesClassName}>
             {articles?.map((article: IArticle, index: number) => (
-              <Card key={index} article={article} />
+              <Card
+                key={index}
+                article={article}
+                mode={mode}
+              />
             ))}
           </div>
         )}

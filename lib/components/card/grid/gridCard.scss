@@ -1,0 +1,23 @@
+.gridCard {
+  display: flex;
+  gap: 20px;
+  padding: 12px;
+  border: 1px solid var(--black);
+  border-bottom: 2px solid var(--blue);
+
+  &-image {
+    padding: 10px;
+    align-content: center;
+  }
+
+  &-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &-publicationDate {
+      align-self: flex-end;
+    }
+  }
+}

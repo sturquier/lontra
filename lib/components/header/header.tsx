@@ -6,7 +6,7 @@ import './header.scss';
 export default function Header () {
   return (
     <nav className="header">
-      <Link href="/">
+      <Link href="/" className="header-logo">
         <Image
           src="/favicon.ico"
           alt='Logo'
