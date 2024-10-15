@@ -1,3 +1,22 @@
 .settings {
-  
+  &-title {
+    margin-bottom: 40px;
+  }
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &-websites {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+
+      &-website {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  }
 }

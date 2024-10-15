@@ -1,12 +1,26 @@
-import { MoonLoader } from 'react-spinners';
+import { ClipLoader, PulseLoader } from 'react-spinners';
 
 import './loader.scss';
 
-export default function Loader () {
+interface ILoaderProps {
+  isGlobal?: boolean;
+}
+
+export default function Loader ({ isGlobal }: ILoaderProps) {
+  if (isGlobal) {
+    return (
+      <PulseLoader
+        color="var(--moderate-blue)"
+        className='loader loader-global'
+      />
+    )
+  }
+
   return (
-    <MoonLoader
-      color="var(--blue)"
-      className='loader'
+    <ClipLoader
+        color="var(--moderate-blue)"
+        className='loader'
+        size={18}
     />
   )
 }

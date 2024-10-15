@@ -21,7 +21,7 @@ export default function ListCard ({ article }: IListCardProps) {
       <div className='listCard-content'>
         <h4>{article.title}</h4>
         <div>{article.description}</div>
-        <div className='listCard-content-publicationDate'>{article.publicationDate.toLocaleDateString()}</div>
+        <div className='listCard-content-publicationDate'>{article.publicationDate.toISOString().split('T')[0]}</div>
       </div>
     </div>
   )

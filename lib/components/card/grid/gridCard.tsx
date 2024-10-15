@@ -20,7 +20,7 @@ export default function GridCard ({ article }: IGridCardProps) {
       </div>
       <div className='gridCard-content'>
         <h4>{article.title}</h4>
-        <div className='gridCard-content-publicationDate'>{article.publicationDate.toLocaleDateString()}</div>
+        <div className='gridCard-content-publicationDate'>{article.publicationDate.toISOString().split('T')[0]}</div>
       </div>
     </div>
   )

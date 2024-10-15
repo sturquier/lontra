@@ -1,16 +1,24 @@
+import { PropsWithChildren } from 'react';
+
 import './checkbox.scss';
 
-interface ICheckboxProps {
+interface ICheckboxProps extends PropsWithChildren {
+  id: string;
   isChecked: boolean;
   onChangeCallback: () => void;
 }
 
-export default function Checkbox ({ isChecked, onChangeCallback }: ICheckboxProps) {
+export default function Checkbox ({ children, id, isChecked, onChangeCallback }: ICheckboxProps) {
   return (
-    <input
-      type='checkbox'
-      checked={isChecked}
-      onChange={onChangeCallback}
-    />
+    <div className='checkbox'>
+      <input
+        className='checkbox-input'
+        type='checkbox'
+        id={`checkbox-${id}`}
+        checked={isChecked}
+        onChange={onChangeCallback}
+      />
+      <label htmlFor={`checkbox-${id}`} className='checkbox-label'>{children}</label>
+    </div>
   )
 }

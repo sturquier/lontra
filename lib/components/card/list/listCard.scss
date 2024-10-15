@@ -2,8 +2,9 @@
   display: flex;
   gap: 20px;
   padding: 12px;
-  border: 1px solid var(--black);
-  border-bottom: 2px solid var(--blue);
+  border: 1px solid var(--cyan);
+  border-bottom: 2px solid var(--green);
+  border-radius: 4px;
 
   &-image {
     padding: 30px;

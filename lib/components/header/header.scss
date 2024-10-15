@@ -1,26 +1,47 @@
 .header {
   position: fixed;
   top: 0;
+  z-index: 2;
   width: 100%;
-  background: var(--blue);
-  padding: 15px 0px 15px 0px;
+  background: var(--moderate-blue);
+  color: var(--white);
+  padding: 15px 0px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 170px;
 
   &-logo {
     margin-left: 80px;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.2);
+    }
   }
 
-  &-menu {
-    width: 100%;
+  &-links {
     display: flex;
-    justify-content: space-between;
+    gap: 80px;
     margin-right: 80px;
 
-    &-flags {
-      display: flex;
-      gap: 40px;
+    &-link {
+      margin-top: 4px;
+      padding-bottom: 4px;
+      background-size: 0% 3px;
+      background-image: linear-gradient(to right, var(--cyan), var(--cyan));
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      transition: background-size 0.3s ease-in-out;
+
+      &:hover {
+        background-size: 100% 3px;
+      }
+
+      &-active {
+        background: none;
+        border-bottom: 3px solid var(--dark-blue);
+      }
     }
   }
 }

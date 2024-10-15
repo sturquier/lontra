@@ -1,3 +1,51 @@
 .checkbox {
-  
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &-input {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--black);
+    border: 2px solid var(--moderate-blue);
+    border-radius: 4px;
+    appearance: none;
+    font: inherit;
+    cursor: pointer;
+
+    &::before {
+      background: var(--moderate-blue);
+      width: 10px;
+      height: 10px;
+      content: "";
+      clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+      transform: scale(0);
+      transform-origin: bottom left;
+      transition: 0.12s transform ease-in-out;
+    }
+
+    &:not(:active):hover {
+      border: 2px solid var(--dark-blue);
+    }
+
+    &:checked::before {
+      transform: scale(1);
+    }
+
+    &:checked:hover::before {
+      background: var(--dark-blue);
+    }
+  }
+
+  &-label {
+    cursor: pointer;
+  }
 }
+
+
+
+
+

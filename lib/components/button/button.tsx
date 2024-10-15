@@ -3,13 +3,14 @@ import { PropsWithChildren } from 'react';
 import './button.scss';
 
 interface IButtonProps extends PropsWithChildren {
-  disabled: boolean;
+  disabled?: boolean;
   onClickCallback: () => void;
 }
 
 export default function Button ({ children, disabled, onClickCallback }: IButtonProps) {
   return (
     <button
+      className='button'
       disabled={disabled}
       onClick={onClickCallback}
     >{children}</button>

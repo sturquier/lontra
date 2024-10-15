@@ -35,6 +35,8 @@ export default function Settings() {
 
   const checkedWebsites: ICrawlableWebsite[] = crawlableWebsites.filter((crawlableWebsite) => crawlableWebsite.isChecked);
 
+  const areAllWebsitesChecked: boolean = checkedWebsites.length === crawlableWebsites.length
+
   const onCheckWebsite = (websiteId: string): void => {
     setCrawlableWebsites(crawlableWebsites.map((crawlableWebsite) =>
       crawlableWebsite.website.id === websiteId
@@ -43,7 +45,7 @@ export default function Settings() {
     ));
   }
 
-  const onCheckAllWebsites = (): void => setCrawlableWebsites(crawlableWebsites.map((crawlableWebsite) => ({ ...crawlableWebsite, isChecked: !crawlableWebsite.isChecked })))
+  const onToggleAllWebsites = (areChecked: boolean): void => setCrawlableWebsites(crawlableWebsites.map((crawlableWebsite) => ({ ...crawlableWebsite, isChecked: areChecked })))
 
   const crawlWebsites = async (): Promise<void> => {
     setCrawlableWebsites((prevWebsites) => 
@@ -90,43 +92,48 @@ export default function Settings() {
       <Image
         src={crawlingStatus === CRAWLING_STATUS.SUCCESS ? "/icons/success.svg" : "/icons/error.svg"}
         alt={crawlingStatus === CRAWLING_STATUS.SUCCESS ? "Success icon" : "Error icon"}
-        width={40}
-        height={40}
+        width={20}
+        height={20}
       />
     )
   }
 
   return (
     <main className='settings'>
-      <h1>SETTINGS</h1>
+      <h1 className='settings-title'>SETTINGS</h1>
       {isFetching ? (
-        <Loader />
+        <Loader isGlobal />
       ) : (
-        <div className='settings-form'>
-          <div className='settings-form-all'>
-            <span>Check all</span>
+        <div className='settings-content'>
+          <div className='settings-content-all'>
             <Checkbox
-              isChecked={checkedWebsites.length === crawlableWebsites.length}
-              onChangeCallback={onCheckAllWebsites}
-            />
+              id='all'
+              isChecked={areAllWebsitesChecked}
+              onChangeCallback={(): void => areAllWebsitesChecked ? onToggleAllWebsites(false) : onToggleAllWebsites(true)}
+            >
+              {areAllWebsitesChecked ? 'Uncheck all' : 'Check all'}
+            </Checkbox>
           </div>
-          <div className='settings-form-websites'>
+          <div className='settings-content-websites'>
             {crawlableWebsites?.map((crawlableWebsite, index: number) => (
-              <div key={index} className='settings-form-websites-website'>
-                <span>{crawlableWebsite.website.name}</span>
+              <div key={index} className='settings-content-websites-website'>
                 <Checkbox
+                  id={crawlableWebsite.website.id}
                   isChecked={crawlableWebsite.isChecked}
                   onChangeCallback={(): void => onCheckWebsite(crawlableWebsite.website.id)}
-                />
+                >
+                  {crawlableWebsite.website.name}
+                </Checkbox>
                 <span>{renderCrawlableWebsiteStatus(crawlableWebsite.crawlingStatus)}</span>
               </div>
             ))}
           </div>
           <Button
-            children='CRAWL'
             disabled={isFormDisabled}
             onClickCallback={crawlWebsites}
-          />
+          >
+            CRAWL WEBSITES
+          </Button>
         </div>
       )}
     </main>
