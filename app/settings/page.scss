@@ -1,12 +1,11 @@
 .settings {
-  &-title {
-    margin-bottom: 40px;
-  }
-
   &-content {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+
+    &-all {
+      margin-bottom: 40px;
+    }
 
     &-websites {
       display: grid;
@@ -17,6 +16,10 @@
         align-items: center;
         gap: 10px;
       }
+    }
+
+    &-submit {
+      margin-top: 80px;
     }
   }
 }

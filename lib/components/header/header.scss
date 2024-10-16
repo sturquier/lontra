@@ -26,6 +26,9 @@
     margin-right: 80px;
 
     &-link {
+      display: flex;
+      align-items: center;
+      gap: 5px;
       margin-top: 4px;
       padding-bottom: 4px;
       background-size: 0% 3px;
@@ -41,6 +44,7 @@
       &-active {
         background: none;
         border-bottom: 3px solid var(--dark-blue);
+        margin-top: 7px;
       }
     }
   }

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import { IArticle } from '@models/article';
+import { formatDate } from '@utils/date';
 import './gridCard.scss';
 
 interface IGridCardProps {
@@ -20,7 +21,7 @@ export default function GridCard ({ article }: IGridCardProps) {
       </div>
       <div className='gridCard-content'>
         <h4>{article.title}</h4>
-        <div className='gridCard-content-publicationDate'>{article.publicationDate.toISOString().split('T')[0]}</div>
+        <div className='gridCard-content-publicationDate'>{formatDate(article.publicationDate)}</div>
       </div>
     </div>
   )

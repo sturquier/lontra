@@ -17,17 +17,25 @@ export default function Home() {
 
   return (
       <main className='home'>
-        <h1 className='home-title'>HOME</h1>
+        <h1>Home</h1>
         {isFetching ? (
-          <Loader isGlobal />
+          <Loader fullPage />
         ) : (
           <div className='home-content'>
             <div className='home-content-filters'>
-              <Button onClickCallback={(): void => console.log('TODO')}>Filter</Button>
+              <Button
+                icon={{
+                  src: '/icons/filter.svg',
+                  alt: 'Filter icon'
+                }}
+                onClickCallback={(): void => console.log('TODO')}
+              >
+                FILTER
+              </Button>
               <Toggle
                 labels={['List', 'Grid']}
                 isChecked={mode === VIEW_MODE.GRID}
-                image={{
+                icon={{
                   src: mode === VIEW_MODE.LIST ? '/icons/list.svg' : '/icons/grid.svg',
                   alt: mode === VIEW_MODE.LIST ? 'List icon' : 'Grid icon'
                 }}

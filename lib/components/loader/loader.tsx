@@ -3,11 +3,11 @@ import { ClipLoader, PulseLoader } from 'react-spinners';
 import './loader.scss';
 
 interface ILoaderProps {
-  isGlobal?: boolean;
+  fullPage?: boolean;
 }
 
-export default function Loader ({ isGlobal }: ILoaderProps) {
-  if (isGlobal) {
+export default function Loader ({ fullPage }: ILoaderProps) {
+  if (fullPage) {
     return (
       <PulseLoader
         color="var(--moderate-blue)"

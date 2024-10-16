@@ -1,6 +1,8 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { IArticle } from '@models/article';
+import { formatDate } from '@utils/date';
 import './listCard.scss';
 
 interface IListCardProps {
@@ -14,14 +16,31 @@ export default function ListCard ({ article }: IListCardProps) {
         <Image
           src={article.image}
           alt={`Article ${article.id} image`}
-          width={80}
-          height={80}
+          width={50}
+          height={50}
         />
       </div>
       <div className='listCard-content'>
-        <h4>{article.title}</h4>
-        <div>{article.description}</div>
-        <div className='listCard-content-publicationDate'>{article.publicationDate.toISOString().split('T')[0]}</div>
+        <div className='listCard-content-header'>
+          <Link href={article.url} target='_blank'>
+            <h3>{article.title}</h3>
+          </Link>
+          <div className='listCard-content-header-favorite' onClick={(): void => console.log('TODO')}>
+            <Image
+              src='/icons/heart.svg'
+              alt='Heart icon'
+              width={20}
+              height={20}
+            />
+          </div>
+        </div>
+        <div className='listCard-content-description'>{article.description}</div>
+        <div className='listCard-content-footer'>
+          <div>Published on {formatDate(article.publicationDate)}</div>
+          <Link href={article.website.url} target='_blank'>
+            <div>By {article.website.name}</div>
+          </Link>
+        </div>
       </div>
     </div>
   )

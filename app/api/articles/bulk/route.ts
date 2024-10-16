@@ -30,7 +30,15 @@ export async function POST(request: NextRequest) {
       .join(', ')
     ;
 
-    const query = `INSERT INTO articles (title, description, url, image, publication_date, website_id) VALUES ${placeholders} ON CONFLICT (website_id, title) DO NOTHING`;
+    const query = `
+      INSERT INTO
+        articles (title, description, url, image, publication_date, website_id)
+      VALUES
+        ${placeholders}
+      ON CONFLICT
+        (website_id, title)
+      DO NOTHING
+    `;
 
     await sql.query(query, values);
 

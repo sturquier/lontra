@@ -1,14 +1,17 @@
 .button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   width: fit-content;
   padding: 5px 10px;
-  background: var(--moderate-blue);
+  background: var(--green);
   color: var(--white);
-  border: 1px solid var(--moderate-blue);
+  border: 1px solid var(--green);
   border-radius: 4px;
   cursor: pointer;
 
   &:hover:not([disabled]) {
-    background: var(--dark-blue);
+    filter: brightness(120%);
   }
 
   &:disabled {

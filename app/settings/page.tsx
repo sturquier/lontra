@@ -100,9 +100,9 @@ export default function Settings() {
 
   return (
     <main className='settings'>
-      <h1 className='settings-title'>SETTINGS</h1>
+      <h1>Settings</h1>
       {isFetching ? (
-        <Loader isGlobal />
+        <Loader fullPage />
       ) : (
         <div className='settings-content'>
           <div className='settings-content-all'>
@@ -128,12 +128,14 @@ export default function Settings() {
               </div>
             ))}
           </div>
-          <Button
-            disabled={isFormDisabled}
-            onClickCallback={crawlWebsites}
-          >
-            CRAWL WEBSITES
-          </Button>
+          <div className='settings-content-submit'>
+            <Button
+              disabled={isFormDisabled}
+              onClickCallback={crawlWebsites}
+            >
+              CRAWL WEBSITES
+            </Button>
+          </div>
         </div>
       )}
     </main>

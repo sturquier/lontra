@@ -23,8 +23,24 @@ export default function Header () {
         />
       </Link>
       <div className="header-links">
-        <Link href={PATH.HOME} className={linkClassName(PATH.HOME)}>HOME</Link>
-        <Link href={PATH.SETTINGS} className={linkClassName(PATH.SETTINGS)}>SETTINGS</Link>
+        <Link href={PATH.HOME} className={linkClassName(PATH.HOME)}>
+          <Image
+            src="/icons/article.svg"
+            alt='Article icon'
+            width={18}
+            height={18}
+          />
+          HOME
+        </Link>
+        <Link href={PATH.SETTINGS} className={linkClassName(PATH.SETTINGS)}>
+          <Image
+            src="/icons/settings.svg"
+            alt='Settings icon'
+            width={18}
+            height={18}
+          />
+          SETTINGS
+        </Link>
       </div>
     </nav>
   )

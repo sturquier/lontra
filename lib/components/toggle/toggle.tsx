@@ -5,14 +5,14 @@ import './toggle.scss';
 interface IToggleProps {
   labels: string[];
   isChecked: boolean;
-  image: {
+  icon: {
     src: string;
     alt: string;
   }
   onChangeCallback: () => void;
 }
 
-export default function Toggle({ labels, isChecked, image, onChangeCallback }: IToggleProps) {
+export default function Toggle({ labels, isChecked, icon, onChangeCallback }: IToggleProps) {
   return (
     <div className='toggle'>
       <label>{labels[0]}</label>
@@ -26,8 +26,8 @@ export default function Toggle({ labels, isChecked, image, onChangeCallback }: I
         <div className='toggle-wrapper-slider'>
           <div className='toggle-wrapper-slider-icon'>
             <Image
-              src={image.src}
-              alt={image.alt}
+              src={icon.src}
+              alt={icon.alt}
               width={14}
               height={14}
             />
