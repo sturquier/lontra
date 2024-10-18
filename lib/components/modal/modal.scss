@@ -1,0 +1,23 @@
+.modal {
+  display: none;
+
+  &-open {
+    display: block;
+    border: 1px solid var(--moderate-blue);
+  }
+
+  &-content {
+    &-title {
+      margin-bottom: 20px;
+    }
+
+    &-footer {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+dialog[open].modal {
+  @extend .modal-open;
+}

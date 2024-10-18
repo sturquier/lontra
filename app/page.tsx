@@ -2,16 +2,22 @@
 
 import { useState } from 'react';
 
-import { useFetchArticlesQuery } from '@store/features/articles/articles.query';
-import { Button, Card, Loader, Toggle } from '@components/index';
+import useDebounce from '@hooks/debounce';
+import useDialog from '@hooks/dialog';
 import { IArticle } from '@models/article';
+import { useFetchArticlesQuery } from '@store/features/articles/articles.query';
 import { VIEW_MODE } from '@utils/card';
+import { Button, Card, Input, Loader, Modal, Toggle } from '@components/index';
 import './page.scss';
 
 export default function Home() {
   const [mode, setMode] = useState<VIEW_MODE>(VIEW_MODE.LIST);
+  const [search, setSearch] = useState('');
+  
+  const debouncedSearch = useDebounce(search, 500)
+  const { dialogRef, openDialog, closeDialog } = useDialog();
 
-  const { data: articles, isFetching } = useFetchArticlesQuery();
+  const { data: articles, isFetching } = useFetchArticlesQuery({ search: debouncedSearch });
 
   const articlesClassName: string = `home-content-articles ${mode === VIEW_MODE.LIST ? 'home-content-articles-list' : 'home-content-articles-grid'}`
 
@@ -22,16 +28,25 @@ export default function Home() {
           <Loader fullPage />
         ) : (
           <div className='home-content'>
-            <div className='home-content-filters'>
-              <Button
-                icon={{
-                  src: '/icons/filter.svg',
-                  alt: 'Filter icon'
-                }}
-                onClickCallback={(): void => console.log('TODO')}
-              >
-                FILTER
-              </Button>
+            <Modal dialogRef={dialogRef} onCloseCallback={closeDialog} />
+            <div className='home-content-actions'>
+              <div className='home-content-actions-filters'>
+                <Input
+                  placeholder='SEARCH'
+                  value={search}
+                  onChangeCallback={setSearch}
+                  onClearCallback={(): void => setSearch('')}
+                />
+                <Button
+                  icon={{
+                    src: '/icons/filter.svg',
+                    alt: 'Filter icon'
+                  }}
+                  onClickCallback={openDialog}
+                >
+                  FILTER
+                </Button>
+              </div>
               <Toggle
                 labels={['List', 'Grid']}
                 isChecked={mode === VIEW_MODE.GRID}

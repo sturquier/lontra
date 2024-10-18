@@ -8,8 +8,16 @@ export const articlesApi = createApi({
   reducerPath: 'articles',
   tagTypes: ['Articles'],
   endpoints: (builder) => ({
-    fetchArticles: builder.query<IArticle[], void>({
-      query: () => '/articles',
+    fetchArticles: builder.query<IArticle[], { search?: string }>({
+      query: ({ search }) => {
+        let baseQuery = '/articles'
+
+        if (search) {
+          baseQuery += `?search=${encodeURIComponent(search)}`
+        }
+
+        return baseQuery
+      },
       transformResponse: (baseQueryReturnValue: FetchedArticle[]) => {
         return baseQueryReturnValue.map((article) => ({
           ...article,

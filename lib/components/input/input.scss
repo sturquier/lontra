@@ -1,0 +1,32 @@
+.inputSearch {
+  position: relative;
+
+  &-input {
+    color: var(--dark-blue);
+    width: 140px;
+    padding: 8px 40px;
+    border: 2px solid var(--moderate-blue);
+    border-radius: 4px;
+    outline: none;
+
+    &::placeholder {
+      color: var(--moderate-blue);
+    }
+  }
+
+  &-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &-search {
+      left: 10px;
+      pointer-events: none;
+    }
+
+    &-clear {
+      right: 10px;
+      cursor: pointer;
+    }
+  }
+}

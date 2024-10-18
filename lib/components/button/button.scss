@@ -8,6 +8,7 @@
   color: var(--white);
   border: 1px solid var(--green);
   border-radius: 4px;
+  outline: none;
   cursor: pointer;
 
   &:hover:not([disabled]) {

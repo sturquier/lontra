@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { IArticle } from '@models/article';
 import { formatDate } from '@utils/date';
@@ -20,8 +21,25 @@ export default function GridCard ({ article }: IGridCardProps) {
         />
       </div>
       <div className='gridCard-content'>
-        <h4>{article.title}</h4>
-        <div className='gridCard-content-publicationDate'>{formatDate(article.publicationDate)}</div>
+        <div className='gridCard-content-header'>
+          <Link href={article.url} target='_blank'>
+            <h4>{article.title}</h4>
+          </Link>
+          <Image
+            className='gridCard-content-header-favorite'
+            src='/icons/heart.svg'
+            alt='Heart icon'
+            width={20}
+            height={20}
+            onClick={(): void => console.log('TODO')}
+          />
+        </div>
+        <div className='gridCard-content-footer'>
+          <div>Published on {formatDate(article.publicationDate)}</div>
+          <Link href={article.website.url} target='_blank'>
+            <div>By {article.website.name}</div>
+          </Link>
+        </div>
       </div>
     </div>
   )

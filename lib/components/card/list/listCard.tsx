@@ -25,14 +25,14 @@ export default function ListCard ({ article }: IListCardProps) {
           <Link href={article.url} target='_blank'>
             <h3>{article.title}</h3>
           </Link>
-          <div className='listCard-content-header-favorite' onClick={(): void => console.log('TODO')}>
-            <Image
-              src='/icons/heart.svg'
-              alt='Heart icon'
-              width={20}
-              height={20}
-            />
-          </div>
+          <Image
+            className='listCard-content-header-favorite'
+            src='/icons/heart.svg'
+            alt='Heart icon'
+            width={20}
+            height={20}
+            onClick={(): void => console.log('TODO')}
+          />
         </div>
         <div className='listCard-content-description'>{article.description}</div>
         <div className='listCard-content-footer'>

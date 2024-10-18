@@ -1,4 +1,4 @@
-import { LOCALE } from "@config/locale";
+import { LOCALE } from '@config/locale';
 
 export const formatDate = (date: Date): string => {  
   const options: Intl.DateTimeFormatOptions = {
