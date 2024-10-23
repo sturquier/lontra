@@ -1,11 +1,24 @@
 import { LOCALE } from '@config/locale';
 
-export const formatDate = (date: Date): string => {  
-  const options: Intl.DateTimeFormatOptions = {
+export enum DATE_MODE {
+  STORAGE = 'storage',
+  DISPLAY = 'display'
+}
+
+export const formatDate = (date: Date, mode: DATE_MODE = DATE_MODE.DISPLAY): string => {
+  let options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
   };
+
+  if (mode === DATE_MODE.STORAGE) {
+    options = {
+      ...options,
+      month: '2-digit',
+      day: '2-digit'
+    }
+  }
 
   return new Intl.DateTimeFormat(LOCALE, options).format(date);
 }

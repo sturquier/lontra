@@ -3,12 +3,48 @@
 
   &-open {
     display: block;
-    border: 1px solid var(--moderate-blue);
+    border: 2px solid var(--moderate-blue);
+
+    &::backdrop {
+      background: var(--black);
+      opacity: (0.4);
+    }
   }
 
   &-content {
+    width: 500px;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+
     &-title {
-      margin-bottom: 20px;
+      margin-bottom: 60px;
+    }
+
+    &-filters {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      flex: 1;
+
+      &-filter {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        label {
+          color: var(--moderate-blue);
+          font-weight: bold;
+        }
+
+        &-favorite {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+        }
+      }
     }
 
     &-footer {

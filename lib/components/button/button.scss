@@ -19,4 +19,9 @@
     opacity: 0.6;
     cursor: not-allowed;
   }
+
+  &-secondary {
+    background: var(--white);
+    color: var(--green);
+  }
 }

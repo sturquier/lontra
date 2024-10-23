@@ -1,0 +1,70 @@
+.datepicker {
+  width: 100%;
+
+  div {
+    display: flex;
+  }
+
+  &-calendarIcon {
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+
+  &-input {
+    width: 100%;
+    padding: 8px 40px !important;
+    border: 2px solid var(--moderate-blue);
+    border-radius: 4px;
+    outline: none;
+    font-size: 16px;
+
+    &::placeholder {
+      color: var(--dark-blue);
+    }
+  }
+
+  &-clear {
+    &::after {
+      width: 20px;
+      height: 20px;
+      background-image: url('/icons/clear.svg');
+      background-size: cover;
+      background-color: transparent;
+      content: '';
+    }
+  }
+
+  &-calendar {
+    .react-datepicker__current-month {
+      margin-bottom: 20px;
+    }
+    
+    .react-datepicker__day {
+      &:hover {
+        background: var(--moderate-blue);
+        opacity: 0.8;
+      }
+    }
+
+    .react-datepicker__day--disabled {
+      &:hover {
+        background: inherit;
+      }
+    }
+
+    .react-datepicker__day--selected,
+    .react-datepicker__day--keyboard-selected {
+      background: var(--moderate-blue);
+
+      &:hover {
+        background: var(--moderate-blue);
+        filter: brightness(120%);
+      }
+    }
+
+    .react-datepicker__day--selected {
+      color: var(--white);
+    }
+  }
+}

@@ -4,11 +4,11 @@ import { URL, URLSearchParams } from 'url';
 
 export async function GET(request: NextRequest) {
   const searchParams: URLSearchParams = new URL(request.url).searchParams;
-  const { search } : { search?: string; } = Object.fromEntries(searchParams);
+  const { search, websiteIds, date } : { search?: string; websiteIds?: string, date?: string } = Object.fromEntries(searchParams);
 
   try {
     const whereClauses: string[] = [];
-    const queryParams: string[] = [];
+    const queryParams: (string | number[])[] = [];
 
     let query = `
       SELECT 
@@ -17,19 +17,30 @@ export async function GET(request: NextRequest) {
       FROM 
         articles
       JOIN 
-        websites 
+        websites
       ON 
         articles.website_id = websites.id
     `;
 
     if (search) {
-      whereClauses.push(`LOWER(articles.title) LIKE '%' || LOWER($${whereClauses.length + 1}) || '%'`);
+      whereClauses.push(`LOWER(articles.title) LIKE '%' || LOWER($${queryParams.length + 1}) || '%'`);
       queryParams.push(search);
+    }
+
+    if (websiteIds) {
+      const websitesIds: number[] = websiteIds.split(',').map(Number);
+      whereClauses.push(`articles.website_id = ANY($${queryParams.length + 1}::int[])`);
+      queryParams.push(websitesIds);
+    }
+
+    if (date) {
+      whereClauses.push(`DATE(articles.publication_date) = $${queryParams.length + 1}`);
+      queryParams.push(date);
     }
 
     if (whereClauses.length) query += ` WHERE ` + whereClauses.join(' AND ');
 
-    query += `ORDER BY articles.publication_date DESC`;
+    query += ` ORDER BY articles.publication_date DESC`;
 
     const { rows } = await sql.query(query, queryParams)
 

@@ -9,13 +9,14 @@ interface IButtonProps extends PropsWithChildren {
     src: string;
     alt: string;
   }
+  className?: string;
   onClickCallback: () => void;
 }
 
-export default function Button ({ children, disabled, icon, onClickCallback }: IButtonProps) {
+export default function Button ({ children, disabled, icon, className, onClickCallback }: IButtonProps) {
   return (
     <button
-      className='button'
+      className={`button ${className ? `button-${className}` : ''}`}
       disabled={disabled}
       onClick={onClickCallback}
     >
