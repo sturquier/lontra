@@ -14,7 +14,7 @@ export default function ListCard ({ article }: IListCardProps) {
     <div className="listCard">
       <div className='listCard-image'>
         <Image
-          src={article.image}
+          src={article.image ?? '/icons/placeholder.svg'}
           alt={`Article ${article.id} image`}
           style={{ objectFit: 'contain' }}
           sizes='100%'

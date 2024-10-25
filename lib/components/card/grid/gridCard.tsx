@@ -14,10 +14,12 @@ export default function GridCard ({ article }: IGridCardProps) {
     <div className="gridCard">
       <div className='gridCard-image'>
         <Image
-          src={article.image}
+          src={article.image ?? '/icons/placeholder.svg'}
           alt={`Article ${article.id} image`}
-          width={40}
-          height={40}
+          style={{ objectFit: 'cover' }}
+          sizes='100%'
+          priority
+          fill
         />
       </div>
       <div className='gridCard-content'>
@@ -34,6 +36,7 @@ export default function GridCard ({ article }: IGridCardProps) {
             onClick={(): void => console.log('TODO')}
           />
         </div>
+        <div className='gridCard-content-description'>{article.description}</div>
         <div className='gridCard-content-footer'>
           <div>Published on {formatDate(article.publicationDate)}</div>
           <Link href={article.website.url} target='_blank'>
