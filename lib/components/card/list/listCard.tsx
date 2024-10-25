@@ -16,8 +16,10 @@ export default function ListCard ({ article }: IListCardProps) {
         <Image
           src={article.image}
           alt={`Article ${article.id} image`}
-          width={50}
-          height={50}
+          style={{ objectFit: 'contain' }}
+          sizes='100%'
+          priority
+          fill
         />
       </div>
       <div className='listCard-content'>

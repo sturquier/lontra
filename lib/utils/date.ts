@@ -22,3 +22,7 @@ export const formatDate = (date: Date, mode: DATE_MODE = DATE_MODE.DISPLAY): str
 
   return new Intl.DateTimeFormat(LOCALE, options).format(date);
 }
+
+export const isValidDate = (date: Date): boolean => isFinite(+date);
+
+export const removeOrdinalSuffix = (date: string): string => date.replace(/(\d+)(st|nd|rd|th)/, "$1");

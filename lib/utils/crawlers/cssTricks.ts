@@ -5,7 +5,7 @@ import { IWebsite } from '@models/website';
 import { isValidDate } from '@utils/date';
 import { isValidUrl } from '@utils/url';
 
-export const crawlOctoTalks = async (website: IWebsite): Promise<CreateArticlePayload[]> => {
+export const crawlCssTricks = async (website: IWebsite): Promise<CreateArticlePayload[]> => {
   const articles: CreateArticlePayload[] = [];
 
   const response = await fetch(website.url);
@@ -13,7 +13,7 @@ export const crawlOctoTalks = async (website: IWebsite): Promise<CreateArticlePa
 
   const html = cheerio.load(body);
 
-  html('.articleListItem').each((_, element) => {
+  html('article').each((_, element) => {
     const article = html(element);
 
     const title = article.find('h2').text().trim();
@@ -24,17 +24,8 @@ export const crawlOctoTalks = async (website: IWebsite): Promise<CreateArticlePa
 
     const image = article.find('img').attr('src');
 
-    const publicationDateText = article.find('.articleListItem-dateAuthor').text().trim();
-    const publicationDateMatch = publicationDateText.match(/(\d{2})\/(\d{2})\/(\d{4})/);
-    
-    let publicationDate: Date | null = null;
-    if (publicationDateMatch) {
-      const day = publicationDateMatch[1];
-      const month = publicationDateMatch[2];
-      const year = publicationDateMatch[3];
-
-      publicationDate = new Date(`${year}-${month}-${day}`);
-    }
+    const publicationDateText = article.find('time').text().trim();
+    const publicationDate = new Date(publicationDateText);
 
     if (!title || !url || !image || !publicationDate) {
       return false;
@@ -44,18 +35,15 @@ export const crawlOctoTalks = async (website: IWebsite): Promise<CreateArticlePa
       return false;
     }
 
-    const fullUrl = `${website.url}${url}`;
-    const fullImage = `${website.url}${image}`;
-
-    if (!isValidUrl(fullUrl) || !isValidUrl(fullImage)) {
+    if (!isValidUrl(url) || !isValidUrl(image)) {
       return false;
     }
     
     articles.push({
       title,
       description,
-      url: fullUrl,
-      image: fullImage,
+      url,
+      image,
       publicationDate,
       website
     })
