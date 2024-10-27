@@ -25,16 +25,16 @@
       position: absolute;
       inset: 0;
       background: var(--light-blue);
-      padding: 6px;
+      padding: 4px;
       border-radius: 30px;
 
       &-icon {
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 24px;
-        height: 24px;
-        background: var(--green);
+        width: 26px;
+        height: 26px;
+        background: var(--dark-cyan);
         border-radius: 50%;
         transition: background-color 0.4s ease-in-out, transform 0.4s ease-in-out; 
         transform: translateX(0);
@@ -42,7 +42,7 @@
     }
 
     &-input:hover + &-slider {
-      opacity: 0.8;
+      opacity: 0.9;
     }
 
     &-input:checked + &-slider {
@@ -51,7 +51,7 @@
 
     &-input:checked + &-slider .toggle-wrapper-slider-icon {
       background: var(--dark-blue);
-      transform: translateX(35px);
+      transform: translateX(36px);
     }
   }
 }

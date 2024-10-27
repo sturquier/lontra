@@ -4,9 +4,9 @@
   gap: 5px;
   width: fit-content;
   padding: 5px 10px;
-  background: var(--green);
+  background: var(--dark-cyan);
   color: var(--white);
-  border: 1px solid var(--green);
+  border: 1px solid var(--dark-cyan);
   border-radius: 4px;
   outline: none;
   cursor: pointer;
@@ -22,6 +22,6 @@
 
   &-secondary {
     background: var(--white);
-    color: var(--green);
+    color: var(--dark-cyan);
   }
 }

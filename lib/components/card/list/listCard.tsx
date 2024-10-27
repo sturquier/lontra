@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { IArticle } from '@models/article';
 import { formatDate } from '@utils/date';
+import '@components/card/card.scss';
 import './listCard.scss';
 
 interface IListCardProps {
@@ -39,7 +40,7 @@ export default function ListCard ({ article }: IListCardProps) {
         <div className='listCard-content-description'>{article.description}</div>
         <div className='listCard-content-footer'>
           <div>Published on {formatDate(article.publicationDate)}</div>
-          <Link href={article.website.url} target='_blank'>
+          <Link href={article.website.url} target='_blank' className='listCard-content-footer-website'>
             <div>By {article.website.name}</div>
           </Link>
         </div>

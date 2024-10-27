@@ -5,12 +5,12 @@
     color: var(--dark-blue);
     width: 140px;
     padding: 8px 40px;
-    border: 2px solid var(--moderate-blue);
+    border: 2px solid var(--dark-cyan);
     border-radius: 4px;
     outline: none;
 
     &::placeholder {
-      color: var(--moderate-blue);
+      color: var(--dark-cyan);
     }
   }
 

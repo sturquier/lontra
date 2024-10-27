@@ -8,7 +8,6 @@ interface ICardProps {
   mode: VIEW_MODE;
 }
 
-// TODO: maybe use card.scss + child scss file ?
 export default function Card ({ article, mode }: ICardProps) {
   return mode === VIEW_MODE.LIST ? (
     <ListCard article={article} />

@@ -1,0 +1,47 @@
+.gridCard,
+.listCard {
+  display: flex;
+  gap: 20px;
+  padding: 12px;
+  border: 1px solid var(--light-grey);
+  border-bottom: 2px solid var(--moderate-blue);
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px var(--grey);
+
+  &-image {
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  &-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 40px;
+
+      &-favorite {
+        cursor: pointer;
+      }
+    }
+
+    &-description {
+      flex: 1;
+    }
+
+    &-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+      color: var(--grey);
+      font-size: smaller;
+
+      &-website {
+        text-decoration: underline;
+      }
+    }
+  }
+}
