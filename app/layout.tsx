@@ -1,6 +1,6 @@
+import { ReactNode } from 'react';
 import type { Metadata, Viewport } from 'next';
 
-import { Header } from '@components/index';
 import { lato } from '@config/font';
 import StoreProvider from '@store/provider';
 import "@style/index.scss";
@@ -18,16 +18,11 @@ export const viewport: Viewport = {
   initialScale: 1
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
       <body className={lato.className}>
         <StoreProvider>
-          <Header />
           {children}
         </StoreProvider>
       </body>
