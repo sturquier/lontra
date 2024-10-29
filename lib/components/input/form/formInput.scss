@@ -1,10 +1,10 @@
-.inputSearch {
+.formInput {
   position: relative;
 
   &-input {
     color: var(--dark-blue);
-    width: 140px;
-    padding: 8px 40px;
+    width: 200px;
+    padding: 8px 20px 8px 40px;
     border: 2px solid var(--dark-cyan);
     border-radius: 4px;
     outline: none;
@@ -17,16 +17,8 @@
   &-icon {
     position: absolute;
     top: 50%;
+    left: 10px;
     transform: translateY(-50%);
-
-    &-search {
-      left: 10px;
-      pointer-events: none;
-    }
-
-    &-clear {
-      right: 10px;
-      cursor: pointer;
-    }
+    pointer-events: none;
   }
 }

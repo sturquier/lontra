@@ -4,18 +4,20 @@ import Image from 'next/image';
 import './button.scss';
 
 interface IButtonProps extends PropsWithChildren {
+  type?: 'button' | 'submit';
   disabled?: boolean;
   icon?: {
     src: string;
     alt: string;
   }
   className?: string;
-  onClickCallback: () => void;
+  onClickCallback?: () => void;
 }
 
-export default function Button ({ children, disabled, icon, className, onClickCallback }: IButtonProps) {
+export default function Button ({ children, type, disabled, icon, className, onClickCallback }: IButtonProps) {
   return (
     <button
+      type={type}
       className={`button ${className ? `button-${className}` : ''}`}
       disabled={disabled}
       onClick={onClickCallback}

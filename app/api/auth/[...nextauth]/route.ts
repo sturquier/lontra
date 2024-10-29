@@ -8,8 +8,8 @@ const handler = NextAuth({
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
+        email: {},
+        password: {}
       },
       async authorize(credentials: Record<"email" | "password", string> | undefined) {
         const { rows } = await sql`

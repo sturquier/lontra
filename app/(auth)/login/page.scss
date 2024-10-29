@@ -1,5 +1,28 @@
 .login {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    &-row {
+      display: flex;
+      flex-direction: column;
+
+      &-error {
+        min-height: 20px;
+
+        &-text {
+          color: var(--red);
+          font-size: smaller;
+        }
+      }
+    }
+  }
 }

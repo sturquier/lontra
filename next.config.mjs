@@ -4,6 +4,9 @@ const nextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: '**', pathname: '**' }
     ]
+  },
+  sassOptions: {
+    silenceDeprecations: ['legacy-js-api']
   }
 };
 

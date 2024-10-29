@@ -10,7 +10,7 @@ import { useFetchArticlesQuery } from '@store/features/articles/articles.query';
 import { useFetchWebsitesQuery } from '@store/features/websites/websites.query';
 import { VIEW_MODE } from '@utils/card';
 import { defaultFilters, IFilters } from '@utils/filter';
-import { Button, Card, Input, Loader, Modal, Toggle } from '@components/index';
+import { Button, Card, Loader, Modal, SearchInput, Toggle } from '@components/index';
 import './page.scss';
 
 export default function Home() {
@@ -42,7 +42,7 @@ export default function Home() {
             />
             <div className='home-content-actions'>
               <div className='home-content-actions-filters'>
-                <Input
+                <SearchInput
                   placeholder='SEARCH'
                   value={search}
                   onChangeCallback={setSearch}
