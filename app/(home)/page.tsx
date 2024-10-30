@@ -5,12 +5,12 @@ import Image from 'next/image';
 
 import useDebounce from '@hooks/debounce';
 import useDialog from '@hooks/dialog';
+import usePaginatedArticles from '@hooks/pagination';
 import { IArticle } from '@models/article';
-import { useFetchArticlesQuery } from '@store/features/articles/articles.query';
 import { useFetchWebsitesQuery } from '@store/features/websites/websites.query';
 import { VIEW_MODE } from '@utils/card';
 import { defaultFilters, IFilters } from '@utils/filter';
-import { Button, Card, Loader, Modal, SearchInput, Toggle } from '@components/index';
+import { Button, Card, Loader, Modal, Pagination, SearchInput, Toggle } from '@components/index';
 import './page.scss';
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
   const debouncedSearch = useDebounce(search, 500)
   const { dialogRef, openDialog, closeDialog } = useDialog();
 
-  const { data: articles, isFetching: isFetchingArticles } = useFetchArticlesQuery({ search: debouncedSearch, filters });
+  const { articles, isFetching: isFetchingArticles, currentPage, totalPages, handlePageChange } = usePaginatedArticles(debouncedSearch, filters);
   const { data: websites, isFetching: isFetchingWebsites } = useFetchWebsitesQuery();
 
   const articlesClassName: string = `home-content-articles ${mode === VIEW_MODE.LIST ? 'home-content-articles-list' : 'home-content-articles-grid'}`
@@ -68,9 +68,9 @@ export default function Home() {
                 onChangeCallback={(): void => setMode(mode === VIEW_MODE.LIST ? VIEW_MODE.GRID : VIEW_MODE.LIST)}
               />
             </div>
-            {articles?.length ? (
+            {articles.length ? (
               <div className={articlesClassName}>
-                {articles?.map((article: IArticle, index: number) => (
+                {articles.map((article: IArticle, index: number) => (
                   <Card
                     key={index}
                     article={article}
@@ -86,8 +86,16 @@ export default function Home() {
                   alt="No results icon"
                   width={120}
                   height={120}
+                  priority
                 />
               </div>
+            )}
+            {!!articles.length && (
+              <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                handlePageChange={handlePageChange}
+              />
             )}
           </div>
         )}

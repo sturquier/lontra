@@ -10,8 +10,8 @@ export const articlesApi = createApi({
   reducerPath: 'articles',
   tagTypes: ['Articles'],
   endpoints: (builder) => ({
-    fetchArticles: builder.query<IArticle[], { search?: string, filters: IFilters }>({
-      query: ({ search, filters }) => {
+    fetchArticles: builder.query<{ articles: IArticle[], totalItems: number }, { search?: string, filters: IFilters, page: number, itemsPerPage: number }>({
+      query: ({ search, filters, page, itemsPerPage }) => {
         const params = new URLSearchParams();
 
         if (search) {
@@ -26,14 +26,18 @@ export const articlesApi = createApi({
           params.append('date', formatDate(filters.date, DATE_MODE.STORAGE));
         }
 
+        params.append('page', page.toString());
+        params.append('itemsPerPage', itemsPerPage.toString());
+
         return `/articles?${params.toString()}`;
       },
-      transformResponse: (baseQueryReturnValue: FetchedArticle[]) => {
-        return baseQueryReturnValue.map((article) => ({
+      transformResponse: (baseQueryReturnValue: { articles: FetchedArticle[], totalItems: number }) => ({
+        ...baseQueryReturnValue,
+        articles: baseQueryReturnValue.articles.map((article) => ({
           ...article,
           publicationDate: new Date(article['publication_date'])
         }))
-      },
+      }),
       providesTags: ['Articles'],
     }),
   }),

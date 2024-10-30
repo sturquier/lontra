@@ -6,6 +6,7 @@ import { IArticlesState } from './articles.type'
 const articlesSlice = createSlice({
   name: 'articles',
   initialState: {
+    totalItems: 0,
     articles: []
   } as IArticlesState,
   reducers: {},
@@ -13,7 +14,8 @@ const articlesSlice = createSlice({
     builder.addMatcher(
       articlesApi.endpoints.fetchArticles.matchFulfilled,
       (state, { payload }) => {
-        state.articles = payload ?? [];
+        state.totalItems = payload.totalItems;
+        state.articles = payload.articles ?? [];
       },
     )
   }

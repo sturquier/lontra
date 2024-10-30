@@ -1,0 +1,33 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+  margin-top: 40px;
+
+  &-previous, &-next, &-page, &-break {
+    cursor: pointer;
+  }
+
+  &-page, &-break {
+    color: var(--dark-cyan);
+  }
+
+  &-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 8px;
+    height: 8px;
+    background: var(--white);
+    border: 1px solid var(--dark-cyan);
+    border-radius: 50%;
+    padding: 12px;
+
+    &-active {
+      background: var(--dark-cyan);
+      color: var(--white);
+    }
+  }
+}
