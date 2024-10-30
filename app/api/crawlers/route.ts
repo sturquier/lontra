@@ -1,7 +1,6 @@
-import { getServerSession } from 'next-auth';
+import { getToken } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
 
-import { authOptions } from '@api/auth/[...nextauth]/route';
 import { CreateArticlePayload } from '@models/article';
 import { IWebsite } from '@models/website';
 import { crawlAngularBlog } from '@utils/crawlers/angularBlog';
@@ -16,9 +15,9 @@ import { crawlTowardsDataScience } from '@utils/crawlers/towardsDataScience';
 import { crawlVuejsBlog } from '@utils/crawlers/vuejsBlog';
 
 export async function POST(request: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const token = await getToken({ req: request });
 
-  if (!session) {
+  if (!token) {
     return NextResponse.json({ error: 'Unauthorized request' }, { status: 401 });
   }
 

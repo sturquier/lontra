@@ -1,4 +1,5 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, { NextAuthOptions, User } from "next-auth";
+import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { sql } from '@vercel/postgres';
 import { compare } from "bcrypt";
@@ -42,6 +43,15 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/login',
     signOut: '/logout'
+  },
+  callbacks: {
+    async jwt({ token, user }: { token: JWT, user: User }) {
+      if (user) {
+        token.id = user.id;
+      }
+
+      return token;
+    }
   }
 };
 

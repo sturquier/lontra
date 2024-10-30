@@ -22,9 +22,6 @@
       }
     ],
     "paths": {
-      "@api/*": [
-        "./app/api/*"
-      ],
       "@components/*": [
         "./lib/components/*"
       ],

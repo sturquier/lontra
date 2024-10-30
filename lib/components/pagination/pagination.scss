@@ -25,6 +25,11 @@
     border-radius: 50%;
     padding: 12px;
 
+    &:hover {
+      background: var(--dark-cyan);
+      color: var(--white);
+    }
+
     &-active {
       background: var(--dark-cyan);
       color: var(--white);

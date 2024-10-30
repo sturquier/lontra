@@ -1,17 +1,13 @@
-import { getServerSession } from 'next-auth';
-import { NextResponse } from 'next/server';
+import { getToken } from 'next-auth/jwt';
+import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 
-import { authOptions } from '@api/auth/[...nextauth]/route';
+export async function GET(request: NextRequest) {
+  const token = await getToken({ req: request });
 
-export async function GET() {
-  const session = await getServerSession(authOptions);
-
-  if (!session) {
+  if (!token) {
     return NextResponse.json({ error: 'Unauthorized request' }, { status: 401 });
   }
-
-  const { user } = session;
 
   try {
     const { rows } = await sql`
@@ -20,7 +16,7 @@ export async function GET() {
       FROM
         USERS
       WHERE
-        email=${user?.email}
+        email=${token.email}
     `;
 
     if (!rows.length) {

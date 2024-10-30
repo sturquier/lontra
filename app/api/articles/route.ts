@@ -1,14 +1,12 @@
-import { getServerSession } from 'next-auth';
+import { getToken } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 import { URL, URLSearchParams } from 'url';
 
-import { authOptions } from '@api/auth/[...nextauth]/route';
-
 export async function GET(request: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const token = await getToken({ req: request });
 
-  if (!session) {
+  if (!token) {
     return NextResponse.json({ error: 'Unauthorized request' }, { status: 401 });
   }
 
