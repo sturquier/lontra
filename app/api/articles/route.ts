@@ -1,8 +1,17 @@
+import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 import { URL, URLSearchParams } from 'url';
 
+import { authOptions } from '@api/auth/[...nextauth]/route';
+
 export async function GET(request: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized request' }, { status: 401 });
+  }
+
   const searchParams: URLSearchParams = new URL(request.url).searchParams;
   const { search, websiteIds, date } : { search?: string; websiteIds?: string, date?: string } = Object.fromEntries(searchParams);
 

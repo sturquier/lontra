@@ -18,7 +18,7 @@ export const crawlCssTricks = async (website: IWebsite): Promise<CreateArticlePa
 
     const title = article.find('h2').text().trim();
 
-    const description = article.find('p').text().trim() || undefined;
+    const description = article.find('.card-content').text().trim() || undefined;
 
     const url = article.find('a').attr('href');
 

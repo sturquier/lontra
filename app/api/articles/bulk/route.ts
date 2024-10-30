@@ -1,10 +1,18 @@
+import { getServerSession } from 'next-auth';
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 
+import { authOptions } from '@api/auth/[...nextauth]/route';
 import { CreateArticlePayload } from '@models/article';
 import { IWebsite } from '@models/website';
 
 export async function POST(request: NextRequest) {
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    return NextResponse.json({ error: 'Unauthorized request' }, { status: 401 });
+  }
+
   const { articles, website } : { articles: CreateArticlePayload[], website: IWebsite } = await request.json();
   const { name } = website;
 
