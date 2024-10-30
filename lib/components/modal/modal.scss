@@ -4,6 +4,7 @@
   &-open {
     display: block;
     border: 2px solid var(--dark-cyan);
+    border-radius: 4px;
 
     &::backdrop {
       background: var(--black);

@@ -12,9 +12,9 @@ export async function GET(request: NextRequest) {
   try {
     const { rows } = await sql`
       SELECT
-        USERS.id, USERS.email
+        users.id, users.email
       FROM
-        USERS
+        users
       WHERE
         email=${token.email}
     `;

@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
 
     const countQuery = `
       SELECT
-        COUNT(*)
+        COUNT(articles.id)
       FROM
         articles
       JOIN
@@ -51,15 +51,15 @@ export async function GET(request: NextRequest) {
     `;
 
     const { rows: totalItemsQuery } = await sql.query(countQuery, queryParams);
-    const totalItems = totalItemsQuery[0].count
+    const totalItems = parseInt(totalItemsQuery[0].count)
 
     const mainQuery = `
       SELECT 
-        articles.*,
+        articles.id, articles.title, articles.description, articles.url, articles.image, articles.publication_date,
         json_build_object('id', websites.id, 'name', websites.name, 'url', websites.url) as website
       FROM 
         articles
-      JOIN 
+      LEFT JOIN 
         websites
       ON 
         articles.website_id = websites.id

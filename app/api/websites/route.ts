@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
   try {
     const { rows } = await sql`
       SELECT
-        *
+        websites.*
       FROM
         websites
       ORDER BY
