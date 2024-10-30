@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,12 +24,18 @@ const LoginSchema: ZodType<LoginPayload> = z
   })
 
 export default function Login() {
+  const router = useRouter();
+
+  const [unauthorizedMessage, setUnauthorizedMessage] = useState<string | null>(null);
+
   const { register, handleSubmit, formState: { isValid, errors } } = useForm<LoginPayload>({
     resolver: zodResolver(LoginSchema)
   })
 
   const onSubmit: SubmitHandler<LoginPayload> = async (payload) => {
-    const { email, password } = payload
+    setUnauthorizedMessage(null);
+
+    const { email, password } = payload;
 
     const response = await signIn('credentials', {
       email,
@@ -35,12 +43,21 @@ export default function Login() {
       redirect: false
     })
 
-    console.log(response)
+    if (!response?.ok && response?.status === 401) {
+      setUnauthorizedMessage("Invalid email or password");
+
+      return;
+    }
+
+    router.push('/');
   }
 
   return (
     <main className='login'>
       <h1>Login</h1>
+      <div className='login-unauthorized'>
+        {unauthorizedMessage && <div className='login-unauthorized-message'>{unauthorizedMessage}</div>}
+      </div>
       <form className='login-form' onSubmit={handleSubmit(onSubmit)}>
         <div className='login-form-row'>
           <FormInput
@@ -69,7 +86,7 @@ export default function Login() {
             {errors.password && <span className='login-form-row-error-text'>{errors.password.message}</span>}
           </div>
         </div>
-        <Button type='submit' disabled={!isValid}>LOGIN</Button>
+        <Button type='submit' disabled={!isValid} className='submit'>LOGIN</Button>
       </form>
     </main>
   )

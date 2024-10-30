@@ -1,8 +1,10 @@
 .button {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 5px;
   width: 100%;
+  max-width: fit-content;
   padding: 5px 10px;
   background: var(--dark-cyan);
   color: var(--white);
@@ -23,5 +25,9 @@
   &-secondary {
     background: var(--white);
     color: var(--dark-cyan);
+  }
+
+  &-submit {
+    max-width: initial;
   }
 }

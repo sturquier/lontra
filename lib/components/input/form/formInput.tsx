@@ -13,7 +13,7 @@ interface IFormInputProps {
   register: UseFormRegisterReturn;
 }
 
-export default function Input ({ placeholder, icon, type, register }: IFormInputProps) {
+export default function FormInput ({ placeholder, icon, type, register }: IFormInputProps) {
   return (
     <div className='formInput'>
       <Image

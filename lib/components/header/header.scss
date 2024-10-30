@@ -20,31 +20,81 @@
     }
   }
 
-  &-links {
+  &-menu {
     display: flex;
+    align-items: center;
     gap: 80px;
     margin-right: 80px;
 
-    &-link {
+    &-links {
+      display: flex;
+      gap: 40px;
+
+      &-link {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 4px;
+        padding-bottom: 4px;
+        background-size: 0% 3px;
+        background-image: linear-gradient(to right, var(--light-blue), var(--light-blue));
+        background-repeat: no-repeat;
+        background-position: left bottom;
+        transition: background-size 0.3s ease-in-out;
+
+        &:hover {
+          background-size: 100% 3px;
+        }
+
+        &-active {
+          background: none;
+          border-bottom: 3px solid var(--dark-blue);
+          margin-top: 7px;
+        }
+      }
+    }
+    
+    &-profile {
+      position: relative;
       display: flex;
       align-items: center;
-      gap: 5px;
-      margin-top: 4px;
-      padding-bottom: 4px;
-      background-size: 0% 3px;
-      background-image: linear-gradient(to right, var(--light-blue), var(--light-blue));
-      background-repeat: no-repeat;
-      background-position: left bottom;
-      transition: background-size 0.3s ease-in-out;
 
-      &:hover {
-        background-size: 100% 3px;
-      }
+      &-dropdown {
+        position: absolute;
+        top: 40px;
+        right: 0px;
+        z-index: 3;
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        background: var(--white);
+        padding: 12px 18px;
+        border: 1px solid var(--light-grey);
+        border-radius: 4px;
 
-      &-active {
-        background: none;
-        border-bottom: 3px solid var(--dark-blue);
-        margin-top: 7px;
+        &-opened {
+          display: flex;
+        }
+
+        &-section {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+
+          &-bordered {
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--grey);
+          }
+
+          &-link {
+            color: var(--moderate-blue);
+            cursor: pointer;
+  
+            &:hover {
+              color: var(--dark-blue);
+            }
+          }
+        }
       }
     }
   }

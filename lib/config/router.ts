@@ -1,4 +1,5 @@
 export enum PATH {
   HOME = '/',
-  SETTINGS = '/settings'
+  SETTINGS = '/settings',
+  PROFILE = 'profile'
 };
