@@ -12,7 +12,7 @@ export async function GET() {
         name ASC
     `;
     return NextResponse.json(rows);
-  } catch (error) {
+  } catch (_) {
     return NextResponse.json({ error: 'An error occurred while fetching websites' }, { status: 500 });
   }
 }

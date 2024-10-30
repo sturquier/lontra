@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
     await sql.query(query, values);
 
     return NextResponse.json({ message: `${articles.length} articles successfully inserted for website "${name}"` });
-  } catch (error) {
+  } catch (_) {
     return NextResponse.json({ error: `An error occurred during the bulk insert for website ${name}` }, { status: 500 });
   }
 }

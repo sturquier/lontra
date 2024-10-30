@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
     const { rows } = await sql.query(query, queryParams)
 
     return NextResponse.json(rows);
-  } catch (error) {
+  } catch (_) {
     return NextResponse.json({ error: 'An error occurred while fetching articles' }, { status: 500 });
   }
 }

@@ -28,7 +28,7 @@ export async function GET() {
     }
 
     return NextResponse.json(rows[0]);
-  } catch (error) {
+  } catch (_) {
     return NextResponse.json({ error: 'An error occurred while fetching profile' }, { status: 500 });
   }
 }

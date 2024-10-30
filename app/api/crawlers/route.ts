@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ error: `Crawler for website "${name}" contains error` }, { status: 500 });
-  } catch (error) {
+  } catch (_) {
     return NextResponse.json({ error: `An error occurred while crawling website "${name}"` }, { status: 500 });
   }
 }
