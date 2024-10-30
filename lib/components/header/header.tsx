@@ -74,7 +74,13 @@ export default function Header () {
                 width={20}
                 height={20}
               />
-              <Link href={PATH.PROFILE} className='header-menu-profile-dropdown-section-link'>PROFILE</Link>
+              <Link
+                href={PATH.PROFILE}
+                className='header-menu-profile-dropdown-section-link'
+                onClick={(): void => setIsDropdownOpened(false)}
+              >
+                PROFILE
+              </Link>
             </div>
             <div className='header-menu-profile-dropdown-section'>
               <Image

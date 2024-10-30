@@ -1,9 +1,9 @@
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { sql } from '@vercel/postgres';
 import { compare } from "bcrypt";
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -43,7 +43,9 @@ const handler = NextAuth({
     signIn: '/login',
     signOut: '/logout'
   }
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { 
   handler as GET,
