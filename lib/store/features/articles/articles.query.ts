@@ -39,7 +39,8 @@ export const articlesApi = createApi({
         ...baseQueryReturnValue,
         articles: baseQueryReturnValue.articles.map((article) => ({
           ...article,
-          publicationDate: new Date(article['publication_date'])
+          publicationDate: new Date(article['publication_date']),
+          isFavorite: article['is_favorite']
         }))
       }),
       providesTags: ['Articles'],

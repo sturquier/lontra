@@ -7,7 +7,7 @@ import { IFilters } from '@utils/filter';
 export default function usePaginatedArticles (search: string, filters: IFilters) {
   const [currentPage, setCurrentPage] = useState(1);
 
-  const { data, isFetching } = useFetchArticlesQuery({
+  const { data, isFetching, refetch } = useFetchArticlesQuery({
     search,
     filters,
     page: currentPage,
@@ -20,5 +20,12 @@ export default function usePaginatedArticles (search: string, filters: IFilters)
     setCurrentPage(selected + 1);
   };
 
-  return { articles: data?.articles || [], isFetching, currentPage, totalPages, handlePageChange };
+  return {
+      articles: data?.articles || [],
+      isFetching,
+      refetch,
+      currentPage,
+      totalPages,
+      handlePageChange
+  };
 };

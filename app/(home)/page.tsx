@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 import useDebounce from '@hooks/debounce';
@@ -22,7 +22,7 @@ export default function Home() {
   const debouncedSearch = useDebounce(search, 500)
   const { dialogRef, openDialog, closeDialog } = useDialog();
 
-  const { articles, isFetching: isFetchingArticles, currentPage, totalPages, handlePageChange } = usePaginatedArticles(debouncedSearch, filters);
+  const { articles, isFetching: isFetchingArticles, refetch: refetchArticles, currentPage, totalPages, handlePageChange } = usePaginatedArticles(debouncedSearch, filters);
   const { data: websites, isFetching: isFetchingWebsites } = useFetchWebsitesQuery();
 
   const articlesClassName: string = `home-content-articles ${mode === VIEW_MODE.LIST ? 'home-content-articles-list' : 'home-content-articles-grid'}`
@@ -31,8 +31,14 @@ export default function Home() {
     await fetch(favoriteTogglePath, {
       method: 'POST',
       body: JSON.stringify({ articleId })
-    })
+    });
+
+    refetchArticles();
   }
+
+  useEffect(() => {
+    refetchArticles();
+  }, [filters, refetchArticles]);
 
   return (
       <main className='home'>

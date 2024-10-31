@@ -8,10 +8,12 @@ export interface IArticle {
   image?: string;
   publicationDate: Date;
   website: IWebsite;
+  isFavorite: boolean;
 }
 
-export type CreateArticlePayload = Omit<IArticle, 'id'>;
+export type CreateArticlePayload = Omit<IArticle, 'id' | 'isFavorite'>;
 
-export type FetchedArticle = Omit<IArticle, 'publicationDate'> & {
+export type FetchedArticle = Omit<IArticle, 'publicationDate' | 'isFavorite'> & {
   publication_date: string;
+  is_favorite: boolean;
 }

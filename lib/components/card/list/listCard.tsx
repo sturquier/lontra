@@ -31,8 +31,8 @@ export default function ListCard ({ article, toggleFavoriteCallback }: IListCard
           </Link>
           <Image
             className='listCard-content-header-favorite'
-            src='/icons/heart.svg'
-            alt='Heart icon'
+            src={article.isFavorite ? '/icons/heart-fill.svg' : '/icons/heart.svg'}
+            alt={article.isFavorite ? 'Heart fill icon' : 'Heart icon'}
             width={20}
             height={20}
             onClick={toggleFavoriteCallback}

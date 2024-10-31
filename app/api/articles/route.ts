@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
       queryParams.push(date);
     }
 
-    let favoriteJoin = `
+    const favoriteJoin = `
       LEFT JOIN
         users_favorite_articles
       ON
