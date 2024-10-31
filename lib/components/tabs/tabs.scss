@@ -1,0 +1,37 @@
+.tabs {
+  &-list {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0px;
+    border-bottom: 1px solid var(--moderate-blue);
+
+    &-tab {
+      color: var(--moderate-blue);
+      padding: 12px 18px;
+      border: 1px solid transparent;
+      border-bottom: none;
+      position: relative;
+      bottom: -1px;
+      outline: none;
+      list-style: none;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--dark-blue);
+      }
+
+      &-selected {
+        background: var(--white);
+        color: var(--dark-blue);
+        border-color: var(--moderate-blue);
+        border-bottom: none;
+        border-radius: 5px 5px 0px 0px;
+      }
+    }
+  }
+
+  &-panel {
+    margin-top: 40px;
+  }
+}
