@@ -9,9 +9,10 @@ import './gridCard.scss';
 
 interface IGridCardProps {
   article: IArticle;
+  toggleFavoriteCallback: () => void;
 }
 
-export default function GridCard ({ article }: IGridCardProps) {
+export default function GridCard ({ article, toggleFavoriteCallback }: IGridCardProps) {
   const getDescription: string | undefined = article.description 
     ? article.description.length >= MAX_DESCRIPTION_LENGTH 
     ? `${article.description.substring(0, MAX_DESCRIPTION_LENGTH)} ...`
@@ -41,7 +42,7 @@ export default function GridCard ({ article }: IGridCardProps) {
             alt='Heart icon'
             width={20}
             height={20}
-            onClick={(): void => console.log('TODO')}
+            onClick={toggleFavoriteCallback}
           />
         </div>
         <div className='gridCard-content-description'>{getDescription}</div>

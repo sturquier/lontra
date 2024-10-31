@@ -26,6 +26,10 @@ export const articlesApi = createApi({
           params.append('date', formatDate(filters.date, DATE_MODE.STORAGE));
         }
 
+        if (filters.favorite) {
+          params.append('favorite', 'true');
+        }
+
         params.append('page', page.toString());
         params.append('itemsPerPage', itemsPerPage.toString());
 

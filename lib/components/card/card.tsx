@@ -4,14 +4,21 @@ import GridCard from './grid/gridCard';
 import ListCard from './list/listCard';
 
 interface ICardProps {
-  article: IArticle;
   mode: VIEW_MODE;
+  article: IArticle;
+  toggleFavoriteCallback: () => void;
 }
 
-export default function Card ({ article, mode }: ICardProps) {
+export default function Card ({ mode, article, toggleFavoriteCallback }: ICardProps) {
   return mode === VIEW_MODE.LIST ? (
-    <ListCard article={article} />
+    <ListCard
+      article={article}
+      toggleFavoriteCallback={toggleFavoriteCallback}
+    />
   ) : (
-    <GridCard article={article} />
+    <GridCard
+      article={article}
+      toggleFavoriteCallback={toggleFavoriteCallback}
+    />
   );
 }

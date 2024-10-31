@@ -8,9 +8,10 @@ import './listCard.scss';
 
 interface IListCardProps {
   article: IArticle;
+  toggleFavoriteCallback: () => void;
 }
 
-export default function ListCard ({ article }: IListCardProps) {
+export default function ListCard ({ article, toggleFavoriteCallback }: IListCardProps) {
   return (
     <div className="listCard">
       <div className='listCard-image'>
@@ -34,7 +35,7 @@ export default function ListCard ({ article }: IListCardProps) {
             alt='Heart icon'
             width={20}
             height={20}
-            onClick={(): void => console.log('TODO')}
+            onClick={toggleFavoriteCallback}
           />
         </div>
         <div className='listCard-content-description'>{article.description}</div>

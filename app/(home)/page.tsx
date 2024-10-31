@@ -9,6 +9,7 @@ import usePaginatedArticles from '@hooks/pagination';
 import { IArticle } from '@models/article';
 import { useFetchWebsitesQuery } from '@store/features/websites/websites.query';
 import { VIEW_MODE } from '@utils/card';
+import { favoriteTogglePath } from '@utils/favorite';
 import { defaultFilters, IFilters } from '@utils/filter';
 import { Button, Card, Loader, Modal, Pagination, SearchInput, Toggle } from '@components/index';
 import './page.scss';
@@ -25,6 +26,13 @@ export default function Home() {
   const { data: websites, isFetching: isFetchingWebsites } = useFetchWebsitesQuery();
 
   const articlesClassName: string = `home-content-articles ${mode === VIEW_MODE.LIST ? 'home-content-articles-list' : 'home-content-articles-grid'}`
+
+  const toggleFavorite = async (articleId: string): Promise<void> => {
+    await fetch(favoriteTogglePath, {
+      method: 'POST',
+      body: JSON.stringify({ articleId })
+    })
+  }
 
   return (
       <main className='home'>
@@ -73,8 +81,9 @@ export default function Home() {
                 {articles.map((article: IArticle, index: number) => (
                   <Card
                     key={index}
-                    article={article}
                     mode={mode}
+                    article={article}
+                    toggleFavoriteCallback={(): Promise<void> => toggleFavorite(article.id)}
                   />
                 ))}
               </div>
