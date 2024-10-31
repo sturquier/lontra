@@ -9,3 +9,15 @@ export const defaultFilters: IFilters = {
   date: null,
   favorite: false
 }
+
+export const getActiveFiltersCount = (filters: IFilters): number => {
+  let count = 0;
+
+  if (filters.websiteIds.length) count++;
+
+  if (filters.date !== null) count ++;
+
+  if (filters.favorite) count ++;
+
+  return count;
+}

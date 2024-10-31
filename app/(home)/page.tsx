@@ -10,7 +10,7 @@ import { IArticle } from '@models/article';
 import { useFetchWebsitesQuery } from '@store/features/websites/websites.query';
 import { VIEW_MODE } from '@utils/card';
 import { favoriteTogglePath } from '@utils/favorite';
-import { defaultFilters, IFilters } from '@utils/filter';
+import { defaultFilters, getActiveFiltersCount, IFilters } from '@utils/filter';
 import { Button, Card, Loader, Modal, Pagination, SearchInput, Toggle } from '@components/index';
 import './page.scss';
 
@@ -69,7 +69,7 @@ export default function Home() {
                   }}
                   onClickCallback={openDialog}
                 >
-                  FILTER
+                  {`${getActiveFiltersCount(filters) > 0 ? `EDIT FILTERS (${getActiveFiltersCount(filters)})` : 'FILTER'}`}
                 </Button>
               </div>
               <Toggle
