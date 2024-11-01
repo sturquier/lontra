@@ -99,7 +99,6 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ articles: rows, totalItems });
   } catch (_) {
-    console.log(_)
     return NextResponse.json({ error: 'An error occurred while fetching articles' }, { status: 500 });
   }
 }

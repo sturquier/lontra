@@ -26,6 +26,7 @@ export default function Header () {
           alt='Logo'
           width={40}
           height={40}
+          priority
         />
       </Link>
       <div className='header-menu'>

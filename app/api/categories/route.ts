@@ -13,20 +13,18 @@ export async function GET(request: NextRequest) {
 
   try {
     const { rows } = await sql`
-      SELECT
-        users.id, users.email
-      FROM
-        users
+      SELECT 
+        categories.*
+      FROM 
+        categories
       WHERE
-        id=${userId}
+        user_id=${userId}
+      ORDER BY
+        categories.name ASC
     `;
 
-    if (!rows.length) {
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
-
-    return NextResponse.json(rows[0]);
+    return NextResponse.json(rows);
   } catch (_) {
-    return NextResponse.json({ error: 'An error occurred while fetching profile' }, { status: 500 });
+    return NextResponse.json({ error: 'An error occurred while fetching categories' }, { status: 500 });
   }
 }
