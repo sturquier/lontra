@@ -1,11 +1,13 @@
 'use client';
 
+import { useFetchCategoriesQuery } from '@store/features/categories/categories.query';
 import { useFetchProfileQuery } from '@store/features/profile/profile.query';
 import { Loader, Tabs } from '@components/index';
 import { ProfileCategoriesTab, ProfileFavoritesTab, ProfileInformationsTab } from './tabs';
 
 export default function Profile() {
-  const { data: profile, isFetching } = useFetchProfileQuery();
+  const { data: profile, isFetching: isFetchingProfile } = useFetchProfileQuery();
+  const { data: categories, isFetching: isFetchingCategories } = useFetchCategoriesQuery();
 
   const getTabs = (): {
     title: string;
@@ -37,14 +39,14 @@ export default function Profile() {
         src: '/icons/tag.svg',
         alt: 'Tag icon'
       },
-      content: <ProfileCategoriesTab />
+      content: <ProfileCategoriesTab categories={categories ?? []} />
     }
   ];
 
   return (
     <main className='profile'>
       <h1>Profile</h1>
-      {isFetching ? (
+      {(isFetchingProfile || isFetchingCategories) ? (
         <Loader fullPage />
       ) : (
         <Tabs tabs={getTabs()} />

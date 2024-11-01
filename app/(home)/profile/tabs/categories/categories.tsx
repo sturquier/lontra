@@ -15,14 +15,11 @@ const CreateCategorySchema: ZodType<CreateCategoryPayload> = z
     ,
   })
 
-export default function ProfileCategoriesTab () {
-  // TODO: dynamic
-  const categories: ICategory[] = [
-    { id: '1', name: 'PHP' },
-    { id: '2', name: 'React.JS' },
-    { id: '3', name: 'Vue.JS' },
-  ]
+interface IProfileCategoriesTabProps {
+  categories: ICategory[];
+}
 
+export default function ProfileCategoriesTab ({ categories }: IProfileCategoriesTabProps) {
   const { register, handleSubmit, formState: { isValid, errors } } = useForm<CreateCategoryPayload>({
     resolver: zodResolver(CreateCategorySchema)
   })

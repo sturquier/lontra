@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
       WHERE
         user_id=${userId}
       ORDER BY
-        categories.name ASC
+        name ASC
     `;
 
     return NextResponse.json(rows);
