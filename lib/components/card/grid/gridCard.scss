@@ -2,8 +2,22 @@
   flex-direction: column;
 
   &-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 200px;
+
+    &-background {
+      max-width: 300px;
+    }
+
+    &-favorite {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      cursor: pointer;
+    }
   }
 
   &-content {

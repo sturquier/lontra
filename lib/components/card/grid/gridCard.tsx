@@ -23,12 +23,21 @@ export default function GridCard ({ article, toggleFavoriteCallback }: IGridCard
     <div className="gridCard">
       <div className='gridCard-image'>
         <Image
+          className='gridCard-image-background'
           src={article.image ?? '/icons/placeholder.svg'}
           alt={`Article ${article.id} image`}
-          style={{ objectFit: 'contain' }}
+          style={{ objectFit: 'contain', inset: 'inherit' }}
           sizes='100%'
           priority
           fill
+        />
+        <Image
+          className='gridCard-image-favorite'
+          src={article.isFavorite ? '/icons/heart-fill.svg' : '/icons/heart.svg'}
+          alt={article.isFavorite ? 'Heart fill icon' : 'Heart icon'}
+          width={20}
+          height={20}
+          onClick={toggleFavoriteCallback}
         />
       </div>
       <div className='gridCard-content'>
@@ -36,14 +45,6 @@ export default function GridCard ({ article, toggleFavoriteCallback }: IGridCard
           <Link href={article.url} target='_blank'>
             <h3>{article.title}</h3>
           </Link>
-          <Image
-            className='gridCard-content-header-favorite'
-            src={article.isFavorite ? '/icons/heart-fill.svg' : '/icons/heart.svg'}
-            alt={article.isFavorite ? 'Heart fill icon' : 'Heart icon'}
-            width={20}
-            height={20}
-            onClick={toggleFavoriteCallback}
-          />
         </div>
         <div className='gridCard-content-description'>{getDescription}</div>
         <div className='gridCard-content-footer'>

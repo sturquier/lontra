@@ -9,5 +9,14 @@
   &-content {
     padding-left: 20px;
     border-left: 1px solid var(--moderate-blue);
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+
+      &-favorite {
+        cursor: pointer;
+      }
+    }
   }
 }
