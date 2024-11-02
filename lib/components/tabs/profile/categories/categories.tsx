@@ -3,8 +3,10 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodType } from "zod";
 
-import { CreateCategoryPayload, ICategory } from '@models/category';
-import { Button, FormInput } from '@components/index';
+import { CreateCategoryPayload } from '@models/category';
+import { useFetchCategoriesQuery } from '@store/features/categories/categories.query';
+import { categoryPath } from '@utils/category';
+import { Button, FormInput, Loader } from '@components/index';
 import './categories.scss';
 
 const CreateCategorySchema: ZodType<CreateCategoryPayload> = z
@@ -12,22 +14,40 @@ const CreateCategorySchema: ZodType<CreateCategoryPayload> = z
     name: z
       .string()
       .min(3, { message: "Name is too short" })
+      .max(20, { message: "Name is too long" })
     ,
   })
 
-interface IProfileCategoriesTabProps {
-  categories: ICategory[];
-}
+export default function ProfileCategoriesTab () {
+  const { data: categories, isFetching, refetch } = useFetchCategoriesQuery();
 
-export default function ProfileCategoriesTab ({ categories }: IProfileCategoriesTabProps) {
-  const { register, handleSubmit, formState: { isValid, errors } } = useForm<CreateCategoryPayload>({
+  const { register, reset, handleSubmit, formState: { isValid, errors } } = useForm<CreateCategoryPayload>({
     resolver: zodResolver(CreateCategorySchema)
   })
 
-  const onSubmit: SubmitHandler<CreateCategoryPayload> = async (payload) => {
+  const createCategory: SubmitHandler<CreateCategoryPayload> = async (payload) => {
     const { name } = payload;
 
-    console.log(name)
+    const response = await fetch(categoryPath, {
+      method: 'POST',
+      body: JSON.stringify({ name })
+    });
+
+    if (response.ok) {
+      reset();
+      refetch();
+    }
+  }
+
+  const deleteCategory = async (id: string): Promise<void> => {
+    const response = await fetch(categoryPath, {
+      method: 'DELETE',
+      body: JSON.stringify({ id })
+    });
+
+    if (response.ok) {
+      refetch();
+    }
   }
 
   return (
@@ -36,23 +56,31 @@ export default function ProfileCategoriesTab ({ categories }: IProfileCategories
       <div className='profile-categories-content'>
         <div className='profile-categories-content-list'>
           <div className='profile-categories-content-list-subtitle'>Categories list</div>
-          <div className='profile-categories-content-list-rows'>
-            {categories.map((category, index) => (
-              <div key={index} className='profile-categories-content-list-rows-row'>
-                {category.name}
-                <Image
-                  src="/icons/clear.svg"
-                  alt="Clear icon"
-                  width={20}
-                  height={20}
-                />
-              </div>
-            ))}
-          </div>
+          {isFetching ? (
+            <div className='profile-categories-content-list-loader'>
+              <Loader />
+            </div>
+          ) : (
+            <div className='profile-categories-content-list-rows'>
+              {categories?.map((category, index) => (
+                <div key={index} className='profile-categories-content-list-rows-row'>
+                  {category.name}
+                  <Image
+                    className='profile-categories-content-list-rows-row-icon'
+                    src="/icons/delete.svg"
+                    alt="Delete icon"
+                    width={20}
+                    height={20}
+                    onClick={(): Promise<void> => deleteCategory(category.id)}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         <div className='profile-categories-content-creation'>
           <div className='profile-categories-content-creation-subtitle'>Create a category</div>
-          <form className='profile-categories-content-creation-form' onSubmit={handleSubmit(onSubmit)}>
+          <form className='profile-categories-content-creation-form' onSubmit={handleSubmit(createCategory)}>
             <div className='profile-categories-content-creation-form-row'>
               <FormInput
                 placeholder='Name'

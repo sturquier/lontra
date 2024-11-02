@@ -15,15 +15,25 @@
         margin-bottom: 60px;
       }
 
-      &-rows {
+      &-loader {
         display: flex;
-        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &-rows {
+        display: grid;
         gap: 20px;
+        grid-template-columns: repeat(2, 1fr);
 
         &-row {
           display: flex;
           align-items: center;
           gap: 10px;
+
+          &-icon {
+            cursor: pointer;
+          }
         }
       }
     }
