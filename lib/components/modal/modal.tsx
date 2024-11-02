@@ -3,6 +3,7 @@
 import { useState, useEffect, MouseEvent, MutableRefObject } from 'react';
 import Image from 'next/image';
 
+import { ICategory } from '@models/category';
 import { IWebsite } from '@models/website';
 import { IFilters } from '@utils/filter';
 import { Button, Datepicker, Dropdown } from '@components/index';
@@ -13,11 +14,12 @@ interface IModalProps {
   dialogRef: MutableRefObject<HTMLDialogElement | null>;
   filters: IFilters;
   websites: IWebsite[];
+  categories: ICategory[];
   onApplyFiltersCallback: (filters: IFilters) => void;
   onCloseCallback: () => void;
 }
 
-export default function Modal ({ dialogRef, filters, websites, onApplyFiltersCallback, onCloseCallback }: IModalProps) {
+export default function Modal ({ dialogRef, filters, websites, categories, onApplyFiltersCallback, onCloseCallback }: IModalProps) {
   const [modalFilters, setModalFilters] = useState<IFilters>(filters);
 
   useEffect(() => {
@@ -46,6 +48,7 @@ export default function Modal ({ dialogRef, filters, websites, onApplyFiltersCal
           <div className='modal-content-filters-filter'>
             <label>By websites :</label>
             <Dropdown
+              placeholder="Select websites"
               options={websites.map(website => ({ value: website.id, label: website.name }))}
               selectedOptions={modalFilters.websiteIds}
               onChangeCallback={(websiteIds: string[]): void => updateFilter('websiteIds', websiteIds)}
@@ -71,8 +74,13 @@ export default function Modal ({ dialogRef, filters, websites, onApplyFiltersCal
             </div>
           </div>
           <div className='modal-content-filters-filter'>
-            <label>Tags</label>
-            <div>TODO</div>
+            <label>By categories :</label>
+            <Dropdown
+              placeholder="Select categories"
+              options={categories.map(category => ({ value: category.id, label: category.name }))}
+              selectedOptions={modalFilters.categoryIds}
+              onChangeCallback={(categoryIds: string[]): void => updateFilter('categoryIds', categoryIds)}
+            />
           </div>
         </div>
         <div className="modal-content-footer">

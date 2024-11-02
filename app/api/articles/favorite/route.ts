@@ -9,8 +9,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized request' }, { status: 401 });
   }
 
-  const payload = await request.json();
-  const { articleId } = payload;
+  const { articleId } : { articleId: number } = await request.json();
   const userId = token.id as number;
 
   try {

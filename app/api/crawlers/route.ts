@@ -21,8 +21,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized request' }, { status: 401 });
   }
 
-  const payload = await request.json();
-  const { website } : { website: IWebsite } = payload;
+  const { website } : { website: IWebsite } = await request.json();
   const { name, slug } = website;
 
   let articles: CreateArticlePayload[] = [];

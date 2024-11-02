@@ -3,7 +3,7 @@
 import { useFetchCategoriesQuery } from '@store/features/categories/categories.query';
 import { useFetchProfileQuery } from '@store/features/profile/profile.query';
 import { Loader, Tabs } from '@components/index';
-import { ProfileCategoriesTab, ProfileFavoritesTab, ProfileInformationsTab } from './tabs';
+import { ProfileCategoriesTab, ProfileFavoritesTab, ProfileInformationsTab } from '@components/tabs/profile/index';
 
 export default function Profile() {
   const { data: profile, isFetching: isFetchingProfile } = useFetchProfileQuery();

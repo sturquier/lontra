@@ -10,12 +10,13 @@ interface IOption {
 }
 
 interface IDropdownProps {
+  placeholder: string;
   options: IOption[];
   selectedOptions: string[];
   onChangeCallback: (values: string[]) => void;
 }
 
-export default function Dropdown ({ options, selectedOptions, onChangeCallback }: IDropdownProps) {
+export default function Dropdown ({ placeholder, options, selectedOptions, onChangeCallback }: IDropdownProps) {
   const [values, setValues] = useState<IOption[]>([]);
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function Dropdown ({ options, selectedOptions, onChangeCallback }
     <Select
       closeMenuOnSelect={false}
       components={animatedComponents}
-      placeholder="Select websites"
+      placeholder={placeholder}
       options={options}
       getOptionValue={(option: IOption) => option.value}
       getOptionLabel={(option: IOption) => option.label}

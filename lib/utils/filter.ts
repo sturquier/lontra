@@ -2,12 +2,14 @@ export interface IFilters {
   websiteIds: string[];
   date: Date | null;
   favorite: boolean;
+  categoryIds: string[];
 }
 
 export const defaultFilters: IFilters = {
   websiteIds: [],
   date: null,
-  favorite: false
+  favorite: false,
+  categoryIds: []
 }
 
 export const getActiveFiltersCount = (filters: IFilters): number => {
@@ -18,6 +20,8 @@ export const getActiveFiltersCount = (filters: IFilters): number => {
   if (filters.date !== null) count ++;
 
   if (filters.favorite) count ++;
+
+  if (filters.categoryIds.length) count++;
 
   return count;
 }
