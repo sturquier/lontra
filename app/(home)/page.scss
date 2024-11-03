@@ -6,6 +6,12 @@
       align-items: center;
       margin-bottom: 10px;
 
+      @media (max-width: $xsm) {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+      }
+
       &-filters {
         display: flex;
         gap: 10px;
@@ -23,6 +29,10 @@
       &-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+
+        @media (max-width: $xsm) {
+          grid-template-columns: repeat(1, 1fr);
+        }
       }
     }
 

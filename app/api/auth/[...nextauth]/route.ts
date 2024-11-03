@@ -15,7 +15,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials: Record<"email" | "password", string> | undefined) {
         const { rows } = await sql`
           SELECT
-            users.id, users.email
+            users.*
           FROM
             users
           WHERE

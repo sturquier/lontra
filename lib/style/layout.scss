@@ -5,6 +5,10 @@ html, body {
 
 main {
   padding: 120px 80px;
+
+  @media (max-width: $xsm) {
+    padding: 120px 20px;
+  }
 }
 
 h1, h2, h3, h4 {

@@ -9,11 +9,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 170px;
 
   &-logo {
     margin-left: 80px;
     transition: transform 0.3s ease;
+
+    @media (max-width: $xsm) {
+      margin-left: 20px;
+    }
 
     &:hover {
       transform: scale(1.2);
@@ -26,9 +29,17 @@
     gap: 80px;
     margin-right: 80px;
 
+    @media (max-width: $xsm) {
+      margin-right: 20px;
+    }
+
     &-links {
       display: flex;
       gap: 40px;
+
+      @media (max-width: $xsm) {
+        display: none;
+      }
 
       &-link {
         display: flex;
