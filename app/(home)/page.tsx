@@ -7,7 +7,7 @@ import useDebounce from '@hooks/debounce';
 import useDialog from '@hooks/dialog';
 import usePaginatedArticles from '@hooks/pagination';
 import { IArticle } from '@models/article';
-import { useFetchCategoriesQuery } from '@store/features/categories/categories.query';
+import { useFetchTagsQuery } from '@store/features/tags/tags.query';
 import { useFetchWebsitesQuery } from '@store/features/websites/websites.query';
 import { VIEW_MODE } from '@utils/card';
 import { favoriteTogglePath } from '@utils/favorite';
@@ -25,7 +25,7 @@ export default function Home() {
 
   const { articles, isFetching: isFetchingArticles, refetch: refetchArticles, currentPage, totalPages, handlePageChange } = usePaginatedArticles(debouncedSearch, filters);
   const { data: websites, isFetching: isFetchingWebsites } = useFetchWebsitesQuery();
-  const { data: categories, isFetching: isFetchingCategories } = useFetchCategoriesQuery();
+  const { data: tags, isFetching: isFetchingTags } = useFetchTagsQuery();
 
   const articlesClassName: string = `home-content-articles ${mode === VIEW_MODE.LIST ? 'home-content-articles-list' : 'home-content-articles-grid'}`
 
@@ -45,7 +45,7 @@ export default function Home() {
   return (
       <main className='home'>
         <h1>Home</h1>
-        {(isFetchingArticles || isFetchingWebsites || isFetchingCategories) ? (
+        {(isFetchingArticles || isFetchingWebsites || isFetchingTags) ? (
           <Loader fullPage />
         ) : (
           <div className='home-content'>
@@ -53,7 +53,7 @@ export default function Home() {
               dialogRef={dialogRef}
               filters={filters}
               websites={websites ?? []}
-              categories={categories ?? []}
+              tags={tags ?? []}
               onApplyFiltersCallback={setFilters}
               onCloseCallback={closeDialog}
             />

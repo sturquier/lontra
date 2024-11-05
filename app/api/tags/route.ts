@@ -14,18 +14,18 @@ export async function GET(request: NextRequest) {
   try {
     const { rows } = await sql`
       SELECT 
-        categories.*
+        tags.*
       FROM 
-        categories
+        tags
       WHERE
         user_id=${userId}
       ORDER BY
-        name ASC
+        label ASC
     `;
 
     return NextResponse.json(rows);
   } catch (_) {
-    return NextResponse.json({ error: 'An error occurred while fetching categories' }, { status: 500 });
+    return NextResponse.json({ error: 'An error occurred while fetching tags' }, { status: 500 });
   }
 }
 
@@ -36,20 +36,20 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized request' }, { status: 401 });
   }
 
-  const { name } : { name: string } = await request.json();
+  const { label } : { label: string } = await request.json();
   const userId = token.id as number;
 
   try {
     await sql`
       INSERT INTO
-        categories (name, user_id)
+        tags (label, user_id)
       VALUES
-        (${name}, ${userId})
+        (${label}, ${userId})
     `;
 
-    return NextResponse.json({ message: `Category "${name}" has been successfully created` });
+    return NextResponse.json({ message: `Tag "${label}" has been successfully created` });
   } catch (_) {
-    return NextResponse.json({ error: `An error occurred while creating category "${name}"` }, { status: 500 });
+    return NextResponse.json({ error: `An error occurred while creating tag "${label}"` }, { status: 500 });
   }
 }
 
@@ -66,7 +66,7 @@ export async function DELETE(request: NextRequest) {
   try {
     await sql.query(`
       DELETE FROM
-        categories
+        tags
       WHERE
         id = $1
       AND
@@ -75,8 +75,8 @@ export async function DELETE(request: NextRequest) {
       [id, userId]
     );
 
-    return NextResponse.json({ message: `Category "${id}" has been successfully deleted` });
+    return NextResponse.json({ message: `Tag "${id}" has been successfully deleted` });
   } catch (_) {
-    return NextResponse.json({ error: `An error occurred while deleting category "${id}"` }, { status: 500 });
+    return NextResponse.json({ error: `An error occurred while deleting tag "${id}"` }, { status: 500 });
   }
 }

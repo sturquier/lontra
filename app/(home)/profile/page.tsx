@@ -1,7 +1,7 @@
 'use client';
 
 import { Tabs } from '@components/index';
-import { ProfileCategoriesTab, ProfileFavoritesTab, ProfileInformationsTab } from '@components/tabs/profile/index';
+import { ProfileTagsTab, ProfileFavoritesTab, ProfileInformationsTab } from '@components/tabs/profile/index';
 
 export default function Profile() {
   const getTabs = (): {
@@ -29,12 +29,12 @@ export default function Profile() {
       content: <ProfileFavoritesTab />
     },
     {
-      title: 'Categories',
+      title: 'Tags',
       icon: {
         src: '/icons/tag.svg',
         alt: 'Tag icon'
       },
-      content: <ProfileCategoriesTab />
+      content: <ProfileTagsTab />
     }
   ];
 

@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import { articlesApi } from './features/articles/articles.query';
-import { categoriesApi } from './features/categories/categories.query';
+import { tagsApi } from './features/tags/tags.query';
 import { profileApi } from './features/profile/profile.query';
 import { websitesApi } from './features/websites/websites.query';
 import rootReducer from './features';
@@ -11,7 +11,7 @@ export const makeStore = () => configureStore({
   middleware: (getDefaultMiddleware) => 
     getDefaultMiddleware({ serializableCheck: false })
       .concat(articlesApi.middleware)
-      .concat(categoriesApi.middleware)
+      .concat(tagsApi.middleware)
       .concat(profileApi.middleware)
       .concat(websitesApi.middleware)
 });

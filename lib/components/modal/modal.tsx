@@ -3,7 +3,7 @@
 import { useState, useEffect, MouseEvent, MutableRefObject } from 'react';
 import Image from 'next/image';
 
-import { ICategory } from '@models/category';
+import { ITag } from '@models/tag';
 import { IWebsite } from '@models/website';
 import { IFilters } from '@utils/filter';
 import { Button, Datepicker, Dropdown } from '@components/index';
@@ -14,12 +14,12 @@ interface IModalProps {
   dialogRef: MutableRefObject<HTMLDialogElement | null>;
   filters: IFilters;
   websites: IWebsite[];
-  categories: ICategory[];
+  tags: ITag[];
   onApplyFiltersCallback: (filters: IFilters) => void;
   onCloseCallback: () => void;
 }
 
-export default function Modal ({ dialogRef, filters, websites, categories, onApplyFiltersCallback, onCloseCallback }: IModalProps) {
+export default function Modal ({ dialogRef, filters, websites, tags, onApplyFiltersCallback, onCloseCallback }: IModalProps) {
   const [modalFilters, setModalFilters] = useState<IFilters>(filters);
 
   useEffect(() => {
@@ -74,12 +74,12 @@ export default function Modal ({ dialogRef, filters, websites, categories, onApp
             </div>
           </div>
           <div className='modal-content-filters-filter'>
-            <label>By categories :</label>
+            <label>By tags :</label>
             <Dropdown
-              placeholder="Select categories"
-              options={categories.map(category => ({ value: category.id, label: category.name }))}
-              selectedOptions={modalFilters.categoryIds}
-              onChangeCallback={(categoryIds: string[]): void => updateFilter('categoryIds', categoryIds)}
+              placeholder="Select tags"
+              options={tags.map(tag => ({ value: tag.id, label: tag.label }))}
+              selectedOptions={modalFilters.tagIds}
+              onChangeCallback={(tagIds: string[]): void => updateFilter('tagIds', tagIds)}
             />
           </div>
         </div>

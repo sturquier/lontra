@@ -1,1 +1,0 @@
-export const categoryPath = '/api/categories';
