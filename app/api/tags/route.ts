@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
   try {
     const { rows } = await sql`
       SELECT 
-        tags.*
+        tags.id, tags.label
       FROM 
         tags
       WHERE

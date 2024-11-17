@@ -19,6 +19,12 @@
     flex-direction: column;
 
     &-header {
+      margin-bottom: 10px;
+    }
+
+    &-tags {
+      display: flex;
+      gap: 10px;
       margin-bottom: 40px;
     }
 

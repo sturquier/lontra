@@ -75,9 +75,15 @@ export async function GET(request: NextRequest) {
     const mainQuery = `
       SELECT 
         articles.id, articles.title, articles.description, articles.url, articles.image, articles.publication_date,
-        json_build_object('id', websites.id, 'name', websites.name, 'url', websites.url) as website,
+        json_build_object('id', websites.id, 'name', websites.name, 'url', websites.url) AS website,
       CASE WHEN
-        users_favorite_articles.article_id IS NOT NULL THEN TRUE ELSE FALSE END AS is_favorite
+        users_favorite_articles.article_id IS NOT NULL THEN TRUE ELSE FALSE END AS is_favorite,
+      COALESCE(
+        json_agg(
+          DISTINCT jsonb_build_object('id', tags.id, 'label', tags.label)
+        ) FILTER (WHERE tags.id IS NOT NULL),
+        '[]'
+      ) AS tags
       FROM 
         articles
       LEFT JOIN 
@@ -85,15 +91,25 @@ export async function GET(request: NextRequest) {
       ON 
         articles.website_id = websites.id
       ${favoriteJoin}
+      LEFT JOIN 
+        articles_tags
+      ON
+        articles_tags.article_id = articles.id
+      LEFT JOIN 
+        tags
+      ON
+        articles_tags.tag_id = tags.id AND tags.user_id = $${queryParams.length + 1}
       ${whereClause}
+      GROUP BY
+        articles.id, websites.id, users_favorite_articles.article_id
       ORDER BY
         articles.publication_date DESC
       LIMIT
-        $${queryParams.length + 1}
-      OFFSET
         $${queryParams.length + 2}
+      OFFSET
+        $${queryParams.length + 3}
     `;
-    queryParams.push(limit, offset);
+    queryParams.push(userId, limit, offset);
 
     const { rows } = await sql.query(mainQuery, queryParams)
 

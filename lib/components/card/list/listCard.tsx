@@ -3,15 +3,17 @@ import Link from 'next/link';
 
 import { IArticle } from '@models/article';
 import { formatDate } from '@utils/date';
+import { Tag } from '@components/index';
 import '@components/card/card.scss';
 import './listCard.scss';
 
 interface IListCardProps {
   article: IArticle;
   toggleFavoriteCallback: () => void;
+  unlinkTagCallback: (id: string) => void;
 }
 
-export default function ListCard ({ article, toggleFavoriteCallback }: IListCardProps) {
+export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCallback }: IListCardProps) {
   return (
     <div className="listCard">
       <div className='listCard-image'>
@@ -37,6 +39,11 @@ export default function ListCard ({ article, toggleFavoriteCallback }: IListCard
             height={20}
             onClick={toggleFavoriteCallback}
           />
+        </div>
+        <div className='listCard-content-tags'>
+          {article.tags.map((tag, index) => (
+            <Tag key={index} onDeleteCallback={(): void => unlinkTagCallback(tag.id)}>{tag.label}</Tag>
+          ))}
         </div>
         <div className='listCard-content-description'>{article.description}</div>
         <div className='listCard-content-footer'>

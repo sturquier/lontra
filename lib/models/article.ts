@@ -1,3 +1,4 @@
+import { ITag } from './tag';
 import { IWebsite } from './website';
 
 export interface IArticle {
@@ -9,6 +10,7 @@ export interface IArticle {
   publicationDate: Date;
   website: IWebsite;
   isFavorite: boolean;
+  tags: ITag[];
 }
 
 export type CreateArticlePayload = Omit<IArticle, 'id' | 'isFavorite'>;

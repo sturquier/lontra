@@ -1,0 +1,16 @@
+.tag {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px;
+  background: var(--white);
+  color: var(--moderate-blue);
+  border: 1px solid var(--moderate-blue);
+  border-radius: 4px;
+  font-size: smaller;
+
+  &-icon {
+    cursor: pointer;
+  }
+}

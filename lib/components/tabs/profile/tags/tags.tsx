@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodType } from "zod";
@@ -6,7 +5,7 @@ import { z, ZodType } from "zod";
 import { CreateTagPayload } from '@models/tag';
 import { useFetchTagsQuery } from '@store/features/tags/tags.query';
 import { tagPath } from '@utils/tag';
-import { Button, FormInput, Loader } from '@components/index';
+import { Button, FormInput, Loader, Tag } from '@components/index';
 import './tags.scss';
 
 const CreateTagSchema: ZodType<CreateTagPayload> = z
@@ -54,30 +53,6 @@ export default function ProfileTagsTab () {
     <div className='profile-tags'>
       <h2 className='profile-tags-title'>Tags</h2>
       <div className='profile-tags-content'>
-        <div className='profile-tags-content-list'>
-          <div className='profile-tags-content-list-subtitle'>Tags list</div>
-          {isFetching ? (
-            <div className='profile-tags-content-list-loader'>
-              <Loader />
-            </div>
-          ) : (
-            <div className='profile-tags-content-list-rows'>
-              {tags?.map((tag, index) => (
-                <div key={index} className='profile-tags-content-list-rows-row'>
-                  {tag.label}
-                  <Image
-                    className='profile-tags-content-list-rows-row-icon'
-                    src="/icons/delete.svg"
-                    alt="Delete icon"
-                    width={20}
-                    height={20}
-                    onClick={(): Promise<void> => deleteTag(tag.id)}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
         <div className='profile-tags-content-creation'>
           <div className='profile-tags-content-creation-subtitle'>Create a tag</div>
           <form className='profile-tags-content-creation-form' onSubmit={handleSubmit(createTag)}>
@@ -96,6 +71,20 @@ export default function ProfileTagsTab () {
             </div>
             <Button type='submit' disabled={!isValid} className='submit'>CREATE</Button>
           </form>
+        </div>
+        <div className='profile-tags-content-list'>
+          <div className='profile-tags-content-list-subtitle'>Tags list</div>
+          {isFetching ? (
+            <div className='profile-tags-content-list-loader'>
+              <Loader />
+            </div>
+          ) : (
+            <div className='profile-tags-content-list-rows'>
+              {tags?.map((tag, index) => (
+                <Tag key={index} onDeleteCallback={(): Promise<void> => deleteTag(tag.id)}>{tag.label}</Tag>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

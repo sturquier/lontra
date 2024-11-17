@@ -38,6 +38,10 @@ export default function Home() {
     refetchArticles();
   }
 
+  const unlinkTag = (articleId: string, tagId: string): void => {
+    console.log('TODO', articleId, tagId)
+  }
+
   useEffect(() => {
     refetchArticles();
   }, [filters, refetchArticles]);
@@ -93,6 +97,7 @@ export default function Home() {
                     mode={mode}
                     article={article}
                     toggleFavoriteCallback={(): Promise<void> => toggleFavorite(article.id)}
+                    unlinkTagCallback={(tagId: string): void => unlinkTag(article.id, tagId)}
                   />
                 ))}
               </div>
