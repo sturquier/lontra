@@ -14,8 +14,14 @@
       display: flex;
       justify-content: space-between;
 
-      &-favorite {
-        cursor: pointer;
+      &-icons {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        
+        &-tagPlus, &-favorite {
+          cursor: pointer;
+        }
       }
     }
   }

@@ -12,11 +12,17 @@
       max-width: 300px;
     }
 
-    &-favorite {
+    &-icons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
       position: absolute;
       top: 0px;
       right: 0px;
-      cursor: pointer;
+
+      &-tagPlus, &-favorite {
+        cursor: pointer;
+      }
     }
   }
 

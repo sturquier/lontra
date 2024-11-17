@@ -2,9 +2,9 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z, ZodType } from "zod";
 
+import { API_PATH } from '@config/router';
 import { CreateTagPayload } from '@models/tag';
 import { useFetchTagsQuery } from '@store/features/tags/tags.query';
-import { tagPath } from '@utils/tag';
 import { Button, FormInput, Loader, Tag } from '@components/index';
 import './tags.scss';
 
@@ -27,7 +27,7 @@ export default function ProfileTagsTab () {
   const createTag: SubmitHandler<CreateTagPayload> = async (payload) => {
     const { label } = payload;
 
-    const response = await fetch(tagPath, {
+    const response = await fetch(API_PATH.TAGS, {
       method: 'POST',
       body: JSON.stringify({ label })
     });
@@ -39,7 +39,7 @@ export default function ProfileTagsTab () {
   }
 
   const deleteTag = async (id: string): Promise<void> => {
-    const response = await fetch(tagPath, {
+    const response = await fetch(API_PATH.TAGS, {
       method: 'DELETE',
       body: JSON.stringify({ id })
     });

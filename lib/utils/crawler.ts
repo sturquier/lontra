@@ -4,7 +4,3 @@ export enum CRAWLING_STATUS {
   SUCCESS = 'success',
   FAILURE = 'failure'
 }
-
-export const crawlersPath = '/api/crawlers';
-
-export const articlesBulkInsertionPath = '/api/articles/bulk';

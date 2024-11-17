@@ -33,14 +33,24 @@ export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCa
           priority
           fill
         />
-        <Image
-          className='gridCard-image-favorite'
-          src={article.isFavorite ? '/icons/heart-fill.svg' : '/icons/heart.svg'}
-          alt={article.isFavorite ? 'Heart fill icon' : 'Heart icon'}
-          width={20}
-          height={20}
-          onClick={toggleFavoriteCallback}
-        />
+        <div className='gridCard-image-icons'>
+          <Image
+            className='gridCard-image-icons-favorite'
+            src={article.isFavorite ? '/icons/heart-fill.svg' : '/icons/heart.svg'}
+            alt={article.isFavorite ? 'Heart fill icon' : 'Heart icon'}
+            width={20}
+            height={20}
+            onClick={toggleFavoriteCallback}
+          />
+          <Image
+            className='gridCard-image-icons-tagPlus'
+            src={'/icons/tag-plus.svg'}
+            alt={'Tag plus icon'}
+            width={20}
+            height={20}
+            onClick={(): void => console.log('TODO')}
+          />
+        </div>
       </div>
       <div className='gridCard-content'>
         <div className='gridCard-content-header'>

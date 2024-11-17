@@ -3,10 +3,11 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
+import { API_PATH } from '@config/router';
 import { CreateArticlePayload } from '@models/article';
 import { IWebsite } from '@models/website';
 import { useFetchWebsitesQuery } from '@store/features/websites/websites.query';
-import { crawlersPath, articlesBulkInsertionPath, CRAWLING_STATUS } from '@utils/crawler';
+import { CRAWLING_STATUS } from '@utils/crawler';
 import { Button, Checkbox, Loader } from '@components/index';
 import './page.scss';
 
@@ -60,14 +61,14 @@ export default function Settings() {
       const { website } = checkedWebsite;
 
       const crawledWebsite: { message?: string; error?: string; articles?: CreateArticlePayload[] } = await (
-        await fetch(crawlersPath, {
+        await fetch(API_PATH.CRAWLERS, {
           method: 'POST',
           body: JSON.stringify({ website })
         })
       ).json()
 
       if (crawledWebsite.message && crawledWebsite.articles) {
-        await fetch(articlesBulkInsertionPath, {
+        await fetch(API_PATH.BULK_INSERT, {
           method: 'POST',
           body: JSON.stringify({ articles: crawledWebsite.articles, website })
         })

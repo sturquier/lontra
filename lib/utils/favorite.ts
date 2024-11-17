@@ -1,1 +1,0 @@
-export const favoriteTogglePath = '/api/articles/favorite';

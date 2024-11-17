@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
+import { API_PATH } from '@config/router';
 import useDebounce from '@hooks/debounce';
 import useDialog from '@hooks/dialog';
 import usePaginatedArticles from '@hooks/pagination';
@@ -10,7 +11,6 @@ import { IArticle } from '@models/article';
 import { useFetchTagsQuery } from '@store/features/tags/tags.query';
 import { useFetchWebsitesQuery } from '@store/features/websites/websites.query';
 import { VIEW_MODE } from '@utils/card';
-import { favoriteTogglePath } from '@utils/favorite';
 import { defaultFilters, getActiveFiltersCount, IFilters } from '@utils/filter';
 import { Button, Card, Loader, Modal, Pagination, SearchInput, Toggle } from '@components/index';
 import './page.scss';
@@ -30,7 +30,7 @@ export default function Home() {
   const articlesClassName: string = `home-content-articles ${mode === VIEW_MODE.LIST ? 'home-content-articles-list' : 'home-content-articles-grid'}`
 
   const toggleFavorite = async (articleId: string): Promise<void> => {
-    await fetch(favoriteTogglePath, {
+    await fetch(API_PATH.FAVORITE_TOGGLE, {
       method: 'POST',
       body: JSON.stringify({ articleId })
     });
@@ -38,8 +38,13 @@ export default function Home() {
     refetchArticles();
   }
 
-  const unlinkTag = (articleId: string, tagId: string): void => {
-    console.log('TODO', articleId, tagId)
+  const unlinkTag = async (articleId: string, tagId: string): Promise<void> => {
+    await fetch(API_PATH.TAG_TOGGLE, {
+      method: 'DELETE',
+      body: JSON.stringify({ articleId, tagId })
+    });
+
+    refetchArticles();
   }
 
   useEffect(() => {
@@ -97,7 +102,7 @@ export default function Home() {
                     mode={mode}
                     article={article}
                     toggleFavoriteCallback={(): Promise<void> => toggleFavorite(article.id)}
-                    unlinkTagCallback={(tagId: string): void => unlinkTag(article.id, tagId)}
+                    unlinkTagCallback={(tagId: string): Promise<void> => unlinkTag(article.id, tagId)}
                   />
                 ))}
               </div>

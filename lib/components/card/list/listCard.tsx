@@ -31,14 +31,24 @@ export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCa
           <Link href={article.url} target='_blank'>
             <h3>{article.title}</h3>
           </Link>
-          <Image
-            className='listCard-content-header-favorite'
-            src={article.isFavorite ? '/icons/heart-fill.svg' : '/icons/heart.svg'}
-            alt={article.isFavorite ? 'Heart fill icon' : 'Heart icon'}
-            width={20}
-            height={20}
-            onClick={toggleFavoriteCallback}
-          />
+          <div className='listCard-content-header-icons'>
+            <Image
+              className='listCard-content-header-icons-favorite'
+              src={article.isFavorite ? '/icons/heart-fill.svg' : '/icons/heart.svg'}
+              alt={article.isFavorite ? 'Heart fill icon' : 'Heart icon'}
+              width={20}
+              height={20}
+              onClick={toggleFavoriteCallback}
+            />
+            <Image
+              className='listCard-content-header-icons-tagPlus'
+              src={'/icons/tag-plus.svg'}
+              alt={'Tag plus icon'}
+              width={20}
+              height={20}
+              onClick={(): void => console.log('TODO')}
+            />
+          </div>
         </div>
         <div className='listCard-content-tags'>
           {article.tags.map((tag, index) => (
