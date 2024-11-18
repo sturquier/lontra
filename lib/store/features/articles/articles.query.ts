@@ -22,6 +22,10 @@ export const articlesApi = createApi({
           params.append('websiteIds', filters.websiteIds.join(','));
         }
 
+        if (filters.tagIds.length) {
+          params.append('tagIds', filters.tagIds.join(','));
+        }
+
         if (filters.date) {
           params.append('date', formatDate(filters.date, DATE_MODE.STORAGE));
         }

@@ -31,7 +31,7 @@ export async function DELETE(request: NextRequest) {
     );
 
     return NextResponse.json({ message: `Tag "${tagId}" has been successfully unlinked from article "${articleId}"` });
-  } catch (error) {
+  } catch (_) {
     return NextResponse.json({ error: `An error occurred while unlinking tag "${tagId}" from article "${articleId}"` }, { status: 500 });
   }
 }

@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   }
 
   const searchParams: URLSearchParams = new URL(request.url).searchParams;
-  const { search, websiteIds, date, favorite, page, itemsPerPage } : { search?: string; websiteIds?: string, date?: string, favorite?: string, page?: string, itemsPerPage?: string } = Object.fromEntries(searchParams);
+  const { search, websiteIds, tagIds, date, favorite, page, itemsPerPage } : { search?: string; websiteIds?: string, tagIds?: string, date?: string, favorite?: string, page?: string, itemsPerPage?: string } = Object.fromEntries(searchParams);
   const userId = token.id as number;
 
   try {
@@ -31,6 +31,16 @@ export async function GET(request: NextRequest) {
       const websitesIds: number[] = websiteIds.split(',').map(Number);
       whereClauses.push(`articles.website_id = ANY($${queryParams.length + 1}::int[])`);
       queryParams.push(websitesIds);
+    }
+
+    if (tagIds) {
+      const tagsIds: number[] = tagIds.split(',').map(Number);
+      whereClauses.push(`articles.id IN (
+        SELECT article_id
+        FROM articles_tags 
+        WHERE tag_id = ANY($${queryParams.length + 1}::int[])
+      )`);
+      queryParams.push(tagsIds);
     }
 
     if (date) {
