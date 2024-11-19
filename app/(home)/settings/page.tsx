@@ -9,7 +9,7 @@ import { IWebsite } from '@models/website';
 import { useFetchWebsitesQuery } from '@store/features/websites/websites.query';
 import { CRAWLING_STATUS } from '@utils/crawler';
 import { Button, Checkbox, Loader } from '@components/index';
-import './page.scss';
+import styles from './page.module.scss';
 
 interface ICrawlableWebsite {
   isChecked: boolean;
@@ -100,13 +100,13 @@ export default function Settings() {
   }
 
   return (
-    <main className='settings'>
+    <main className={styles.settings}>
       <h1>Settings</h1>
       {isFetching ? (
         <Loader fullPage />
       ) : (
-        <div className='settings-content'>
-          <div className='settings-content-all'>
+        <div className={styles['settings-content']}>
+          <div className={styles['settings-content-all']}>
             <Checkbox
               id='all'
               isChecked={areAllWebsitesChecked}
@@ -115,9 +115,9 @@ export default function Settings() {
               {areAllWebsitesChecked ? 'Uncheck all' : 'Check all'}
             </Checkbox>
           </div>
-          <div className='settings-content-websites'>
+          <div className={styles['settings-content-websites']}>
             {crawlableWebsites?.map((crawlableWebsite, index: number) => (
-              <div key={index} className='settings-content-websites-website'>
+              <div key={index} className={styles['settings-content-websites-website']}>
                 <Checkbox
                   id={crawlableWebsite.website.id}
                   isChecked={crawlableWebsite.isChecked}
@@ -129,7 +129,7 @@ export default function Settings() {
               </div>
             ))}
           </div>
-          <div className='settings-content-submit'>
+          <div className={styles['settings-content-submit']}>
             <Button
               disabled={isFormDisabled}
               onClickCallback={crawlWebsites}

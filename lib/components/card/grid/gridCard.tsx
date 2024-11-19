@@ -5,8 +5,8 @@ import { IArticle } from '@models/article';
 import { MAX_DESCRIPTION_LENGTH } from '@utils/card';
 import { formatDate } from '@utils/date';
 import { Tag } from '@components/index';
-import '@components/card/card.scss';
-import './gridCard.scss';
+import cardStyles from '@components/card/card.module.scss';
+import styles from './gridCard.module.scss';
 
 interface IGridCardProps {
   article: IArticle;
@@ -22,10 +22,10 @@ export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCa
     : undefined
 
   return (
-    <div className="gridCard">
-      <div className='gridCard-image'>
+    <div className={`${cardStyles.card} ${styles.gridCard}`}>
+      <div className={`${cardStyles['card-image']} ${styles['gridCard-image']}`}>
         <Image
-          className='gridCard-image-background'
+          className={styles['gridCard-image-background']}
           src={article.image ?? '/icons/placeholder.svg'}
           alt={`Article ${article.id} image`}
           style={{ objectFit: 'contain', inset: 'inherit' }}
@@ -33,9 +33,9 @@ export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCa
           priority
           fill
         />
-        <div className='gridCard-image-icons'>
+        <div className={styles['gridCard-image-icons']}>
           <Image
-            className='gridCard-image-icons-favorite'
+            className={styles['gridCard-image-icons-favorite']}
             src={article.isFavorite ? '/icons/heart-fill.svg' : '/icons/heart.svg'}
             alt={article.isFavorite ? 'Heart fill icon' : 'Heart icon'}
             width={20}
@@ -43,7 +43,7 @@ export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCa
             onClick={toggleFavoriteCallback}
           />
           <Image
-            className='gridCard-image-icons-tagPlus'
+            className={styles['gridCard-image-icons-tagPlus']}
             src={'/icons/tag-plus.svg'}
             alt={'Tag plus icon'}
             width={20}
@@ -52,21 +52,21 @@ export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCa
           />
         </div>
       </div>
-      <div className='gridCard-content'>
-        <div className='gridCard-content-header'>
+      <div className={`${cardStyles['card-content']} ${styles['gridCard-content']}`}>
+        <div className={`${cardStyles['card-content-header']} ${styles['gridCard-content-header']}`}>
           <Link href={article.url} target='_blank'>
             <h3>{article.title}</h3>
           </Link>
         </div>
-        <div className='gridCard-content-tags'>
+        <div className={`${cardStyles['card-content-tags']} ${styles['gridCard-content-tags']}`}>
           {article.tags.map((tag, index) => (
             <Tag key={index} onDeleteCallback={(): void => unlinkTagCallback(tag.id)}>{tag.label}</Tag>
           ))}
         </div>
-        <div className='gridCard-content-description'>{getDescription}</div>
-        <div className='gridCard-content-footer'>
+        <div className={`${cardStyles['card-content-description']} ${styles['gridCard-content-description']}`}>{getDescription}</div>
+        <div className={`${cardStyles['card-content-footer']} ${styles['gridCard-content-footer']}`}>
           <div>Published on {formatDate(article.publicationDate)}</div>
-          <Link href={article.website.url} target='_blank' className='gridCard-content-footer-website'>
+          <Link href={article.website.url} target='_blank' className={`${cardStyles['card-content-footer-website']} ${styles['gridCard-content-footer-website']}`}>
             <div>By {article.website.name}</div>
           </Link>
         </div>

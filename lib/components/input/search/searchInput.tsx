@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 import Image from 'next/image';
 
-import './searchInput.scss';
+import styles from './searchInput.module.scss';
 
 interface ISearchInputProps {
   placeholder: string;
@@ -12,23 +12,23 @@ interface ISearchInputProps {
 
 export default function SearchInput ({ placeholder, value, onChangeCallback, onClearCallback }: ISearchInputProps) {
   return (
-    <div className='searchInput'>
+    <div className={styles.searchInput}>
       <Image
-        className='searchInput-icon searchInput-icon-search'
+        className={`${styles['searchInput-icon']} ${styles['searchInput-icon-search']}`}
         src={'/icons/search.svg'}
         alt={'Search icon'}
         width={20}
         height={20}
       />
       <input
-        className="searchInput-input"
+        className={styles['searchInput-input']}
         placeholder={placeholder}
         value={value}
         onChange={(event: ChangeEvent<HTMLInputElement>): void => onChangeCallback(event.target.value)}
       />
       {value && (
         <Image
-          className='searchInput-icon searchInput-icon-clear'
+          className={`${styles['searchInput-icon']} ${styles['searchInput-icon-clear']}`}
           src={'/icons/clear.svg'}
           alt={'Clear icon'}
           width={20}

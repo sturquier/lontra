@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import Image from 'next/image';
 
-import './button.scss';
+import styles from './button.module.scss';
 
 interface IButtonProps extends PropsWithChildren {
   type?: 'button' | 'submit';
@@ -18,7 +18,7 @@ export default function Button ({ children, type, disabled, icon, className, onC
   return (
     <button
       type={type}
-      className={`button ${className ? `button-${className}` : ''}`}
+      className={`${styles.button} ${className ? `${styles[`button-${className}`]}` : ''}`}
       disabled={disabled}
       onClick={onClickCallback}
     >

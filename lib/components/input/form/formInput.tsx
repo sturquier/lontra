@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
-import './formInput.scss';
+import styles from './formInput.module.scss';
 
 interface IFormInputProps {
   placeholder: string;
@@ -15,16 +15,16 @@ interface IFormInputProps {
 
 export default function FormInput ({ placeholder, icon, type, register }: IFormInputProps) {
   return (
-    <div className='formInput'>
+    <div className={styles.formInput}>
       <Image
-        className='formInput-icon'
+        className={styles['formInput-icon']}
         src={icon.src}
         alt={icon.alt}
         width={20}
         height={20}
       />
       <input
-        className="formInput-input"
+        className={styles['formInput-input']}
         type={type}
         placeholder={placeholder}
         {...register}

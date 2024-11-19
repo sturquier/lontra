@@ -5,7 +5,7 @@ import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { LOCALE } from "@config/locale";
-import './datepicker.scss';
+import styles from './datepicker.module.scss';
 
 interface IDatePickerProps {
   startDate: Date | null;
@@ -16,11 +16,11 @@ export default function DatePicker ({ startDate, onChangeCallback }: IDatePicker
   return (
     <ReactDatePicker
       locale={LOCALE}
-      wrapperClassName="datepicker"
-      calendarIconClassName="datepicker-calendarIcon"
-      className="datepicker-input"
-      clearButtonClassName="datepicker-clear"
-      calendarClassName="datepicker-calendar"
+      wrapperClassName={styles.datepicker}
+      calendarIconClassName={styles['datepicker-calendarIcon']}
+      className={styles['datepicker-input']}
+      clearButtonClassName={styles['datepicker-clear']}
+      calendarClassName={styles['datepicker-calendar']}
       placeholderText="Select a date"
       selected={startDate}
       maxDate={new Date()}

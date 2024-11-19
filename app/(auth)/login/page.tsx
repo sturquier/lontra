@@ -9,7 +9,7 @@ import { z, ZodType } from "zod";
 
 import { LoginPayload } from '@models/user';
 import { Button, FormInput } from '@components/index';
-import './page.scss';
+import styles from './page.module.scss';
 
 const LoginSchema: ZodType<LoginPayload> = z
   .object({
@@ -53,13 +53,13 @@ export default function Login() {
   }
 
   return (
-    <main className='login'>
+    <main className={styles.login}>
       <h1>Login</h1>
-      <div className='login-unauthorized'>
-        {unauthorizedMessage && <div className='login-unauthorized-message'>{unauthorizedMessage}</div>}
+      <div className={styles['login-unauthorized']}>
+        {unauthorizedMessage && <div className={styles['login-unauthorized-message']}>{unauthorizedMessage}</div>}
       </div>
-      <form className='login-form' onSubmit={handleSubmit(onSubmit)}>
-        <div className='login-form-row'>
+      <form className={styles['login-form']} onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles['login-form-row']}>
           <FormInput
             placeholder='Email address'
             icon={{
@@ -68,11 +68,11 @@ export default function Login() {
             }}
             register={register('email')}
           />
-          <div className='login-form-row-error'>
-            {errors.email && <span className='login-form-row-error-text'>{errors.email.message}</span>}
+          <div className={styles['login-form-row-error']}>
+            {errors.email && <span className={styles['login-form-row-error-text']}>{errors.email.message}</span>}
           </div>
         </div>
-        <div className='login-form-row'>
+        <div className={styles['login-form-row']}>
           <FormInput
             placeholder='Password'
             icon={{
@@ -82,8 +82,8 @@ export default function Login() {
             type='password'
             register={register('password')}
           />
-          <div className='login-form-row-error'>
-            {errors.password && <span className='login-form-row-error-text'>{errors.password.message}</span>}
+          <div className={styles['login-form-row-error']}>
+            {errors.password && <span className={styles['login-form-row-error-text']}>{errors.password.message}</span>}
           </div>
         </div>
         <Button type='submit' disabled={!isValid} className='submit'>LOGIN</Button>

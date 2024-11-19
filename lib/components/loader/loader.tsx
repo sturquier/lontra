@@ -1,6 +1,6 @@
 import { ClipLoader, PulseLoader } from 'react-spinners';
 
-import './loader.scss';
+import styles from './loader.module.scss';
 
 interface ILoaderProps {
   fullPage?: boolean;
@@ -11,7 +11,7 @@ export default function Loader ({ fullPage }: ILoaderProps) {
     return (
       <PulseLoader
         color="var(--moderate-blue)"
-        className='loader loader-global'
+        className={`${styles.loader} ${styles['loader-global']}`}
       />
     )
   }
@@ -19,7 +19,7 @@ export default function Loader ({ fullPage }: ILoaderProps) {
   return (
     <ClipLoader
         color="var(--moderate-blue)"
-        className='loader'
+        className={styles.loader}
         size={18}
     />
   )

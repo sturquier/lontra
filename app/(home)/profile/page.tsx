@@ -39,7 +39,7 @@ export default function Profile() {
   ];
 
   return (
-    <main className='profile'>
+    <main>
       <h1>Profile</h1>
       <Tabs tabs={getTabs()} />
     </main>

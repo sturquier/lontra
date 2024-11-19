@@ -13,7 +13,7 @@ import { useFetchWebsitesQuery } from '@store/features/websites/websites.query';
 import { VIEW_MODE } from '@utils/card';
 import { defaultFilters, getActiveFiltersCount, IFilters } from '@utils/filter';
 import { Button, Card, Loader, Modal, Pagination, SearchInput, Toggle } from '@components/index';
-import './page.scss';
+import styles from './page.module.scss';
 
 export default function Home() {
   const [mode, setMode] = useState<VIEW_MODE>(VIEW_MODE.LIST);
@@ -27,7 +27,7 @@ export default function Home() {
   const { data: websites, isFetching: isFetchingWebsites } = useFetchWebsitesQuery();
   const { data: tags, isFetching: isFetchingTags } = useFetchTagsQuery();
 
-  const articlesClassName: string = `home-content-articles ${mode === VIEW_MODE.LIST ? 'home-content-articles-list' : 'home-content-articles-grid'}`
+  const articlesClassName: string = `${styles['home-content-articles']} ${mode === VIEW_MODE.LIST ? styles['home-content-articles-list'] : styles['home-content-articles-grid']}`
 
   const toggleFavorite = async (articleId: string): Promise<void> => {
     await fetch(API_PATH.FAVORITE_TOGGLE, {
@@ -52,12 +52,12 @@ export default function Home() {
   }, [filters, refetchArticles]);
 
   return (
-      <main className='home'>
+      <main className={styles.home}>
         <h1>Home</h1>
         {(isFetchingArticles || isFetchingWebsites || isFetchingTags) ? (
           <Loader fullPage />
         ) : (
-          <div className='home-content'>
+          <div className={styles['home-content']}>
             <Modal
               dialogRef={dialogRef}
               filters={filters}
@@ -66,8 +66,8 @@ export default function Home() {
               onApplyFiltersCallback={setFilters}
               onCloseCallback={closeDialog}
             />
-            <div className='home-content-actions'>
-              <div className='home-content-actions-filters'>
+            <div className={styles['home-content-actions']}>
+              <div className={styles['home-content-actions-filters']}>
                 <SearchInput
                   placeholder='SEARCH'
                   value={search}
@@ -107,7 +107,7 @@ export default function Home() {
                 ))}
               </div>
             ) : (
-              <div className='home-content-noresults'>
+              <div className={styles['home-content-noresults']}>
                 <h2>No articles found</h2>
                 <Image
                   src="/icons/no-results.svg"

@@ -7,20 +7,20 @@ import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react';
 
 import { PATH } from '@config/router';
-import './header.scss';
+import styles from './header.module.scss';
 
 export default function Header () {
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
 
   const pathname = usePathname();
 
-  const linkClassName = (selectedPath: string): string => `header-menu-links-link ${pathname === selectedPath ? 'header-menu-links-link-active' : ''}`
+  const linkClassName = (selectedPath: string): string => `${styles['header-menu-links-link']} ${pathname === selectedPath ? styles['header-menu-links-link-active'] : ''}`
 
   const logout = async (): Promise<void> => await signOut();
 
   return (
-    <nav className="header">
-      <Link href={PATH.HOME} className="header-logo">
+    <nav className={styles.header}>
+      <Link href={PATH.HOME} className={styles['header-logo']}>
         <Image
           src="/icons/logo.svg"
           alt='Logo'
@@ -29,8 +29,8 @@ export default function Header () {
           priority
         />
       </Link>
-      <div className='header-menu'>
-        <div className="header-menu-links">
+      <div className={styles['header-menu']}>
+        <div className={styles['header-menu-links']}>
           <Link href={PATH.HOME} className={linkClassName(PATH.HOME)}>
             <Image
               src="/icons/article.svg"
@@ -51,7 +51,7 @@ export default function Header () {
           </Link>
         </div>
         <div
-          className='header-menu-profile'
+          className={styles['header-menu-profile']}
           onMouseEnter={() => setIsDropdownOpened(true)}
           onMouseLeave={() => setIsDropdownOpened(false)}
         >
@@ -67,8 +67,8 @@ export default function Header () {
             width={24}
             height={24}
           />
-          <div className={`header-menu-profile-dropdown ${isDropdownOpened ? 'header-menu-profile-dropdown-opened' : ''}`}>
-            <div className='header-menu-profile-dropdown-section header-menu-profile-dropdown-section-bordered'>
+          <div className={`${styles['header-menu-profile-dropdown']} ${isDropdownOpened ? styles['header-menu-profile-dropdown-opened'] : ''}`}>
+            <div className={`${styles['header-menu-profile-dropdown-section']} ${styles['header-menu-profile-dropdown-section-bordered']}`}>
               <Image
                 src="/icons/user.svg"
                 alt='User icon'
@@ -77,20 +77,20 @@ export default function Header () {
               />
               <Link
                 href={PATH.PROFILE}
-                className='header-menu-profile-dropdown-section-link'
+                className={styles['header-menu-profile-dropdown-section-link']}
                 onClick={(): void => setIsDropdownOpened(false)}
               >
                 PROFILE
               </Link>
             </div>
-            <div className='header-menu-profile-dropdown-section'>
+            <div className={styles['header-menu-profile-dropdown-section']}>
               <Image
                 src="/icons/logout.svg"
                 alt='Logout icon'
                 width={20}
                 height={20}
               />
-              <span onClick={logout} className='header-menu-profile-dropdown-section-link'>LOGOUT</span>
+              <span onClick={logout} className={styles['header-menu-profile-dropdown-section-link']}>LOGOUT</span>
             </div>
           </div>
         </div>

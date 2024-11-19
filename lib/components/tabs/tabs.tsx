@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { Tab, Tabs as ReactTabs, TabList, TabPanel } from 'react-tabs';
 
-import './tabs.scss';
+import styles from './tabs.module.scss';
 
 interface ITabsProps {
   tabs: {
@@ -16,13 +16,13 @@ interface ITabsProps {
 
 export default function Tabs ({ tabs }: ITabsProps) {
   return (
-    <ReactTabs className='tabs'>
-      <TabList className='tabs-list'>
+    <ReactTabs className={styles.tabs}>
+      <TabList className={styles['tabs-list']}>
         {tabs.map((tab, index) => (
           <Tab
             key={index}
-            className='tabs-list-tab'
-            selectedClassName='tabs-list-tab-selected'
+            className={styles['tabs-list-tab']}
+            selectedClassName={styles['tabs-list-tab-selected']}
           >
             <Image
               src={tab.icon.src}
@@ -35,7 +35,7 @@ export default function Tabs ({ tabs }: ITabsProps) {
         ))}
       </TabList>
       {tabs.map((tab, index) => (
-        <TabPanel key={index} className='tabs-panel'>{tab.content}</TabPanel>
+        <TabPanel key={index} className={styles['tabs-panel']}>{tab.content}</TabPanel>
       ))}
     </ReactTabs>
   )

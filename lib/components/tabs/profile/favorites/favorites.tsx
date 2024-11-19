@@ -1,9 +1,9 @@
-import './favorites.scss';
+import styles from './favorites.module.scss';
 
 export default function ProfileFavoritesTab () {
   return (
-    <div className='profile-favorites'>
-      <h2 className='profile-favorites-title'>Favorites</h2>
+    <div className={styles['profile-favorite']}>
+      <h2 className={styles['profile-favorite-title']}>Favorites</h2>
     </div>
   )
 }

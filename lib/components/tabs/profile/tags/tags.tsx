@@ -6,7 +6,7 @@ import { API_PATH } from '@config/router';
 import { CreateTagPayload } from '@models/tag';
 import { useFetchTagsQuery } from '@store/features/tags/tags.query';
 import { Button, FormInput, Loader, Tag } from '@components/index';
-import './tags.scss';
+import styles from './tags.module.scss';
 
 const CreateTagSchema: ZodType<CreateTagPayload> = z
   .object({
@@ -50,13 +50,13 @@ export default function ProfileTagsTab () {
   }
 
   return (
-    <div className='profile-tags'>
-      <h2 className='profile-tags-title'>Tags</h2>
-      <div className='profile-tags-content'>
-        <div className='profile-tags-content-creation'>
-          <div className='profile-tags-content-creation-subtitle'>Create a tag</div>
-          <form className='profile-tags-content-creation-form' onSubmit={handleSubmit(createTag)}>
-            <div className='profile-tags-content-creation-form-row'>
+    <div className={styles['profile-tags']}>
+      <h2 className={styles['profile-tags-title']}>Tags</h2>
+      <div className={styles['profile-tags-content']}>
+        <div className={styles['profile-tags-content-creation']}>
+          <div className={styles['profile-tags-content-creation-subtitle']}>Create a tag</div>
+          <form className={styles['profile-tags-content-creation-form']} onSubmit={handleSubmit(createTag)}>
+            <div className={styles['profile-tags-content-creation-form-row']}>
               <FormInput
                 placeholder='Label'
                 icon={{
@@ -65,21 +65,21 @@ export default function ProfileTagsTab () {
                 }}
                 register={register('label')}
               />
-              <div className='profile-tags-content-creation-form-row-error'>
-                {errors.label && <span className='profile-tags-content-creation-form-row-error-text'>{errors.label.message}</span>}
+              <div className={styles['profile-tags-content-creation-form-row-error']}>
+                {errors.label && <span className={styles['profile-tags-content-creation-form-row-error-text']}>{errors.label.message}</span>}
               </div>
             </div>
             <Button type='submit' disabled={!isValid} className='submit'>CREATE</Button>
           </form>
         </div>
-        <div className='profile-tags-content-list'>
-          <div className='profile-tags-content-list-subtitle'>Tags list</div>
+        <div className={styles['profile-tags-content-list']}>
+          <div className={styles['profile-tags-content-list-subtitle']}>Tags list</div>
           {isFetching ? (
-            <div className='profile-tags-content-list-loader'>
+            <div className={styles['profile-tags-content-list-loader']}>
               <Loader />
             </div>
           ) : (
-            <div className='profile-tags-content-list-rows'>
+            <div className={styles['profile-tags-content-list-rows']}>
               {tags?.map((tag, index) => (
                 <Tag key={index} onDeleteCallback={(): Promise<void> => deleteTag(tag.id)}>{tag.label}</Tag>
               ))}

@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { IArticle } from '@models/article';
 import { formatDate } from '@utils/date';
 import { Tag } from '@components/index';
-import '@components/card/card.scss';
-import './listCard.scss';
+import cardStyles from '@components/card/card.module.scss';
+import styles from './listCard.module.scss';
 
 interface IListCardProps {
   article: IArticle;
@@ -15,8 +15,8 @@ interface IListCardProps {
 
 export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCallback }: IListCardProps) {
   return (
-    <div className="listCard">
-      <div className='listCard-image'>
+    <div className={`${cardStyles.card} ${styles.listCard}`}>
+      <div className={`${cardStyles['card-image']} ${styles['listCard-image']}`}>
         <Image
           src={article.image ?? '/icons/placeholder.svg'}
           alt={`Article ${article.id} image`}
@@ -26,14 +26,14 @@ export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCa
           fill
         />
       </div>
-      <div className='listCard-content'>
-        <div className='listCard-content-header'>
+      <div className={`${cardStyles['card-content']} ${styles['listCard-content']}`}>
+        <div className={`${cardStyles['card-content-header']} ${styles['listCard-content-header']}`}>
           <Link href={article.url} target='_blank'>
             <h3>{article.title}</h3>
           </Link>
-          <div className='listCard-content-header-icons'>
+          <div className={styles['listCard-content-header-icons']}>
             <Image
-              className='listCard-content-header-icons-favorite'
+              className={styles['listCard-content-header-icons-favorite']}
               src={article.isFavorite ? '/icons/heart-fill.svg' : '/icons/heart.svg'}
               alt={article.isFavorite ? 'Heart fill icon' : 'Heart icon'}
               width={20}
@@ -41,7 +41,7 @@ export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCa
               onClick={toggleFavoriteCallback}
             />
             <Image
-              className='listCard-content-header-icons-tagPlus'
+              className={styles['listCard-content-header-icons-tagPlus']}
               src={'/icons/tag-plus.svg'}
               alt={'Tag plus icon'}
               width={20}
@@ -50,15 +50,15 @@ export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCa
             />
           </div>
         </div>
-        <div className='listCard-content-tags'>
+        <div className={`${cardStyles['card-content-tags']} ${styles['listCard-content-tags']}`}>
           {article.tags.map((tag, index) => (
             <Tag key={index} onDeleteCallback={(): void => unlinkTagCallback(tag.id)}>{tag.label}</Tag>
           ))}
         </div>
-        <div className='listCard-content-description'>{article.description}</div>
-        <div className='listCard-content-footer'>
+        <div className={`${cardStyles['card-content-description']} ${styles['listCard-content-description']}`}>{article.description}</div>
+        <div className={`${cardStyles['card-content-footer']} ${styles['listCard-content-footer']}`}>
           <div>Published on {formatDate(article.publicationDate)}</div>
-          <Link href={article.website.url} target='_blank' className='listCard-content-footer-website'>
+          <Link href={article.website.url} target='_blank' className={`${cardStyles['card-content-footer-website']} ${styles['listCard-content-footer-website']}`}>
             <div>By {article.website.name}</div>
           </Link>
         </div>

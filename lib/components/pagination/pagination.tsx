@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import ReactPaginate from 'react-paginate';
 
-import './pagination.scss'
+import styles from './pagination.module.scss'
 
 interface IPaginationProps {
   totalPages: number;
@@ -17,9 +17,9 @@ export default function Pagination ({ totalPages, currentPage, handlePageChange 
       pageCount={totalPages}
       forcePage={currentPage - 1}
       onPageChange={handlePageChange}
-      className='pagination'
-      pageClassName='pagination-page'
-      previousClassName='pagination-previous'
+      className={styles.pagination}
+      pageClassName={styles['pagination-page']}
+      previousClassName={styles['pagination-previous']}
       previousLabel={
         currentPage === 1
         ? <></>
@@ -30,7 +30,7 @@ export default function Pagination ({ totalPages, currentPage, handlePageChange 
           height={30}
         />
       }
-      nextClassName='pagination-next'
+      nextClassName={styles['pagination-next']}
       nextLabel={
         currentPage === totalPages
         ? <></>
@@ -41,8 +41,8 @@ export default function Pagination ({ totalPages, currentPage, handlePageChange 
           height={30}
         />
       }
-      activeClassName='pagination-page-active'
-      breakClassName='pagination-break'
+      activeClassName={styles['pagination-page-active']}
+      breakClassName={styles['pagination-break']}
     />
   )
 }

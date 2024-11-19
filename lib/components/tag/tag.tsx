@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import Image from 'next/image';
 
-import './tag.scss'
+import styles from './tag.module.scss'
 
 interface ITagProps extends PropsWithChildren {
   onDeleteCallback: () => void;
@@ -9,10 +9,10 @@ interface ITagProps extends PropsWithChildren {
 
 export default function Tag ({ children, onDeleteCallback }: ITagProps) {
   return (
-    <div className='tag'>
+    <div className={styles.tag}>
       {children}
       <Image
-        className='tag-icon'
+        className={styles['tag-icon']}
         src="/icons/delete.svg"
         alt="Delete icon"
         width={18}
