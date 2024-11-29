@@ -3,14 +3,13 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
-import { API_PATH } from '@config/router';
 import useDebounce from '@hooks/debounce';
 import useDialog from '@hooks/dialog';
 import usePaginatedArticles from '@hooks/pagination';
 import { IArticle } from '@models/article';
 import { useFetchTagsQuery } from '@store/features/tags/tags.query';
 import { useFetchWebsitesQuery } from '@store/features/websites/websites.query';
-import { VIEW_MODE } from '@utils/card';
+import { toggleFavorite, unlinkTag, VIEW_MODE } from '@utils/card';
 import { defaultFilters, getActiveFiltersCount, IFilters } from '@utils/filter';
 import { Button, Card, Loader, Modal, Pagination, SearchInput, Toggle } from '@components/index';
 import './page.scss';
@@ -28,24 +27,6 @@ export default function Home() {
   const { data: tags, isFetching: isFetchingTags } = useFetchTagsQuery();
 
   const articlesClassName: string = `home-content-articles ${mode === VIEW_MODE.LIST ? 'home-content-articles-list' : 'home-content-articles-grid'}`
-
-  const toggleFavorite = async (articleId: string): Promise<void> => {
-    await fetch(API_PATH.FAVORITE_TOGGLE, {
-      method: 'POST',
-      body: JSON.stringify({ articleId })
-    });
-
-    refetchArticles();
-  }
-
-  const unlinkTag = async (articleId: string, tagId: string): Promise<void> => {
-    await fetch(API_PATH.TAG_TOGGLE, {
-      method: 'DELETE',
-      body: JSON.stringify({ articleId, tagId })
-    });
-
-    refetchArticles();
-  }
 
   useEffect(() => {
     refetchArticles();
@@ -101,8 +82,8 @@ export default function Home() {
                     key={index}
                     mode={mode}
                     article={article}
-                    toggleFavoriteCallback={(): Promise<void> => toggleFavorite(article.id)}
-                    unlinkTagCallback={(tagId: string): Promise<void> => unlinkTag(article.id, tagId)}
+                    toggleFavoriteCallback={(): Promise<void> => toggleFavorite(article.id, refetchArticles())}
+                    unlinkTagCallback={(tagId: string): Promise<void> => unlinkTag(article.id, tagId, refetchArticles())}
                   />
                 ))}
               </div>
