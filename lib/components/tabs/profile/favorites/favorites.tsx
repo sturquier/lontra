@@ -18,8 +18,8 @@ export default function ProfileFavoritesTab () {
               key={index}
               mode={VIEW_MODE.LIST}
               article={article}
-              toggleFavoriteCallback={(): Promise<void> => toggleFavorite(article.id, refetch())}
-              unlinkTagCallback={(tagId: string): Promise<void> => unlinkTag(article.id, tagId, refetch())}
+              toggleFavoriteCallback={(): Promise<void> => toggleFavorite(article.id, refetch)}
+              unlinkTagCallback={(tagId: string): Promise<void> => unlinkTag(article.id, tagId, refetch)}
             />
           ))
         }

@@ -82,8 +82,8 @@ export default function Home() {
                     key={index}
                     mode={mode}
                     article={article}
-                    toggleFavoriteCallback={(): Promise<void> => toggleFavorite(article.id, refetchArticles())}
-                    unlinkTagCallback={(tagId: string): Promise<void> => unlinkTag(article.id, tagId, refetchArticles())}
+                    toggleFavoriteCallback={(): Promise<void> => toggleFavorite(article.id, refetchArticles)}
+                    unlinkTagCallback={(tagId: string): Promise<void> => unlinkTag(article.id, tagId, refetchArticles)}
                   />
                 ))}
               </div>
