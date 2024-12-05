@@ -18,8 +18,8 @@ export async function GET(request: NextRequest) {
     const whereClauses: string[] = [];
     const queryParams: (string | number | number[])[] = [];
 
-    const limit = parseInt(itemsPerPage);
-    const offset = (parseInt(page) - 1) * limit;
+    const limit = itemsPerPage !== '-1' ? parseInt(itemsPerPage) : null;
+    const offset = itemsPerPage !== '-1' ? (parseInt(page) - 1) * limit! : null;
 
     // 1. Search & filters
     if (search) {
@@ -114,12 +114,14 @@ export async function GET(request: NextRequest) {
         articles.id, websites.id, users_favorite_articles.article_id
       ORDER BY
         articles.publication_date DESC
-      LIMIT
-        $${queryParams.length + 2}
-      OFFSET
-        $${queryParams.length + 3}
+      ${limit !== null ? `LIMIT $${queryParams.length + 2}` : ''}
+      ${offset !== null ? `OFFSET $${queryParams.length + 3}` : ''}
     `;
-    queryParams.push(userId, limit, offset);
+
+    queryParams.push(userId);
+
+    if (limit !== null) queryParams.push(limit);
+    if (offset !== null) queryParams.push(offset);
 
     const { rows } = await sql.query(mainQuery, queryParams)
 

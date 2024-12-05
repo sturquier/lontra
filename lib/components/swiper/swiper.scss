@@ -1,0 +1,12 @@
+.swiper {
+  &-pagination {
+    position: relative;
+    margin-top: 60px;
+
+    &-bullet {
+      background: var(--moderate-blue);
+      width: 10px;
+      height: 10px;
+    }
+  }
+}
