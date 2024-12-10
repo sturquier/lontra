@@ -7,12 +7,21 @@
     display: flex;
     justify-content: space-between;
 
+    @media (max-width: $xsm) {
+      flex-direction: column;
+    }
+
     &-creation {
-      padding-right: 120px;
+      padding: 0px 120px 0px 0px;
       border-right: 1px solid var(--moderate-blue);
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+
+      @media (max-width: $xsm) {
+        padding: 0px 0px 60px 0px;
+        border-right: none;
+      }
 
       &-subtitle {
         margin-bottom: 60px;
@@ -37,7 +46,11 @@
 
     &-list {
       width: 100%;
-      padding-left: 120px;
+      padding: 0px 0px 0px 120px;
+
+      @media (max-width: $xsm) {
+        padding: 0px;
+      }
 
       &-subtitle {
         margin-bottom: 60px;

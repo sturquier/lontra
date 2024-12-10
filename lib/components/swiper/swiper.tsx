@@ -17,6 +17,14 @@ export default function Swiper ({ slides }: ISwiperProps) {
       modules={[Pagination]}
       spaceBetween={10}
       slidesPerView={2}
+      breakpoints={{
+        0: {
+          slidesPerView: 1
+        },
+        480: {
+          slidesPerView: 2
+        }
+      }}
       pagination={{
         clickable: true
       }}

@@ -38,6 +38,11 @@
       color: var(--grey);
       font-size: smaller;
 
+      @media (max-width: $xsm) {
+        flex-direction: column;
+        gap: 10px;
+      }
+
       &-website {
         text-decoration: underline;
       }

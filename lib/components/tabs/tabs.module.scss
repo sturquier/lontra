@@ -6,6 +6,12 @@
     padding: 0px;
     border-bottom: 1px solid var(--moderate-blue);
 
+    @media (max-width: $xsm) {
+      display: block;
+      border: 1px solid var(--moderate-blue);
+      border-radius: 5px;
+    }
+
     &-tab {
       display: flex;
       gap: 10px;
@@ -19,6 +25,11 @@
       list-style: none;
       cursor: pointer;
 
+      @media (max-width: $xsm) {
+        border: none;
+        bottom: 0px;
+      }
+
       &:hover {
         color: var(--dark-blue);
       }
@@ -27,8 +38,11 @@
         background: var(--white);
         color: var(--dark-blue);
         border-color: var(--moderate-blue);
-        border-bottom: none;
         border-radius: 5px 5px 0px 0px;
+
+        @media (max-width: $xsm) {
+          border-radius: 5px;
+        }
       }
     }
   }
