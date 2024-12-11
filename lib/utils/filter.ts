@@ -15,13 +15,13 @@ export const defaultFilters: IFilters = {
 export const getActiveFiltersCount = (filters: IFilters): number => {
   let count = 0;
 
-  if (filters.websiteIds.length) count++;
+  if (filters.websiteIds.length) count+= filters.websiteIds.length;
 
   if (filters.date !== null) count ++;
 
   if (filters.favorite) count ++;
 
-  if (filters.tagIds.length) count++;
+  if (filters.tagIds.length) count+= filters.tagIds.length;
 
   return count;
 }

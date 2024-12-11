@@ -28,6 +28,11 @@ export default function Home() {
 
   const articlesClassName: string = `${styles['home-content-articles']} ${mode === VIEW_MODE.LIST ? styles['home-content-articles-list'] : styles['home-content-articles-grid']}`
 
+  const applyFilters = (updatedFilters: IFilters): void => {
+    handlePageChange({ selected: 0 });
+    setFilters(updatedFilters);
+  }
+
   useEffect(() => {
     refetchArticles();
   }, [filters, refetchArticles]);
@@ -44,7 +49,8 @@ export default function Home() {
               filters={filters}
               websites={websites ?? []}
               tags={tags ?? []}
-              onApplyFiltersCallback={setFilters}
+              onResetFiltersCallback={(): void => applyFilters(defaultFilters)}
+              onApplyFiltersCallback={(updatedFilters: IFilters): void => applyFilters(updatedFilters)}
               onCloseCallback={closeDialog}
             />
             <div className={styles['home-content-actions']}>
