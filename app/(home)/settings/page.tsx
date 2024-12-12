@@ -116,8 +116,8 @@ export default function Settings() {
             </Checkbox>
           </div>
           <div className={styles['settings-content-websites']}>
-            {crawlableWebsites?.map((crawlableWebsite, index: number) => (
-              <div key={index} className={styles['settings-content-websites-website']}>
+            {crawlableWebsites?.map((crawlableWebsite) => (
+              <div key={crawlableWebsite.website.id} className={styles['settings-content-websites-website']}>
                 <Checkbox
                   id={crawlableWebsite.website.id}
                   isChecked={crawlableWebsite.isChecked}

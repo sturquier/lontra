@@ -51,8 +51,8 @@ export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCa
           </div>
         </div>
         <div className={`${cardStyles['card-content-tags']} ${styles['listCard-content-tags']}`}>
-          {article.tags.map((tag, index) => (
-            <Tag key={index} onDeleteCallback={(): void => unlinkTagCallback(tag.id)}>{tag.label}</Tag>
+          {article.tags.map((tag) => (
+            <Tag key={tag.id} onDeleteCallback={(): void => unlinkTagCallback(tag.id)}>{tag.label}</Tag>
           ))}
         </div>
         <div className={`${cardStyles['card-content-description']} ${styles['listCard-content-description']}`}>{article.description}</div>

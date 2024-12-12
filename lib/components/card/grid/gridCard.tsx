@@ -59,8 +59,8 @@ export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCa
           </Link>
         </div>
         <div className={`${cardStyles['card-content-tags']} ${styles['gridCard-content-tags']}`}>
-          {article.tags.map((tag, index) => (
-            <Tag key={index} onDeleteCallback={(): void => unlinkTagCallback(tag.id)}>{tag.label}</Tag>
+          {article.tags.map((tag) => (
+            <Tag key={tag.id} onDeleteCallback={(): void => unlinkTagCallback(tag.id)}>{tag.label}</Tag>
           ))}
         </div>
         <div className={`${cardStyles['card-content-description']} ${styles['gridCard-content-description']}`}>{getDescription}</div>

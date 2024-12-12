@@ -77,9 +77,9 @@ export default function Home() {
             </div>
             {articles.length ? (
               <div className={articlesClassName}>
-                {articles.map((article: IArticle, index: number) => (
+                {articles.map((article: IArticle) => (
                   <Card
-                    key={index}
+                    key={article.id}
                     mode={mode}
                     article={article}
                     toggleFavoriteCallback={(): Promise<void> => toggleFavorite(article.id, refetchArticles)}

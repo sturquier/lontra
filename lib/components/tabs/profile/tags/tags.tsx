@@ -80,8 +80,8 @@ export default function ProfileTagsTab () {
             </div>
           ) : (
             <div className={styles['profile-tags-content-list-rows']}>
-              {tags?.map((tag, index) => (
-                <Tag key={index} onDeleteCallback={(): Promise<void> => deleteTag(tag.id)}>{tag.label}</Tag>
+              {tags?.map((tag) => (
+                <Tag key={tag.id} onDeleteCallback={(): Promise<void> => deleteTag(tag.id)}>{tag.label}</Tag>
               ))}
             </div>
           )}

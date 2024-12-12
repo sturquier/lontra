@@ -13,9 +13,9 @@ export default function ProfileFavoritesTab () {
       <h2 className={styles['profile-favorite-title']}>Favorites</h2>
       <Swiper
         slides={
-          (data?.articles ?? []).map((article, index) => (
+          (data?.articles ?? []).map((article) => (
             <Card
-              key={index}
+              key={article.id}
               mode={VIEW_MODE.LIST}
               article={article}
               toggleFavoriteCallback={(): Promise<void> => toggleFavorite(article.id, refetch)}
