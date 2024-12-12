@@ -10,7 +10,6 @@ import { crawlIonicBlog } from '@utils/crawlers/ionicBlog';
 import { crawlItnext } from '@utils/crawlers/itnext';
 import { crawlLogRocketBlog } from '@utils/crawlers/logRocketBlog';
 import { crawlNextjsBlog } from '@utils/crawlers/nextjsBlog';
-import { crawlOctoTalks } from '@utils/crawlers/octoTalks';
 import { crawlPrismaBlog } from '@utils/crawlers/prismaBlog';
 import { crawlReactBlog } from '@utils/crawlers/reactBlog';
 import { crawlReactNativeBlog } from '@utils/crawlers/reactNativeBlog';
@@ -54,9 +53,6 @@ export async function POST(request: NextRequest) {
         break;
       case 'nextjs-blog':
         articles = await crawlNextjsBlog(website);
-        break;
-      case 'octo-talks':
-        articles = await crawlOctoTalks(website);
         break;
       case 'prisma-blog':
         articles = await crawlPrismaBlog(website);

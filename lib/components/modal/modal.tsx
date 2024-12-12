@@ -15,11 +15,12 @@ interface IModalProps {
   filters: IFilters;
   websites: IWebsite[];
   tags: ITag[];
+  onResetFiltersCallback: () => void;
   onApplyFiltersCallback: (filters: IFilters) => void;
   onCloseCallback: () => void;
 }
 
-export default function Modal ({ dialogRef, filters, websites, tags, onApplyFiltersCallback, onCloseCallback }: IModalProps) {
+export default function Modal ({ dialogRef, filters, websites, tags, onResetFiltersCallback, onApplyFiltersCallback, onCloseCallback }: IModalProps) {
   const [modalFilters, setModalFilters] = useState<IFilters>(filters);
 
   useEffect(() => {
@@ -35,15 +36,31 @@ export default function Modal ({ dialogRef, filters, websites, tags, onApplyFilt
     onCloseCallback();
   }
 
+  const resetFilters = (): void => {
+    setModalFilters(filters);
+    onResetFiltersCallback();
+    onCloseCallback();
+  }
+
   const applyFilters = (): void => {
     onApplyFiltersCallback(modalFilters);
     onCloseCallback();
   }
 
   return (
-    <dialog className={styles.modal} ref={dialogRef} onClick={onCloseCallback}>
+    <dialog className={styles.modal} ref={dialogRef} onClick={cancelFilters}>
       <div className={styles['modal-content']} onClick={(event: MouseEvent<HTMLDivElement>): void => event.stopPropagation()}>
-        <h3 className={styles['modal-content-title']}>Filter articles</h3>
+        <div className={styles['modal-content-title']}>
+          <h3>Filter articles</h3>
+          <Image
+            className={styles['modal-content-title-icon']}
+            src={'/icons/clear.svg'}
+            alt='Clear icon'
+            width={25}
+            height={25}
+            onClick={cancelFilters}
+          />
+        </div>
         <div className={styles['modal-content-filters']}>
           <div className={styles['modal-content-filters-filter']}>
             <label>By websites :</label>
@@ -84,7 +101,7 @@ export default function Modal ({ dialogRef, filters, websites, tags, onApplyFilt
           </div>
         </div>
         <div className={styles['modal-content-footer']}>
-          <Button onClickCallback={cancelFilters} className='secondary'>CANCEL</Button>
+          <Button onClickCallback={resetFilters} className='secondary'>RESET FILTERS</Button>
           <Button onClickCallback={applyFilters}>APPLY FILTERS</Button>
         </div>
       </div>
