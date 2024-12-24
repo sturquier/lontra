@@ -7,10 +7,11 @@ import { ITag } from '@models/tag';
 import { IWebsite } from '@models/website';
 import { IFilters } from '@utils/filter';
 import { Button, Datepicker, Dropdown } from '@components/index';
-import styles from './modal.module.scss';
+import modalStyles from '@components/modal/modal.module.scss';
+import styles from './filtersModal.module.scss';
 
 
-interface IModalProps {
+interface IFiltersModalProps {
   dialogRef: MutableRefObject<HTMLDialogElement | null>;
   filters: IFilters;
   websites: IWebsite[];
@@ -20,7 +21,7 @@ interface IModalProps {
   onCloseCallback: () => void;
 }
 
-export default function Modal ({ dialogRef, filters, websites, tags, onResetFiltersCallback, onApplyFiltersCallback, onCloseCallback }: IModalProps) {
+export default function FiltersModal ({ dialogRef, filters, websites, tags, onResetFiltersCallback, onApplyFiltersCallback, onCloseCallback }: IFiltersModalProps) {
   const [modalFilters, setModalFilters] = useState<IFilters>(filters);
 
   useEffect(() => {
@@ -48,12 +49,12 @@ export default function Modal ({ dialogRef, filters, websites, tags, onResetFilt
   }
 
   return (
-    <dialog className={styles.modal} ref={dialogRef} onClick={cancelFilters}>
-      <div className={styles['modal-content']} onClick={(event: MouseEvent<HTMLDivElement>): void => event.stopPropagation()}>
-        <div className={styles['modal-content-title']}>
+    <dialog className={`${modalStyles.modal} ${styles.filtersModal}`} ref={dialogRef} onClick={cancelFilters}>
+      <div className={`${modalStyles['modal-content']} ${styles['filtersModal-content']}`} onClick={(event: MouseEvent<HTMLDivElement>): void => event.stopPropagation()}>
+        <div className={`${modalStyles['modal-content-title']} ${styles['filtersModal-content-title']}`}>
           <h3>Filter articles</h3>
           <Image
-            className={styles['modal-content-title-icon']}
+            className={`${modalStyles['modal-content-title-icon']} ${styles['filtersModal-content-title-icon']}`}
             src={'/icons/clear.svg'}
             alt='Clear icon'
             width={25}
@@ -61,8 +62,8 @@ export default function Modal ({ dialogRef, filters, websites, tags, onResetFilt
             onClick={cancelFilters}
           />
         </div>
-        <div className={styles['modal-content-filters']}>
-          <div className={styles['modal-content-filters-filter']}>
+        <div className={styles['filtersModal-content-filters']}>
+          <div className={styles['filtersModal-content-filters-filter']}>
             <label>By websites :</label>
             <Dropdown
               placeholder="Select websites"
@@ -71,16 +72,16 @@ export default function Modal ({ dialogRef, filters, websites, tags, onResetFilt
               onChangeCallback={(websiteIds: string[]): void => updateFilter('websiteIds', websiteIds)}
             />
           </div>
-          <div className={styles['modal-content-filters-filter']}>
+          <div className={styles['filtersModal-content-filters-filter']}>
             <label>By date :</label>
             <Datepicker
               startDate={modalFilters.date}
               onChangeCallback={(date: Date | null): void => updateFilter('date', date)}
             />
           </div>
-          <div className={styles['modal-content-filters-filter']}>
+          <div className={styles['filtersModal-content-filters-filter']}>
             <label>By favorite :</label>
-            <div className={styles['modal-content-filters-filter-favorite']} onClick={(): void => updateFilter('favorite', !modalFilters.favorite)}>
+            <div className={styles['filtersModal-content-filters-filter-favorite']} onClick={(): void => updateFilter('favorite', !modalFilters.favorite)}>
               <Image
                 src={modalFilters.favorite ? '/icons/heart-fill.svg' : '/icons/heart.svg'}
                 alt='Heart icon'
@@ -90,7 +91,7 @@ export default function Modal ({ dialogRef, filters, websites, tags, onResetFilt
               <span>{modalFilters.favorite ? 'Favorite articles' : 'All articles'}</span>
             </div>
           </div>
-          <div className={styles['modal-content-filters-filter']}>
+          <div className={styles['filtersModal-content-filters-filter']}>
             <label>By tags :</label>
             <Dropdown
               placeholder="Select tags"
@@ -100,7 +101,7 @@ export default function Modal ({ dialogRef, filters, websites, tags, onResetFilt
             />
           </div>
         </div>
-        <div className={styles['modal-content-footer']}>
+        <div className={`${modalStyles['modal-content-footer']} ${styles['filtersModal-content-footer']}`}>
           <Button onClickCallback={resetFilters} className='secondary'>RESET FILTERS</Button>
           <Button onClickCallback={applyFilters}>APPLY FILTERS</Button>
         </div>

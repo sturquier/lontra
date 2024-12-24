@@ -12,9 +12,10 @@ interface IGridCardProps {
   article: IArticle;
   toggleFavoriteCallback: () => void;
   unlinkTagCallback: (id: string) => void;
+  openTagsLinkDialogCallback: () => void;
 }
 
-export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCallback }: IGridCardProps) {
+export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCallback, openTagsLinkDialogCallback }: IGridCardProps) {
   const getDescription: string | undefined = article.description 
     ? article.description.length >= MAX_DESCRIPTION_LENGTH 
     ? `${article.description.substring(0, MAX_DESCRIPTION_LENGTH)} ...`
@@ -48,7 +49,7 @@ export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCa
             alt={'Tag plus icon'}
             width={20}
             height={20}
-            onClick={(): void => console.log('TODO')}
+            onClick={(): void => openTagsLinkDialogCallback()}
           />
         </div>
       </div>

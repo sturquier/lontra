@@ -11,9 +11,10 @@ interface IListCardProps {
   article: IArticle;
   toggleFavoriteCallback: () => void;
   unlinkTagCallback: (id: string) => void;
+  openTagsLinkDialogCallback: () => void;
 }
 
-export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCallback }: IListCardProps) {
+export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCallback, openTagsLinkDialogCallback }: IListCardProps) {
   return (
     <div className={`${cardStyles.card} ${styles.listCard}`}>
       <div className={`${cardStyles['card-image']} ${styles['listCard-image']}`}>
@@ -46,7 +47,7 @@ export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCa
               alt={'Tag plus icon'}
               width={20}
               height={20}
-              onClick={(): void => console.log('TODO')}
+              onClick={(): void => openTagsLinkDialogCallback()}
             />
           </div>
         </div>

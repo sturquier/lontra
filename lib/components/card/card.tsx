@@ -8,20 +8,23 @@ interface ICardProps {
   article: IArticle;
   toggleFavoriteCallback: () => void;
   unlinkTagCallback: (id: string) => void;
+  openTagsLinkDialogCallback: () => void;
 }
 
-export default function Card ({ mode, article, toggleFavoriteCallback, unlinkTagCallback }: ICardProps) {
+export default function Card ({ mode, article, toggleFavoriteCallback, unlinkTagCallback, openTagsLinkDialogCallback }: ICardProps) {
   return mode === VIEW_MODE.LIST ? (
     <ListCard
       article={article}
       toggleFavoriteCallback={toggleFavoriteCallback}
       unlinkTagCallback={unlinkTagCallback}
+      openTagsLinkDialogCallback={openTagsLinkDialogCallback}
     />
   ) : (
     <GridCard
       article={article}
       toggleFavoriteCallback={toggleFavoriteCallback}
       unlinkTagCallback={unlinkTagCallback}
+      openTagsLinkDialogCallback={openTagsLinkDialogCallback}
     />
   );
 }
