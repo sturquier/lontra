@@ -13,7 +13,7 @@ export interface IArticle {
   tags: ITag[];
 }
 
-export type CreateArticlePayload = Omit<IArticle, 'id' | 'isFavorite'>;
+export type CreateArticlePayload = Omit<IArticle, 'id' | 'isFavorite' | 'tags'>;
 
 export type FetchedArticle = Omit<IArticle, 'publicationDate' | 'isFavorite'> & {
   publication_date: string;
