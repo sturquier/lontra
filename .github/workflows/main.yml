@@ -9,25 +9,29 @@ on:
 jobs:
   Linting:
     runs-on: ubuntu-latest
-		steps:
-	    - uses: actions/setup-node@v4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
       - name: Install dependencies
         run: npm i
-		  - name: Type check files
-		    run: npm run type:check
-		  - name: Lint files
-		    run: npm run lint
+      - name: Type check files
+        run: npm run type:check
+      - name: Lint files
+        run: npm run lint
   Testing:
-	  needs: Linting
-	  runs-on: ubuntu-latest
-	  steps:
-		  - uses: actions/setup-node@v4
+    needs: Linting
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
       - name: Install dependencies
         run: npm i
-		  - name: Run coverage tests
-		    run: npm run test:coverage
+      - name: Run coverage tests
+        run: npm run test:coverage
   Deployment:
-	  needs: Testing
+    needs: Testing
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
