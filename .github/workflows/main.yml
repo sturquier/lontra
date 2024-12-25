@@ -10,8 +10,9 @@ jobs:
   Linting:
     runs-on: ubuntu-latest
 		steps:
-	    - uses: actions/checkout@v4
 	    - uses: actions/setup-node@v4
+      - name: Install dependencies
+        run: npm i
 		  - name: Type check files
 		    run: npm run type:check
 		  - name: Lint files
@@ -20,8 +21,9 @@ jobs:
 	  needs: Linting
 	  runs-on: ubuntu-latest
 	  steps:
-	    - uses: actions/checkout@v4
 		  - uses: actions/setup-node@v4
+      - name: Install dependencies
+        run: npm i
 		  - name: Run coverage tests
 		    run: npm run test:coverage
   Deployment:
