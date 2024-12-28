@@ -7,10 +7,6 @@
     border-radius: 4px;
     overflow: visible;
 
-    @media (max-width: $xsm) {
-      margin: 60px 20px;
-    }
-
     &::backdrop {
       background: var(--black);
       opacity: (0.4);

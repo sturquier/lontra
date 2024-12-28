@@ -5,67 +5,99 @@
 
   &-content {
     display: flex;
-    justify-content: space-between;
+    gap: 180px;
 
     @media (max-width: $xsm) {
       flex-direction: column;
+      gap: 60px;
     }
 
-    &-creation {
-      padding: 0px 120px 0px 0px;
-      border-right: 1px solid var(--moderate-blue);
+    &-toggles {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      gap: 20px;
 
       @media (max-width: $xsm) {
-        padding: 0px 0px 60px 0px;
-        border-right: none;
+        gap: 10px;
       }
 
-      &-subtitle {
-        margin-bottom: 60px;
-      }
+      &-toggle {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        cursor: pointer;
 
-      &-form {
-        &-row {
-          display: flex;
-          flex-direction: column;
-    
-          &-error {
-            min-height: 20px;
-    
-            &-text {
-              color: var(--red);
-              font-size: smaller;
-            }
+        &-title {
+          color: var(--moderate-blue);
+
+          &:hover {
+            color: var(--dark-blue);
           }
+
+          &-active {
+            color: var(--dark-blue);
+            border-bottom: 2px solid var(--dark-blue);
+          }
+        }
+
+        &-icon {
+          width: 24px;
+          height: 24px;
+          display: flex;
+          align-items: center;
         }
       }
     }
 
-    &-list {
-      width: 100%;
-      padding: 0px 0px 0px 120px;
+    &-section {
+      flex: 1;
 
-      @media (max-width: $xsm) {
-        padding: 0px;
+      &-create,
+      &-list {
+        &-subtitle {
+          margin-bottom: 60px;
+        }
       }
 
-      &-subtitle {
-        margin-bottom: 60px;
-      }
-
-      &-loader {
+      &-create {
         display: flex;
-        align-items: center;
-        justify-content: center;
+        flex-direction: column;
+        align-items: flex-start;
+
+        &-form {
+          &-row {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+      
+            &-error {
+              min-height: 20px;
+      
+              &-text {
+                color: var(--red);
+                font-size: smaller;
+              }
+            }
+          }
+        }
       }
 
-      &-rows {
-        display: grid;
-        gap: 20px;
-        grid-template-columns: repeat(4, 1fr);
+      &-list {
+        &-loader {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        &-rows {
+          display: grid;
+          gap: 20px;
+          grid-template-columns: repeat(4, 1fr);
+
+          @media (max-width: $xsm) {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
       }
     }
   }
