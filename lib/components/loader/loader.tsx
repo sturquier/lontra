@@ -12,6 +12,7 @@ export default function Loader ({ fullPage }: ILoaderProps) {
       <PulseLoader
         color="var(--moderate-blue)"
         className={`${styles.loader} ${styles['loader-global']}`}
+        data-testid="loader-global"
       />
     )
   }
@@ -20,6 +21,7 @@ export default function Loader ({ fullPage }: ILoaderProps) {
     <ClipLoader
         color="var(--moderate-blue)"
         className={styles.loader}
+        data-testid="loader"
         size={18}
     />
   )
