@@ -10,13 +10,14 @@ import { crawlIonicBlog } from '@utils/crawlers/ionicBlog';
 import { crawlItnext } from '@utils/crawlers/itnext';
 import { crawlLogRocketBlog } from '@utils/crawlers/logRocketBlog';
 import { crawlNextjsBlog } from '@utils/crawlers/nextjsBlog';
-import { crawlPrismaBlog } from '@utils/crawlers/prismaBlog';
 import { crawlReactBlog } from '@utils/crawlers/reactBlog';
 import { crawlReactNativeBlog } from '@utils/crawlers/reactNativeBlog';
 import { crawlRefineBlog } from '@utils/crawlers/refineBlog';
 import { crawlRobinWieruchBlog } from '@utils/crawlers/robinWieruchBlog';
 import { crawlSymfonyBlog } from '@utils/crawlers/symfonyBlog';
+import { crawlTanStackBlog } from '@utils/crawlers/tanStackBlog';
 import { crawlTowardsDataScience } from '@utils/crawlers/towardsDataScience';
+import { crawlViteBlog } from '@utils/crawlers/viteBlog';
 import { crawlVuejsBlog } from '@utils/crawlers/vuejsBlog';
 
 export async function POST(request: NextRequest) {
@@ -54,9 +55,6 @@ export async function POST(request: NextRequest) {
       case 'nextjs-blog':
         articles = await crawlNextjsBlog(website);
         break;
-      case 'prisma-blog':
-        articles = await crawlPrismaBlog(website);
-        break;
       case 'react-blog':
         articles = await crawlReactBlog(website);
         break;
@@ -72,8 +70,14 @@ export async function POST(request: NextRequest) {
       case 'symfony-blog':
         articles = await crawlSymfonyBlog(website);
         break;
+      case 'tanstack-blog':
+        articles = await crawlTanStackBlog(website);
+        break;
       case 'towards-data-science':
         articles = await crawlTowardsDataScience(website);
+        break;
+      case 'vite-blog':
+        articles = await crawlViteBlog(website);
         break;
       case 'vuejs-blog':
         articles = await crawlVuejsBlog(website);
