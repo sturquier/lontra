@@ -5,7 +5,6 @@ import { CreateArticlePayload } from '@models/article';
 import { IWebsite } from '@models/website';
 import { crawlAngularBlog } from '@utils/crawlers/angularBlog';
 import { crawlCssTricks } from '@utils/crawlers/cssTricks';
-import { crawlExpoBlog } from '@utils/crawlers/expoBlog';
 import { crawlIonicBlog } from '@utils/crawlers/ionicBlog';
 import { crawlItnext } from '@utils/crawlers/itnext';
 import { crawlLogRocketBlog } from '@utils/crawlers/logRocketBlog';
@@ -38,9 +37,6 @@ export async function POST(request: NextRequest) {
         break;
       case 'css-tricks':
         articles = await crawlCssTricks(website);
-        break;
-      case 'expo-blog':
-        articles = await crawlExpoBlog(website);
         break;
       case 'ionic-blog':
         articles = await crawlIonicBlog(website);

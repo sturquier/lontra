@@ -23,7 +23,7 @@ export default function Home() {
   const debouncedSearch = useDebounce(search, 500)
   const { CreateDialogRef, openDialog, closeDialog } = useDialog();
 
-  const { articles, isFetching: isFetchingArticles, refetch: refetchArticles, currentPage, totalPages, handlePageChange } = usePaginatedArticles(debouncedSearch, filters);
+  const { articles, isLoading: isLoadingArticles, refetch: refetchArticles, currentPage, totalPages, handlePageChange } = usePaginatedArticles(debouncedSearch, filters);
   const { data: websites, isFetching: isFetchingWebsites } = useFetchWebsitesQuery();
   const { data: tags, isFetching: isFetchingTags } = useFetchTagsQuery();
 
@@ -60,7 +60,7 @@ export default function Home() {
   return (
       <main className={styles.home}>
         <h1>Home</h1>
-        {(isFetchingArticles || isFetchingWebsites || isFetchingTags) ? (
+        {(isLoadingArticles || isFetchingWebsites || isFetchingTags) ? (
           <Loader fullPage />
         ) : (
           <div className={styles['home-content']}>
