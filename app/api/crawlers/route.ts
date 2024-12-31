@@ -13,7 +13,6 @@ import { crawlNextjsBlog } from '@utils/crawlers/nextjsBlog';
 import { crawlReactBlog } from '@utils/crawlers/reactBlog';
 import { crawlReactNativeBlog } from '@utils/crawlers/reactNativeBlog';
 import { crawlRefineBlog } from '@utils/crawlers/refineBlog';
-import { crawlRobinWieruchBlog } from '@utils/crawlers/robinWieruchBlog';
 import { crawlSymfonyBlog } from '@utils/crawlers/symfonyBlog';
 import { crawlTanStackBlog } from '@utils/crawlers/tanStackBlog';
 import { crawlTowardsDataScience } from '@utils/crawlers/towardsDataScience';
@@ -63,9 +62,6 @@ export async function POST(request: NextRequest) {
         break;
       case 'refine-blog':
         articles = await crawlRefineBlog(website);
-        break;
-      case 'robin-wieruch-blog':
-        articles = await crawlRobinWieruchBlog(website);
         break;
       case 'symfony-blog':
         articles = await crawlSymfonyBlog(website);
