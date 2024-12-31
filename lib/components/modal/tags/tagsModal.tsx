@@ -55,7 +55,7 @@ export default function TagsModal ({ dialogRef, article, tags, articleTags, onLi
             placeholder="Select tags"
             options={tags.map(tag => ({ value: tag.id, label: tag.label }))}
             selectedOptions={modalTags}
-            onChangeCallback={(tagIds: string[]): void => setModalTags(tagIds)}
+            onChangeCallback={(options): void => setModalTags(options.map(option => option.value))}
           />
         </div>
         <div className={`${modalStyles['modal-content-footer']} ${styles['tagsModal-content-footer']}`}>

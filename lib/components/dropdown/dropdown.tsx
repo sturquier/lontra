@@ -13,7 +13,7 @@ interface IDropdownProps {
   placeholder: string;
   options: IOption[];
   selectedOptions: string[];
-  onChangeCallback: (values: string[]) => void;
+  onChangeCallback: (options: IOption[]) => void;
 }
 
 export default function Dropdown ({ placeholder, options, selectedOptions, onChangeCallback }: IDropdownProps) {
@@ -48,7 +48,7 @@ export default function Dropdown ({ placeholder, options, selectedOptions, onCha
       options={options}
       getOptionValue={(option: IOption) => option.value}
       getOptionLabel={(option: IOption) => option.label}
-      onChange={(options) => onChangeCallback((options as IOption[]).map(option => option.value))}
+      onChange={(options) => onChangeCallback(options as IOption[])}
       value={values}
       isMulti
       styles={{
