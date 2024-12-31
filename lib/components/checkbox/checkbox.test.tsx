@@ -27,7 +27,7 @@ describe('Checkbox', () => {
     expect(checkbox).toBeChecked();
   });
 
-  it('handles onChange event', async () => {
+  it('handles onChangeCallback event', async () => {
     const props = { ...defaultProps }
     render(<Checkbox {...props} />);
 

@@ -17,8 +17,8 @@ describe('Tag', () => {
     expect(tag).toBeDefined();
   });
 
-  it('handles onClick event', async () => {
-    const children = 'Tag with onClick callback';
+  it('handles onDeleteCallback event', async () => {
+    const children = 'Tag with onDeleteCallback';
     render(<Tag {...props}>{children}</Tag>);
 
     const tag = screen.getByRole('img');

@@ -28,6 +28,7 @@ export default function Swiper ({ slides }: ISwiperProps) {
       pagination={{
         clickable: true
       }}
+      data-testid="swiper"
     >
       {slides.map((slide, index) => (
         <SwiperSlide key={index}>

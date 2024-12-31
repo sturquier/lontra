@@ -37,6 +37,7 @@ export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCa
         <div className={styles['gridCard-image-icons']}>
           <Image
             className={styles['gridCard-image-icons-favorite']}
+            data-testid="gridCard-favorite-icon"
             src={article.isFavorite ? '/icons/heart-fill.svg' : '/icons/heart.svg'}
             alt={article.isFavorite ? 'Heart fill icon' : 'Heart icon'}
             width={20}
@@ -45,6 +46,7 @@ export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCa
           />
           <Image
             className={styles['gridCard-image-icons-tagPlus']}
+            data-testid="gridCard-tag-icon"
             src={'/icons/tag-plus.svg'}
             alt={'Tag plus icon'}
             width={20}

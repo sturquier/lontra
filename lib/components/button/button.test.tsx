@@ -50,8 +50,8 @@ describe('Button', () => {
     expect(image).toBeDefined();
   });
 
-  it('handles onClick event', async () => {
-    const children = 'Button with onClick callback';
+  it('handles onClickCallback event', async () => {
+    const children = 'Button with onClickCallback';
     const onClickCallback = vi.fn();
     render(<Button onClickCallback={onClickCallback}>{children}</Button>);
 

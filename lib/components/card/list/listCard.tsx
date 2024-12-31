@@ -35,6 +35,7 @@ export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCa
           <div className={styles['listCard-content-header-icons']}>
             <Image
               className={styles['listCard-content-header-icons-favorite']}
+              data-testid="listCard-favorite-icon"
               src={article.isFavorite ? '/icons/heart-fill.svg' : '/icons/heart.svg'}
               alt={article.isFavorite ? 'Heart fill icon' : 'Heart icon'}
               width={20}
@@ -43,6 +44,7 @@ export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCa
             />
             <Image
               className={styles['listCard-content-header-icons-tagPlus']}
+              data-testid="listCard-tag-icon"
               src={'/icons/tag-plus.svg'}
               alt={'Tag plus icon'}
               width={20}
