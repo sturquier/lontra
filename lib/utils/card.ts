@@ -8,7 +8,10 @@ export enum VIEW_MODE {
   GRID = 'grid'
 }
 
-export const MAX_DESCRIPTION_LENGTH = 150;
+export enum MAX_DESCRIPTION_LENGTH {
+  LIST = 600,
+  GRID = 150
+};
 
 type RefetchArticles = QueryActionCreatorResult<
   QueryDefinition<

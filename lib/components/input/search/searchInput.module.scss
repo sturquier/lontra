@@ -9,6 +9,10 @@
     border-radius: 4px;
     outline: none;
 
+    @media (max-width: $xsm) {
+      width: -webkit-fill-available;
+    }
+
     &::placeholder {
       color: var(--dark-cyan);
     }

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { IArticle } from '@models/article';
+import { MAX_DESCRIPTION_LENGTH } from '@utils/card';
 import { formatDate } from '@utils/date';
 import { Tag } from '@components/index';
 import cardStyles from '@components/card/card.module.scss';
@@ -14,6 +15,12 @@ interface IListCardProps {
 }
 
 export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCallback }: IListCardProps) {
+  const getDescription: string | undefined = article.description 
+    ? article.description.length >= MAX_DESCRIPTION_LENGTH.LIST
+    ? `${article.description.substring(0, MAX_DESCRIPTION_LENGTH.LIST)} ...`
+    : article.description
+    : undefined
+
   return (
     <div className={`${cardStyles.card} ${styles.listCard}`}>
       <div className={`${cardStyles['card-image']} ${styles['listCard-image']}`}>
@@ -55,7 +62,7 @@ export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCa
             <Tag key={tag.id} onDeleteCallback={(): void => unlinkTagCallback(tag.id)}>{tag.label}</Tag>
           ))}
         </div>
-        <div className={`${cardStyles['card-content-description']} ${styles['listCard-content-description']}`}>{article.description}</div>
+        <div className={`${cardStyles['card-content-description']} ${styles['listCard-content-description']}`}>{getDescription}</div>
         <div className={`${cardStyles['card-content-footer']} ${styles['listCard-content-footer']}`}>
           <div>Published on {formatDate(article.publicationDate)}</div>
           <Link href={article.website.url} target='_blank' className={`${cardStyles['card-content-footer-website']} ${styles['listCard-content-footer-website']}`}>
