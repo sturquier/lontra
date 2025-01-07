@@ -17,8 +17,8 @@ interface IGridCardProps {
 
 export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCallback, openTagsLinkDialogCallback }: IGridCardProps) {
   const getDescription: string | undefined = article.description 
-    ? article.description.length >= MAX_DESCRIPTION_LENGTH 
-    ? `${article.description.substring(0, MAX_DESCRIPTION_LENGTH)} ...`
+    ? article.description.length >= MAX_DESCRIPTION_LENGTH.GRID
+    ? `${article.description.substring(0, MAX_DESCRIPTION_LENGTH.GRID)} ...`
     : article.description
     : undefined
 

@@ -1,14 +1,27 @@
 .listCard {
   height: 240px;
 
+  @media (max-width: $xsm) {
+    height: auto;
+  }
+
   &-image {
     width: 200px;
     height: 100%;
+
+    @media (max-width: $xsm) {
+      display: none;
+    }
   }
 
   &-content {
     padding-left: 20px;
     border-left: 1px solid var(--moderate-blue);
+
+    @media (max-width: $xsm) {
+      padding-left: 0px;
+      border-left: none;
+    }
 
     &-header {
       display: flex;
@@ -19,6 +32,10 @@
         align-items: center;
         align-self: flex-start;
         gap: 15px;
+
+        @media (max-width: $xsm) {
+          flex-direction: column;
+        }
         
         &-tagPlus, &-favorite {
           cursor: pointer;
