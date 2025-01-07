@@ -12,9 +12,10 @@ interface IGridCardProps {
   article: IArticle;
   toggleFavoriteCallback: () => void;
   unlinkTagCallback: (id: string) => void;
+  openTagsLinkDialogCallback: () => void;
 }
 
-export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCallback }: IGridCardProps) {
+export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCallback, openTagsLinkDialogCallback }: IGridCardProps) {
   const getDescription: string | undefined = article.description 
     ? article.description.length >= MAX_DESCRIPTION_LENGTH.GRID
     ? `${article.description.substring(0, MAX_DESCRIPTION_LENGTH.GRID)} ...`
@@ -36,6 +37,7 @@ export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCa
         <div className={styles['gridCard-image-icons']}>
           <Image
             className={styles['gridCard-image-icons-favorite']}
+            data-testid="gridCard-favorite-icon"
             src={article.isFavorite ? '/icons/heart-fill.svg' : '/icons/heart.svg'}
             alt={article.isFavorite ? 'Heart fill icon' : 'Heart icon'}
             width={20}
@@ -44,11 +46,12 @@ export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCa
           />
           <Image
             className={styles['gridCard-image-icons-tagPlus']}
+            data-testid="gridCard-tag-icon"
             src={'/icons/tag-plus.svg'}
             alt={'Tag plus icon'}
             width={20}
             height={20}
-            onClick={(): void => console.log('TODO')}
+            onClick={(): void => openTagsLinkDialogCallback()}
           />
         </div>
       </div>

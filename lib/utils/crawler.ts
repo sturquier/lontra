@@ -4,3 +4,12 @@ export enum CRAWLING_STATUS {
   SUCCESS = 'success',
   FAILURE = 'failure'
 }
+
+export const extractBackgroundImageUrl = (style?: string): string | undefined => {
+  if (style) {
+      const match = style.match(/url\(["']?(.*?)["']?\)/);
+      return match ? match[1] : undefined;
+  }
+
+  return undefined;
+}

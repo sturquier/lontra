@@ -1,0 +1,17 @@
+.tagsModal {
+  &-content {
+    min-height: 300px;
+
+    &-title {
+      margin-bottom: 10px;
+    }
+
+    &-article {
+      margin-bottom: 60px;
+    }
+
+    &-list {
+      flex: 1;
+    }
+  }
+}

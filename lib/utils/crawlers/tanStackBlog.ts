@@ -5,7 +5,7 @@ import { IWebsite } from '@models/website';
 import { isValidDate } from '@utils/date';
 import { isValidUrl } from '@utils/url';
 
-export const crawlRefineBlog = async (website: IWebsite): Promise<CreateArticlePayload[]> => {
+export const crawlTanStackBlog = async (website: IWebsite): Promise<CreateArticlePayload[]> => {
   const articles: CreateArticlePayload[] = [];
 
   const response = await fetch(website.url);
@@ -13,14 +13,14 @@ export const crawlRefineBlog = async (website: IWebsite): Promise<CreateArticleP
 
   const html = cheerio.load(body);
 
-  html('article').each((_, element) => {
+  html('a.flex-col').each((_, element) => {
     const article = html(element);
 
-    const title = article.find('.text-xl').text().trim();
+    const title = article.find('.text-lg').text().trim();
 
-    const description = article.find('.text-sm').text().trim() || undefined;
+    const description = article.find('.text-sm').first().text().trim() || undefined;
 
-    const url = article.find('a').attr('href');
+    const url = article.attr('href');
 
     const image = article.find('img').attr('src');
 
@@ -36,8 +36,9 @@ export const crawlRefineBlog = async (website: IWebsite): Promise<CreateArticleP
     }
 
     const fullUrl = `${website.url}${url}`;
+    const fullImage = `${website.url}${image}`;
 
-    if (!isValidUrl(fullUrl) || !isValidUrl(image)) {
+    if (!isValidUrl(fullUrl) || !isValidUrl(fullImage)) {
       return false;
     }
     
@@ -45,7 +46,7 @@ export const crawlRefineBlog = async (website: IWebsite): Promise<CreateArticleP
       title,
       description,
       url: fullUrl,
-      image,
+      image: fullImage,
       publicationDate,
       website
     })

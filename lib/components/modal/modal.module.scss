@@ -5,10 +5,7 @@
     display: block;
     border: 2px solid var(--dark-cyan);
     border-radius: 4px;
-
-    @media (max-width: $xsm) {
-      margin: 60px 20px;
-    }
+    overflow: visible;
 
     &::backdrop {
       background: var(--black);
@@ -18,7 +15,6 @@
 
   &-content {
     width: 500px;
-    min-height: 600px;
     display: flex;
     flex-direction: column;
 
@@ -29,36 +25,9 @@
     &-title {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 60px;
 
       &-icon {
         cursor: pointer;
-      }
-    }
-
-    &-filters {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      flex: 1;
-
-      &-filter {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-
-        label {
-          color: var(--moderate-blue);
-          font-weight: bold;
-        }
-
-        &-favorite {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          gap: 10px;
-          cursor: pointer;
-        }
       }
     }
 
@@ -67,6 +36,10 @@
       justify-content: space-between;
     }
   }
+}
+
+dialog[open].modal {
+  @extend .modal-open;
 }
 
 dialog[open].modal {

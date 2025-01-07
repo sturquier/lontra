@@ -5,7 +5,7 @@ import { IWebsite } from '@models/website';
 import { isValidDate } from '@utils/date';
 import { isValidUrl } from '@utils/url';
 
-export const crawlRefineBlog = async (website: IWebsite): Promise<CreateArticlePayload[]> => {
+export const crawlReactNativeBlog = async (website: IWebsite): Promise<CreateArticlePayload[]> => {
   const articles: CreateArticlePayload[] = [];
 
   const response = await fetch(website.url);
@@ -16,18 +16,16 @@ export const crawlRefineBlog = async (website: IWebsite): Promise<CreateArticleP
   html('article').each((_, element) => {
     const article = html(element);
 
-    const title = article.find('.text-xl').text().trim();
+    const title = article.find('h2').text().trim();
 
-    const description = article.find('.text-sm').text().trim() || undefined;
+    const description = article.find('.markdown').text().trim() || undefined;
 
     const url = article.find('a').attr('href');
-
-    const image = article.find('img').attr('src');
 
     const publicationDateText = article.find('time').text().trim();
     const publicationDate = new Date(publicationDateText);
 
-    if (!title || !url || !image || !publicationDate) {
+    if (!title || !url || !publicationDate) {
       return false;
     }
 
@@ -37,7 +35,7 @@ export const crawlRefineBlog = async (website: IWebsite): Promise<CreateArticleP
 
     const fullUrl = `${website.url}${url}`;
 
-    if (!isValidUrl(fullUrl) || !isValidUrl(image)) {
+    if (!isValidUrl(fullUrl)) {
       return false;
     }
     
@@ -45,7 +43,6 @@ export const crawlRefineBlog = async (website: IWebsite): Promise<CreateArticleP
       title,
       description,
       url: fullUrl,
-      image,
       publicationDate,
       website
     })

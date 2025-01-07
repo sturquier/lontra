@@ -26,3 +26,9 @@ export const formatDate = (date: Date, mode: DATE_MODE = DATE_MODE.DISPLAY): str
 export const isValidDate = (date: Date): boolean => isFinite(+date);
 
 export const removeOrdinalSuffix = (date: string): string => date.replace(/(\d+)(st|nd|rd|th)/, "$1");
+
+export const convertDateMissingYear = (date: string): string => {
+  const currentYear = new Date().getFullYear();
+
+  return `${date} ${currentYear}`;
+}

@@ -12,14 +12,15 @@ interface IListCardProps {
   article: IArticle;
   toggleFavoriteCallback: () => void;
   unlinkTagCallback: (id: string) => void;
+  openTagsLinkDialogCallback: () => void;
 }
 
-export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCallback }: IListCardProps) {
+export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCallback, openTagsLinkDialogCallback }: IListCardProps) {
   const getDescription: string | undefined = article.description 
-    ? article.description.length >= MAX_DESCRIPTION_LENGTH.LIST
-    ? `${article.description.substring(0, MAX_DESCRIPTION_LENGTH.LIST)} ...`
-    : article.description
-    : undefined
+  ? article.description.length >= MAX_DESCRIPTION_LENGTH.LIST
+  ? `${article.description.substring(0, MAX_DESCRIPTION_LENGTH.LIST)} ...`
+  : article.description
+  : undefined
 
   return (
     <div className={`${cardStyles.card} ${styles.listCard}`}>
@@ -41,6 +42,7 @@ export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCa
           <div className={styles['listCard-content-header-icons']}>
             <Image
               className={styles['listCard-content-header-icons-favorite']}
+              data-testid="listCard-favorite-icon"
               src={article.isFavorite ? '/icons/heart-fill.svg' : '/icons/heart.svg'}
               alt={article.isFavorite ? 'Heart fill icon' : 'Heart icon'}
               width={20}
@@ -49,11 +51,12 @@ export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCa
             />
             <Image
               className={styles['listCard-content-header-icons-tagPlus']}
+              data-testid="listCard-tag-icon"
               src={'/icons/tag-plus.svg'}
               alt={'Tag plus icon'}
               width={20}
               height={20}
-              onClick={(): void => console.log('TODO')}
+              onClick={(): void => openTagsLinkDialogCallback()}
             />
           </div>
         </div>

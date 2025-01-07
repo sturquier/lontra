@@ -44,3 +44,12 @@ export const unlinkTag = async (articleId: string, tagId: string, refetchArticle
 
   refetchArticles();
 }
+
+export const linkTags = async (articleId: string, tagIds: string[], refetchArticles: () => RefetchArticles): Promise<void> => {
+  await fetch(API_PATH.TAG_TOGGLE, {
+    method: 'POST',
+    body: JSON.stringify({ articleId, tagIds })
+  });
+
+  refetchArticles();
+}

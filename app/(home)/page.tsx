@@ -9,28 +9,48 @@ import usePaginatedArticles from '@hooks/pagination';
 import { IArticle } from '@models/article';
 import { useFetchTagsQuery } from '@store/features/tags/tags.query';
 import { useFetchWebsitesQuery } from '@store/features/websites/websites.query';
-import { toggleFavorite, unlinkTag, VIEW_MODE } from '@utils/card';
+import { toggleFavorite, unlinkTag, linkTags, VIEW_MODE } from '@utils/card';
 import { defaultFilters, getActiveFiltersCount, IFilters } from '@utils/filter';
-import { Button, Card, Loader, Modal, Pagination, SearchInput, Toggle } from '@components/index';
+import { Button, Card, Loader, FiltersModal, TagsModal, Pagination, SearchInput, Toggle } from '@components/index';
 import styles from './page.module.scss';
 
 export default function Home() {
   const [mode, setMode] = useState<VIEW_MODE>(VIEW_MODE.LIST);
   const [search, setSearch] = useState('');
   const [filters, setFilters] = useState<IFilters>(defaultFilters);
+  const [tagsLinkedArticle, setTagsLinkedArticle] = useState<IArticle | null>(null);
   
   const debouncedSearch = useDebounce(search, 500)
-  const { dialogRef, openDialog, closeDialog } = useDialog();
+  const { CreateDialogRef, openDialog, closeDialog } = useDialog();
 
-  const { articles, isFetching: isFetchingArticles, refetch: refetchArticles, currentPage, totalPages, handlePageChange } = usePaginatedArticles(debouncedSearch, filters);
+  const { articles, isLoading: isLoadingArticles, refetch: refetchArticles, currentPage, totalPages, handlePageChange } = usePaginatedArticles(debouncedSearch, filters);
   const { data: websites, isFetching: isFetchingWebsites } = useFetchWebsitesQuery();
   const { data: tags, isFetching: isFetchingTags } = useFetchTagsQuery();
 
+  const filtersDialogRef = CreateDialogRef();
+  const tagsDialogRef = CreateDialogRef();
+
   const articlesClassName: string = `${styles['home-content-articles']} ${mode === VIEW_MODE.LIST ? styles['home-content-articles-list'] : styles['home-content-articles-grid']}`
+
+  const openTagsDialog = (linkedArticle: IArticle): void => {
+    openDialog(tagsDialogRef);
+    setTagsLinkedArticle(linkedArticle);
+  }
+
+  const closeTagsDialog = (): void => {
+    closeDialog(tagsDialogRef);
+    setTagsLinkedArticle(null);
+  }
 
   const applyFilters = (updatedFilters: IFilters): void => {
     handlePageChange({ selected: 0 });
     setFilters(updatedFilters);
+    closeDialog(filtersDialogRef);
+  }
+
+  const linkArticleTags = async (tagIds: string[]): Promise<void> => {
+    await linkTags(tagsLinkedArticle!.id, tagIds, refetchArticles);
+    closeTagsDialog();
   }
 
   useEffect(() => {
@@ -40,18 +60,26 @@ export default function Home() {
   return (
       <main className={styles.home}>
         <h1>Home</h1>
-        {(isFetchingArticles || isFetchingWebsites || isFetchingTags) ? (
+        {(isLoadingArticles || isFetchingWebsites || isFetchingTags) ? (
           <Loader fullPage />
         ) : (
           <div className={styles['home-content']}>
-            <Modal
-              dialogRef={dialogRef}
+            <FiltersModal
+              dialogRef={filtersDialogRef}
               filters={filters}
               websites={websites ?? []}
               tags={tags ?? []}
               onResetFiltersCallback={(): void => applyFilters(defaultFilters)}
               onApplyFiltersCallback={(updatedFilters: IFilters): void => applyFilters(updatedFilters)}
-              onCloseCallback={closeDialog}
+              onCloseCallback={(): void => closeDialog(filtersDialogRef)}
+            />
+            <TagsModal
+              dialogRef={tagsDialogRef}
+              article={tagsLinkedArticle}
+              tags={tags ?? []}
+              articleTags={tagsLinkedArticle?.tags.map(tag => tag.id) ?? []}
+              onLinkTagsCallback={(linkedTags: string[]): Promise<void> => linkArticleTags(linkedTags)}
+              onCloseCallback={closeTagsDialog}
             />
             <div className={styles['home-content-actions']}>
               <div className={styles['home-content-actions-filters']}>
@@ -66,7 +94,7 @@ export default function Home() {
                     src: '/icons/filter.svg',
                     alt: 'Filter icon'
                   }}
-                  onClickCallback={openDialog}
+                  onClickCallback={(): void => openDialog(filtersDialogRef)}
                 >
                   {`${getActiveFiltersCount(filters) > 0 ? `EDIT FILTERS (${getActiveFiltersCount(filters)})` : 'FILTER'}`}
                 </Button>
@@ -90,6 +118,7 @@ export default function Home() {
                     article={article}
                     toggleFavoriteCallback={(): Promise<void> => toggleFavorite(article.id, refetchArticles)}
                     unlinkTagCallback={(tagId: string): Promise<void> => unlinkTag(article.id, tagId, refetchArticles)}
+                    openTagsLinkDialogCallback={(): void => openTagsDialog(article)}
                   />
                 ))}
               </div>
