@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { IArticle } from '@models/article';
 import { MAX_DESCRIPTION_LENGTH } from '@utils/card';
 import { formatDate } from '@utils/date';
-import { Tag } from '@components/index';
+import { Chip } from '@components/index';
 import cardStyles from '@components/card/card.module.scss';
 import styles from './gridCard.module.scss';
 
@@ -63,7 +63,7 @@ export default function GridCard ({ article, toggleFavoriteCallback, unlinkTagCa
         </div>
         <div className={`${cardStyles['card-content-tags']} ${styles['gridCard-content-tags']}`}>
           {article.tags.map((tag) => (
-            <Tag key={tag.id} onDeleteCallback={(): void => unlinkTagCallback(tag.id)}>{tag.label}</Tag>
+            <Chip key={tag.id} onDeleteCallback={(): void => unlinkTagCallback(tag.id)}>{tag.label}</Chip>
           ))}
         </div>
         <div className={`${cardStyles['card-content-description']} ${styles['gridCard-content-description']}`}>{getDescription}</div>

@@ -7,7 +7,7 @@ import { z, ZodType } from "zod";
 import { API_PATH } from '@config/router';
 import { CreateTagPayload } from '@models/tag';
 import { useFetchTagsQuery } from '@store/features/tags/tags.query';
-import { Button, FormInput, Loader, Tag } from '@components/index';
+import { Button, Chip, FormInput, Loader } from '@components/index';
 import styles from './tags.module.scss';
 
 enum SECTION_KEY {
@@ -112,7 +112,7 @@ export default function ProfileTagsTab () {
               ) : (
                 <div className={styles['profile-tags-content-section-list-rows']}>
                   {tags?.map((tag) => (
-                    <Tag key={tag.id} onDeleteCallback={(): Promise<void> => deleteTag(tag.id)}>{tag.label}</Tag>
+                    <Chip key={tag.id} onDeleteCallback={(): Promise<void> => deleteTag(tag.id)}>{tag.label}</Chip>
                   ))}
                 </div>
               )}

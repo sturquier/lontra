@@ -1,18 +1,18 @@
 import { PropsWithChildren } from 'react';
 import Image from 'next/image';
 
-import styles from './tag.module.scss'
+import styles from './chip.module.scss'
 
-interface ITagProps extends PropsWithChildren {
+interface IChipProps extends PropsWithChildren {
   onDeleteCallback: () => void;
 }
 
-export default function Tag ({ children, onDeleteCallback }: ITagProps) {
+export default function Chip ({ children, onDeleteCallback }: IChipProps) {
   return (
-    <div className={styles.tag}>
+    <div className={styles.chip}>
       {children}
       <Image
-        className={styles['tag-icon']}
+        className={styles['chip-icon']}
         src="/icons/delete.svg"
         alt="Delete icon"
         width={18}

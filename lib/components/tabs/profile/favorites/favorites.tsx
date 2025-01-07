@@ -14,7 +14,7 @@ export default function ProfileFavoritesTab () {
 
   const { CreateDialogRef, openDialog, closeDialog } = useDialog();
 
-  const { data, isFetching: isFetchingArticles, refetch: refetchArticles } = useFetchArticlesQuery({ page: 1, itemsPerPage: -1, filters: defaultFilters });
+  const { data, isFetching: isFetchingArticles, refetch: refetchArticles } = useFetchArticlesQuery({ page: 1, itemsPerPage: -1, filters: { ...defaultFilters, favorite: true } });
   const { data: tags, isFetching: isFetchingTags } = useFetchTagsQuery();
 
   const tagsDialogRef = CreateDialogRef();
