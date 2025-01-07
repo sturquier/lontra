@@ -36,11 +36,7 @@
       justify-content: space-between;
       color: var(--grey);
       font-size: smaller;
-
-      @media (max-width: $xsm) {
-        flex-direction: column;
-        gap: 10px;
-      }
+      margin-top: 40px;
 
       &-website {
         text-decoration: underline;

@@ -99,15 +99,17 @@ export default function Home() {
                   {`${getActiveFiltersCount(filters) > 0 ? `EDIT FILTERS (${getActiveFiltersCount(filters)})` : 'FILTER'}`}
                 </Button>
               </div>
-              <Toggle
-                labels={['List', 'Grid']}
-                isChecked={mode === VIEW_MODE.GRID}
-                icon={{
-                  src: mode === VIEW_MODE.LIST ? '/icons/list.svg' : '/icons/grid.svg',
-                  alt: mode === VIEW_MODE.LIST ? 'List icon' : 'Grid icon'
-                }}
-                onChangeCallback={(): void => setMode(mode === VIEW_MODE.LIST ? VIEW_MODE.GRID : VIEW_MODE.LIST)}
-              />
+              <div className={styles['home-content-actions-toggle']}>
+                <Toggle
+                  labels={['List', 'Grid']}
+                  isChecked={mode === VIEW_MODE.GRID}
+                  icon={{
+                    src: mode === VIEW_MODE.LIST ? '/icons/list.svg' : '/icons/grid.svg',
+                    alt: mode === VIEW_MODE.LIST ? 'List icon' : 'Grid icon'
+                  }}
+                  onChangeCallback={(): void => setMode(mode === VIEW_MODE.LIST ? VIEW_MODE.GRID : VIEW_MODE.LIST)}
+                />
+              </div>
             </div>
             {articles.length ? (
               <div className={articlesClassName}>

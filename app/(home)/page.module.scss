@@ -19,7 +19,13 @@
         @media (max-width: $xsm) {
           width: 100%;
           flex-direction: column;
-          gap: 40px;
+        }
+      }
+
+      &-toggle {
+        @media (max-width: $xsm) {
+          align-self: flex-end;
+          margin: -38px 0px 20px 0px;
         }
       }
     }
