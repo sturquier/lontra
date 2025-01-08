@@ -30,6 +30,17 @@
       }
     }
 
+    &-tags {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+
+      @media (max-width: $xsm) {
+        white-space: nowrap;
+        overflow-x: scroll;
+      }
+    }
+
     &-articles {
       gap: 20px;
 

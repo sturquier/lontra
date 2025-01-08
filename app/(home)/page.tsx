@@ -10,8 +10,8 @@ import { IArticle } from '@models/article';
 import { useFetchTagsQuery } from '@store/features/tags/tags.query';
 import { useFetchWebsitesQuery } from '@store/features/websites/websites.query';
 import { toggleFavorite, unlinkTag, linkTags, VIEW_MODE } from '@utils/card';
-import { defaultFilters, getActiveFiltersCount, IFilters } from '@utils/filter';
-import { Button, Card, Loader, FiltersModal, TagsModal, Pagination, SearchInput, Toggle } from '@components/index';
+import { defaultFilters, getActiveFiltersCount, getFiltersAsChips, IFilterAsChip, IFilters } from '@utils/filter';
+import { Button, Card, Loader, FiltersModal, TagsModal, Pagination, SearchInput, Toggle, Chip } from '@components/index';
 import styles from './page.module.scss';
 
 export default function Home() {
@@ -110,6 +110,11 @@ export default function Home() {
                   onChangeCallback={(): void => setMode(mode === VIEW_MODE.LIST ? VIEW_MODE.GRID : VIEW_MODE.LIST)}
                 />
               </div>
+            </div>
+            <div className={styles['home-content-tags']}>
+              {getFiltersAsChips(filters, setFilters).map((filterAsChip: IFilterAsChip, index: number) => (
+                <Chip key={index} onDeleteCallback={filterAsChip.onDelete}>{filterAsChip.label}</Chip>
+              ))}
             </div>
             {articles.length ? (
               <div className={articlesClassName}>
