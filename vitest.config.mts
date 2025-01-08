@@ -3,6 +3,13 @@ import react from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths';
  
 export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler'
+      }
+    }
+  },
   plugins: [tsconfigPaths(), react()],
   test: {
     environment: 'jsdom',
