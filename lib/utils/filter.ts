@@ -1,27 +1,38 @@
+import { IWebsite } from "@models/website";
+import { ITag } from "@models/tag";
+
+export type WebsiteFilter = Pick<IWebsite, 'id' | 'name'>;
+
+export type DateFilter = Date | null;
+
+export type FavoriteFilter = boolean;
+
+export type TagFilter = Pick<ITag, 'id' | 'label'>;
+
 export interface IFilters {
-  websiteIds: string[];
-  date: Date | null;
-  favorite: boolean;
-  tagIds: string[];
+  websites: WebsiteFilter[];
+  date: DateFilter;
+  favorite: FavoriteFilter;
+  tags: TagFilter[];
 }
 
 export const defaultFilters: IFilters = {
-  websiteIds: [],
+  websites: [],
   date: null,
   favorite: false,
-  tagIds: []
+  tags: []
 }
 
 export const getActiveFiltersCount = (filters: IFilters): number => {
   let count = 0;
 
-  if (filters.websiteIds.length) count+= filters.websiteIds.length;
+  if (filters.websites.length) count+= filters.websites.length;
 
   if (filters.date !== null) count ++;
 
   if (filters.favorite) count ++;
 
-  if (filters.tagIds.length) count+= filters.tagIds.length;
+  if (filters.tags.length) count+= filters.tags.length;
 
   return count;
 }

@@ -5,6 +5,7 @@ import { IArticle } from '@models/article';
 import { useFetchArticlesQuery } from '@store/features/articles/articles.query';
 import { useFetchTagsQuery } from '@store/features/tags/tags.query';
 import { linkTags, toggleFavorite, unlinkTag, VIEW_MODE } from '@utils/card';
+import { defaultFilters } from '@utils/filter';
 import { Card, Loader, Swiper, TagsModal } from '@components/index';
 import styles from './favorites.module.scss';
 
@@ -13,7 +14,7 @@ export default function ProfileFavoritesTab () {
 
   const { CreateDialogRef, openDialog, closeDialog } = useDialog();
 
-  const { data, isFetching: isFetchingArticles, refetch: refetchArticles } = useFetchArticlesQuery({ page: 1, itemsPerPage: -1, filters: { favorite: true, date: null, websiteIds: [], tagIds: [] } });
+  const { data, isFetching: isFetchingArticles, refetch: refetchArticles } = useFetchArticlesQuery({ page: 1, itemsPerPage: -1, filters: { ...defaultFilters, favorite: true } });
   const { data: tags, isFetching: isFetchingTags } = useFetchTagsQuery();
 
   const tagsDialogRef = CreateDialogRef();

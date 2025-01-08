@@ -18,12 +18,12 @@ export const articlesApi = createApi({
           params.append('search', search);
         }
 
-        if (filters.websiteIds.length) {
-          params.append('websiteIds', filters.websiteIds.join(','));
+        if (filters.websites.length) {
+          params.append('websiteIds', filters.websites.map(website => website.id).join(','));
         }
 
-        if (filters.tagIds.length) {
-          params.append('tagIds', filters.tagIds.join(','));
+        if (filters.tags.length) {
+          params.append('tagIds', filters.tags.map(tag => tag.id).join(','));
         }
 
         if (filters.date) {

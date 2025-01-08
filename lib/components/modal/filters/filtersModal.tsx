@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 import { ITag } from '@models/tag';
 import { IWebsite } from '@models/website';
-import { IFilters } from '@utils/filter';
+import { DateFilter, FavoriteFilter, IFilters, TagFilter, WebsiteFilter } from '@utils/filter';
 import { Button, Datepicker, Dropdown } from '@components/index';
 import modalStyles from '@components/modal/modal.module.scss';
 import styles from './filtersModal.module.scss';
@@ -28,7 +28,7 @@ export default function FiltersModal ({ dialogRef, filters, websites, tags, onRe
     setModalFilters(filters);
   }, [filters]);
 
-  const updateFilter = (key: keyof IFilters, value: string[] | Date | null | boolean): void => {
+  const updateFilter = (key: keyof IFilters, value: WebsiteFilter[] | DateFilter | FavoriteFilter | TagFilter[]): void => {
     setModalFilters(prevFilters => ({ ...prevFilters, [key]: value }));
   }
 
@@ -68,20 +68,20 @@ export default function FiltersModal ({ dialogRef, filters, websites, tags, onRe
             <Dropdown
               placeholder="Select websites"
               options={websites.map(website => ({ value: website.id, label: website.name }))}
-              selectedOptions={modalFilters.websiteIds}
-              onChangeCallback={(websiteIds: string[]): void => updateFilter('websiteIds', websiteIds)}
+              selectedOptions={modalFilters.websites.map(website => website.id)}
+              onChangeCallback={(options): void => updateFilter('websites', options.map(option => ({ id: option.value, name: option.label })) as WebsiteFilter[])}
             />
           </div>
           <div className={styles['filtersModal-content-filters-filter']}>
             <label>By date :</label>
             <Datepicker
               startDate={modalFilters.date}
-              onChangeCallback={(date: Date | null): void => updateFilter('date', date)}
+              onChangeCallback={(date: Date | null): void => updateFilter('date', date as DateFilter)}
             />
           </div>
           <div className={styles['filtersModal-content-filters-filter']}>
             <label>By favorite :</label>
-            <div className={styles['filtersModal-content-filters-filter-favorite']} onClick={(): void => updateFilter('favorite', !modalFilters.favorite)}>
+            <div className={styles['filtersModal-content-filters-filter-favorite']} onClick={(): void => updateFilter('favorite', !modalFilters.favorite as FavoriteFilter)}>
               <Image
                 src={modalFilters.favorite ? '/icons/heart-fill.svg' : '/icons/heart.svg'}
                 alt='Heart icon'
@@ -96,8 +96,8 @@ export default function FiltersModal ({ dialogRef, filters, websites, tags, onRe
             <Dropdown
               placeholder="Select tags"
               options={tags.map(tag => ({ value: tag.id, label: tag.label }))}
-              selectedOptions={modalFilters.tagIds}
-              onChangeCallback={(tagIds: string[]): void => updateFilter('tagIds', tagIds)}
+              selectedOptions={modalFilters.tags.map(tag => tag.id)}
+              onChangeCallback={(options): void => updateFilter('tags', options.map(option => ({ id: option.value, label: option.label })) as TagFilter[])}
             />
           </div>
         </div>

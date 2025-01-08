@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { IArticle } from '@models/article';
 import { MAX_DESCRIPTION_LENGTH } from '@utils/card';
 import { formatDate } from '@utils/date';
-import { Tag } from '@components/index';
+import { Chip } from '@components/index';
 import cardStyles from '@components/card/card.module.scss';
 import styles from './listCard.module.scss';
 
@@ -62,7 +62,7 @@ export default function ListCard ({ article, toggleFavoriteCallback, unlinkTagCa
         </div>
         <div className={`${cardStyles['card-content-tags']} ${styles['listCard-content-tags']}`}>
           {article.tags.map((tag) => (
-            <Tag key={tag.id} onDeleteCallback={(): void => unlinkTagCallback(tag.id)}>{tag.label}</Tag>
+            <Chip key={tag.id} onDeleteCallback={(): void => unlinkTagCallback(tag.id)}>{tag.label}</Chip>
           ))}
         </div>
         <div className={`${cardStyles['card-content-description']} ${styles['listCard-content-description']}`}>{getDescription}</div>
