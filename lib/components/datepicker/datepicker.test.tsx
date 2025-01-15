@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { act, render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import DatePicker from './datepicker';
@@ -22,8 +22,8 @@ describe('DatePicker', () => {
     render(<DatePicker {...props} />);
 
     const datepicker = screen.getByRole('textbox');
-    await act(async () =>
-      await userEvent.type(datepicker, `${newDate}{enter}`)
+    await waitFor(async () =>
+      await userEvent.type(datepicker, newDate)
     );
     expect(props.onChangeCallback).toHaveBeenCalled();
   });
