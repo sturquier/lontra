@@ -17,8 +17,16 @@
   &-icon {
     position: absolute;
     top: 50%;
-    left: 10px;
     transform: translateY(-50%);
-    pointer-events: none;
+
+    &-left {
+      left: 10px;
+      pointer-events: none;
+    }
+
+    &-right {
+      right: 10px;
+      cursor: pointer;
+    }
   }
 }

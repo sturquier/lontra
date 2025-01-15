@@ -1,3 +1,4 @@
+import { HTMLInputTypeAttribute } from 'react';
 import Image from 'next/image';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
@@ -9,15 +10,17 @@ interface IFormInputProps {
     src: string;
     alt: string;
   }
-  type?: string;
+  type?: HTMLInputTypeAttribute;
+  isPassword?: boolean;
+  togglePasswordTypeCallback?: () => void;
   register: UseFormRegisterReturn;
 }
 
-export default function FormInput ({ placeholder, icon, type, register }: IFormInputProps) {
+export default function FormInput ({ placeholder, icon, type, isPassword, togglePasswordTypeCallback, register }: IFormInputProps) {
   return (
     <div className={styles.formInput}>
       <Image
-        className={styles['formInput-icon']}
+        className={`${styles['formInput-icon']} ${styles['formInput-icon-left']}`}
         src={icon.src}
         alt={icon.alt}
         width={20}
@@ -29,6 +32,16 @@ export default function FormInput ({ placeholder, icon, type, register }: IFormI
         placeholder={placeholder}
         {...register}
       />
+      {isPassword && (
+        <Image
+          className={`${styles['formInput-icon']} ${styles['formInput-icon-right']}`}
+          src={type === 'password' ? '/icons/eye-off.svg' : '/icons/eye.svg'}
+          alt={type === 'password' ? 'Eye off icon' : 'Eye icon'}
+          width={20}
+          height={20}
+          onClick={togglePasswordTypeCallback}
+        />
+      )}
     </div>
   )
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { HTMLInputTypeAttribute, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -26,11 +26,14 @@ const LoginSchema: ZodType<LoginPayload> = z
 export default function Login() {
   const router = useRouter();
 
+  const [passwordType, setPasswordType] = useState<HTMLInputTypeAttribute>('password');
   const [unauthorizedMessage, setUnauthorizedMessage] = useState<string | null>(null);
 
   const { register, handleSubmit, formState: { isValid, errors } } = useForm<LoginPayload>({
     resolver: zodResolver(LoginSchema)
   })
+
+  const togglePasswordType = (): void => setPasswordType(passwordType === 'password' ? 'text' : 'password');
 
   const onSubmit: SubmitHandler<LoginPayload> = async (payload) => {
     setUnauthorizedMessage(null);
@@ -79,7 +82,9 @@ export default function Login() {
               src: '/icons/lock.svg',
               alt: 'Lock icon'
             }}
-            type='password'
+            type={passwordType}
+            isPassword
+            togglePasswordTypeCallback={togglePasswordType}
             register={register('password')}
           />
           <div className={styles['login-form-row-error']}>
